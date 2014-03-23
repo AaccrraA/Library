@@ -26,3 +26,13 @@ void Reader::setNext(Reader* n)
 {
     next = n;
 }
+
+Reader* Reader::getPrevious()
+{
+    return previous;
+}
+
+void Reader::setPrevious(Reader* p)
+{
+    previous = p;
+}

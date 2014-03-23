@@ -23,6 +23,8 @@ private slots:
     // Меню читатель
     void on_add_reader_action_triggered();
 
+    void on_search_reader_action_triggered();
+
 private:
     Ui::MainWindow  *ui;
     Library         *library;

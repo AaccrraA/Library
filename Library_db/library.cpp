@@ -52,10 +52,6 @@ int Library::getRegistraitonNumber()
 
 QString Library::getCardNumber(QString rOfA)
 {
-    /*строка формата «ANNNN-YY», где
-                                A – права доступа читателя (А – только абонемент, Ч – только читальный зал, В – читальный зал и абонемент),
-                                NNNN – порядковый номер регистрации (цифры),
-                                YY – последние две цифры номера года регистрации;*/
     QString cN;
     cN += rOfA;
     QString regNumStr = QString::number(getRegistraitonNumber());

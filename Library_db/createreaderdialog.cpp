@@ -23,9 +23,11 @@ void CreateReaderDialog::on_ok_pushButton_clicked()
     bool isCorrectForm = true;
 
     QString fio_txt = this->ui->fio_lineEdit->text();
+
     QDate date = this->ui->year_of_birth_dateEdit->date();
     QString yOfB_txt = date.toString();
     yOfB_txt.remove(0, yOfB_txt.length()-4);
+
     QString adress_txt = this->ui->adress_lineEdit->text();
     QString jOrSP_txt = this->ui->job_or_study_place_lineEdit->text();
 
@@ -50,8 +52,10 @@ void CreateReaderDialog::on_ok_pushButton_clicked()
             break;
         case 1:
             rOfA = "Ч";
+            break;
         case 2:
             rOfA = "В";
+            break;
         default:
             qDebug() << "Error: Incorrect value of right_of_acces_comboBox->currentIndex() in CreateReaderDialog.";
             break;

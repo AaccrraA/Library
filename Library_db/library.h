@@ -29,7 +29,7 @@ public:
     // Основные функции
     void AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP);
 
-//    void DeleteReader();
+    //    bool DeleteReader();
 //    void DrawAllReaders();
 //    void DeleteAllReaders();
 //    void SearchReaderByNumber(string cardNumber);

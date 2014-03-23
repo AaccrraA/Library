@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "createreaderdialog.h"
 #include "ui_createreaderdialog.h"
+#include "searchreaderdialog.h"
+#include "ui_searchreaderdialog.h"
 
 #include "library.h"
 
@@ -39,4 +41,10 @@ void MainWindow::on_add_reader_action_triggered()
     CreateReaderDialog crd(this);
     crd.exec();
     library->AddReader(crd.getROfA(), crd.getFio(), crd.getYOfB(), crd.getAdress(), crd.getJOrSP());
+}
+
+void MainWindow::on_search_reader_action_triggered()
+{
+    SearchReaderDialog srd(this);
+    srd.exec();
 }

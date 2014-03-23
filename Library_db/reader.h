@@ -16,12 +16,15 @@ private:
     QString adress;
     QString jobOrStudyPlace;
     Reader* next;
+    Reader* previous;
 
 public:
     Reader();
     Reader(QString cN, QString f, int yOfB, QString a, QString jOrSP);
     Reader* getNext();
+    Reader* getPrevious();
     void setNext(Reader* n);
+    void setPrevious(Reader* p);
 };
 
 
