@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QString>
+#include <QMessageBox>
+#include <QDebug>
 
 namespace Ui {
     class CreateReaderDialog;

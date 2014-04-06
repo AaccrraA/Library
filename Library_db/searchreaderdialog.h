@@ -2,6 +2,9 @@
 #define SEARCHREADERDIALOG_H
 
 #include <QDialog>
+#include <QMessageBox>
+#include <QDebug>
+#include <QString>
 
 namespace Ui {
 class SearchReaderDialog;

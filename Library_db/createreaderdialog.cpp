@@ -1,9 +1,6 @@
 #include "createreaderdialog.h"
 #include "ui_createreaderdialog.h"
 
-#include <QMessageBox>
-#include <QDebug>
-
 CreateReaderDialog::CreateReaderDialog(QWidget *parent) : QDialog(parent), ui(new Ui::CreateReaderDialog)
 {
     ui->setupUi(this);
@@ -40,7 +37,7 @@ void CreateReaderDialog::on_ok_pushButton_clicked()
 
     if (!isCorrectForm)
     {
-        QMessageBox::StandardButton msgBox = QMessageBox::warning(this, "Ошибка заполнения формы",
+        QMessageBox::StandardButton msgBox = QMessageBox::warning(this, "Ошибка заполнения",
                                                                   "Заполните все поля.",
                                                                   QMessageBox::Ok);
     }

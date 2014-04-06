@@ -3,6 +3,10 @@
 
 #include <QVector>
 #include <QString>
+#include <QDate>
+#include <QDebug>
+#include <QChar>
+#include <qmath.h>
 
 #include "Reader.h"
 #include "Book.h"
@@ -13,16 +17,16 @@ using namespace std;
 class Library
 {
 private:
-    QVector<Reader*> readers;   // Хеш-таблица с открытым хешированием
-    const int HTSize = 256;
+    QVector<Reader*> _readers;   // Хеш-таблица с открытым хешированием
+    const int _hashTableSize = 256;
     //Book* bookST;	// АВЛ-Дерево поиска с симметричным методом обхода
     //IOBooksInfo *ioBooksInfo;	// Линейный двунаправленный список
 
     // Служебные функции
-    int getNumberOfReaders();
-    int getRegistraitonNumber();
-    QString getCardNumber(QString rOfA);
-    int getHashIndex(QString key);
+    int _getNumberOfReaders();
+    int _getRegistraitonNumber();
+    QString _gainCardNumber(QString rOfA);
+    int _gainHashTableIndex(QString key);
 
 public:
     Library();

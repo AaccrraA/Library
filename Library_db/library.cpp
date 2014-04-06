@@ -1,77 +1,70 @@
 #include "library.h"
 #include "reader.h"
 
-#include <QString>
-#include <QDateTime>
-#include <QDebug>
-#include <QChar>
-#include <qmath.h>
-
 Library::Library()
 {
-    readers.resize(HTSize);
+    _readers.resize(_hashTableSize);
 }
 
 void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP)
 {
-    QString cN = getCardNumber(rOfA);
-    int ind = getHashIndex(cN);
-    // ----------------- Нужна проверка на существующего читателя
-    if (readers[ind] == NULL)
+    QString cN = _gainCardNumber(rOfA);
+    int ind = _gainHashTableIndex(cN);
+    // --------- Нужна проверка на существующего читателя
+    if (_readers[ind] == NULL)
     {
-        readers[ind] = new Reader(cN, f, yOfB, a, jOrSP);
+        _readers[ind] = new Reader(cN, f, yOfB, a, jOrSP, NULL);
     }
     else {
-        while (readers[ind]->getNext() != NULL)
-            readers[ind] = readers[ind]->getNext();
-        readers[ind]->setNext(new Reader(cN, f, yOfB, a, jOrSP));
+        while (_readers[ind]->getNext() != NULL)
+            _readers[ind] = _readers[ind]->getNext();
+        _readers[ind]->setNext(new Reader(cN, f, yOfB, a, jOrSP, _readers[ind]));
     }
 }
 
-int Library::getNumberOfReaders()
+int Library::_getNumberOfReaders()
 {
     int numOfR = 0;
-    for (int i = 0; i < readers.size(); i++)
-        if (readers[i] != NULL)
+    for (int i = 0; i < _readers.size(); i++)
+        if (_readers[i] != NULL)
             numOfR++;
     return numOfR;
 }
 
-int Library::getRegistraitonNumber()
+int Library::_getRegistraitonNumber()
 {
     int regNum = 0;
-    for (int i = 0; i < readers.size(); i++)
-        if (readers[i] != NULL)
+    for (int i = 0; i < _readers.size(); i++)
+        if (_readers[i] != NULL)
         {
-            regNum = i+1;
-            break;
+            regNum++;
         }
 
     return regNum;
 }
 
-QString Library::getCardNumber(QString rOfA)
+QString Library::_gainCardNumber(QString rOfA)
 {
     QString cN;
     cN += rOfA;
-    QString regNumStr = QString::number(getRegistraitonNumber());
+    QString regNumStr = QString::number(_getRegistraitonNumber());
     for(int i = 0; i < 4-regNumStr.length(); i++)
         cN += "0";
     cN += regNumStr;
-    QDateTime date = QDateTime::currentDateTime();
+    QDate date = QDate::currentDate();
     QString dateStr = date.toString();
     dateStr.remove(0, dateStr.length()-2);
     cN += "-" + dateStr;
     return cN;
 }
 
-int Library::getHashIndex(QString key)
+int Library::_gainHashTableIndex(QString key)
 {
     int index = 0;
     for(int i = 1; i < key.length()+1; i++)
     {
         index = index + key[i-1].unicode() * (static_cast<int>(qPow(i, 3.0)));
     }
-    index %= HTSize;
+    index %= _hashTableSize;
     return index;
 }

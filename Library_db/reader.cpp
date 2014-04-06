@@ -4,35 +4,87 @@
 
 Reader::Reader()
 {
-
 }
 
-Reader::Reader(QString cN, QString f, int yOfB, QString a, QString jOrSP)
+Reader::Reader(QString const& cardNumber, QString const& fio, int const& yearOfBirth, QString const& adress, QString const& jobOrStudyPlace, Reader* const& previous)
 {
-    cardNumber = cN;
-    fio = f;
-    yearOfBirth = yOfB;
-    adress = a;
-    jobOrStudyPlace = jOrSP;
-    next = NULL;
+    setCardNumber(cardNumber);
+    setFio(fio);
+    setYearOfBirth(yearOfBirth);
+    setAdress(adress);
+    setJobOrStudyPlace(jobOrStudyPlace);
+    setNext(NULL);
+    setPrevious(previous);
 }
 
-Reader* Reader::getNext()
+void Reader::setCardNumber (QString const& cardNumber)
 {
-    return next;
+    _cardNumber = cardNumber;
 }
 
-void Reader::setNext(Reader* n)
+void Reader::setFio (QString const& fio)
 {
-    next = n;
+    _fio = fio;
+}
+
+void Reader::setYearOfBirth (int const& yearOfBirth)
+{
+    _yearOfBirth = yearOfBirth;
+}
+
+void Reader::setAdress (QString const& adress)
+{
+    _adress = adress;
+}
+
+void Reader::setJobOrStudyPlace (QString const& jobOrStudyPlace)
+{
+    _jobOrStudyPlace = jobOrStudyPlace;
+}
+
+void Reader::setNext(Reader* next)
+{
+    _next = next;
+}
+
+void Reader::setPrevious(Reader* previous)
+{
+    _previous = previous;
+}
+
+QString Reader::getCardNumber()
+{
+    return _cardNumber;
+}
+
+QString Reader::getFio()
+{
+    return _fio;
+}
+
+int     Reader::getYearOfBirth()
+{
+    return _yearOfBirth;
+}
+
+QString Reader::getAdress()
+{
+    return _adress;
+}
+
+QString Reader::getJobOrStudyPlace()
+{
+    return _jobOrStudyPlace;
+}
+
+Reader* Reader::Reader::getNext()
+{
+    return _next;
 }
 
 Reader* Reader::getPrevious()
 {
-    return previous;
+    return _previous;
 }
 
-void Reader::setPrevious(Reader* p)
-{
-    previous = p;
-}
+

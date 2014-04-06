@@ -7,24 +7,40 @@ using namespace std;
 class Reader
 {
 private:
-    QString cardNumber;		/*строка формата «ANNNN-YY», где
+    QString _cardNumber;		/*строка формата «ANNNN-YY», где
                             A – права доступа читателя (А – только абонемент, Ч – только читальный зал, В – читальный зал и абонемент),
                             NNNN – порядковый номер регистрации (цифры),
                             YY – последние две цифры номера года регистрации;*/
-    QString fio;
-    int yearOfBirth;
-    QString adress;
-    QString jobOrStudyPlace;
-    Reader* next;
-    Reader* previous;
+    QString _fio;
+    int     _yearOfBirth;
+    QString _adress;
+    QString _jobOrStudyPlace;
+    Reader* _next;
+    Reader* _previous;
 
 public:
     Reader();
-    Reader(QString cN, QString f, int yOfB, QString a, QString jOrSP);
+    Reader(QString const& cardNumber,
+           QString const& fio,
+           int const& yearOfBirth,
+           QString const& adress,
+           QString const& jobOrStudyPlace,
+           Reader* const& previous);
+
+    void setCardNumber      (QString const& cardNumber);
+    void setFio             (QString const& fio);
+    void setYearOfBirth     (int const& yearOfBirth);
+    void setAdress          (QString const& adress);
+    void setJobOrStudyPlace (QString const& jobOrStudyPlace);
+    void setNext            (Reader* next);
+    void setPrevious        (Reader* previous);
+    QString getCardNumber();
+    QString getFio();
+    int     getYearOfBirth();
+    QString getAdress();
+    QString getJobOrStudyPlace();
     Reader* getNext();
     Reader* getPrevious();
-    void setNext(Reader* n);
-    void setPrevious(Reader* p);
 };
 
 

@@ -1,8 +1,6 @@
 #include "searchreaderdialog.h"
 #include "ui_searchreaderdialog.h"
 
-#include <QDebug>
-
 SearchReaderDialog::SearchReaderDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SearchReaderDialog)
@@ -26,6 +24,13 @@ void SearchReaderDialog::on_search_pushButton_clicked()
 {
     bool isCorrectForm = true;
 
+    QString sf_txt = this->ui->search_field_lineEdit->text();
+
+    if (sf_txt.isEmpty()) {
+        QMessageBox::StandardButton msgBox = QMessageBox::warning(this, "Ошибка заполнения",
+                                                                  "Заполните все поля.",
+                                                                  QMessageBox::Ok);
+    }
 }
 
 // Cancel Button Clicked
