@@ -22,7 +22,6 @@ private slots:
     void on_create_library_action_triggered();
     // Меню читатель
     void on_add_reader_action_triggered();
-
     void on_search_reader_action_triggered();
 
 private:

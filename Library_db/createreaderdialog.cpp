@@ -6,7 +6,6 @@ CreateReaderDialog::CreateReaderDialog(QWidget *parent) : QDialog(parent), ui(ne
     ui->setupUi(this);
     this->setModal(true);
     this->setWindowTitle("Добавление нового читателя");
-    this->setFixedSize(640, 175);
 }
 
 CreateReaderDialog::~CreateReaderDialog()
@@ -20,11 +19,7 @@ void CreateReaderDialog::on_ok_pushButton_clicked()
     bool isCorrectForm = true;
 
     QString fio_txt = this->ui->fio_lineEdit->text();
-
-    QDate date = this->ui->year_of_birth_dateEdit->date();
-    QString yOfB_txt = date.toString();
-    yOfB_txt.remove(0, yOfB_txt.length()-4);
-
+    QString yOfB_txt = ui->year_of_birth_lineEdit->text();
     QString adress_txt = this->ui->adress_lineEdit->text();
     QString jOrSP_txt = this->ui->job_or_study_place_lineEdit->text();
 

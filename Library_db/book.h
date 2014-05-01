@@ -16,6 +16,7 @@ private:
     int yearOfPublication;
     int allCopies; // Кол-во экземпляров всего
     int copiesInStock; // Кол-во экземпляров в наличии
+
 public:
     Book();
     Book(QString c, QString t, QString p, int yOfP, int aC, int cIS);
