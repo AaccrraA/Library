@@ -18,14 +18,18 @@ SOURCES += main.cpp\
     library.cpp \
     iobooksinfo.cpp \
     book.cpp \
-    createreaderdialog.cpp
+    createreaderdialog.cpp \
+    readershashmap.cpp \
+    mylibrary.cpp
 
 HEADERS  += mainwindow.h \
     reader.h \
     library.h \
     iobooksinfo.h \
     book.h \
-    createreaderdialog.h
+    createreaderdialog.h \
+    readershashmap.h \
+    mylibrary.h
 
 FORMS    += mainwindow.ui \
     createreaderdialog.ui

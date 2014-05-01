@@ -42,16 +42,6 @@ void Reader::setJobOrStudyPlace (QString const& jobOrStudyPlace)
     _jobOrStudyPlace = jobOrStudyPlace;
 }
 
-void Reader::setNext(Reader* next)
-{
-    _next = next;
-}
-
-void Reader::setPrevious(Reader* previous)
-{
-    _previous = previous;
-}
-
 QString Reader::getCardNumber()
 {
     return _cardNumber;
@@ -75,16 +65,6 @@ QString Reader::getAdress()
 QString Reader::getJobOrStudyPlace()
 {
     return _jobOrStudyPlace;
-}
-
-Reader* Reader::Reader::getNext()
-{
-    return _next;
-}
-
-Reader* Reader::getPrevious()
-{
-    return _previous;
 }
 
 

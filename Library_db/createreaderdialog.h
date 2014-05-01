@@ -1,10 +1,10 @@
 #ifndef CREATEREADERDIALOG_H
 #define CREATEREADERDIALOG_H
 
+#include <QtCore>
+#include <QtGui>
 #include <QDialog>
-#include <QString>
 #include <QMessageBox>
-#include <QDebug>
 
 namespace Ui {
     class CreateReaderDialog;

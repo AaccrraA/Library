@@ -15,8 +15,6 @@ private:
     int     _yearOfBirth;
     QString _adress;
     QString _jobOrStudyPlace;
-    Reader* _next;
-    Reader* _previous;
 
 public:
     Reader();
@@ -32,15 +30,11 @@ public:
     void setYearOfBirth     (int const& yearOfBirth);
     void setAdress          (QString const& adress);
     void setJobOrStudyPlace (QString const& jobOrStudyPlace);
-    void setNext            (Reader* next);
-    void setPrevious        (Reader* previous);
     QString getCardNumber();
     QString getFio();
     int     getYearOfBirth();
     QString getAdress();
     QString getJobOrStudyPlace();
-    Reader* getNext();
-    Reader* getPrevious();
 };
 
 

@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "createreaderdialog.h"
 #include "ui_createreaderdialog.h"
-#include "searchreaderdialog.h"
 #include "ui_searchreaderdialog.h"
 
 #include "library.h"
@@ -45,6 +44,4 @@ void MainWindow::on_add_reader_action_triggered()
 
 void MainWindow::on_search_reader_action_triggered()
 {
-    SearchReaderDialog srd(this);
-    srd.exec();
 }
