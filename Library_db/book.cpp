@@ -2,7 +2,7 @@
 
 #include <QString>
 
-Book::Book(QString c, QString t, QString p, int yOfP, int aC, int cIS)
+Book::Book(const QString &c, const QString &t, const QString &p, int yOfP, int aC, int cIS)
 {
     code = c;
     title = t;

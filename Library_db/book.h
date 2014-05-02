@@ -7,19 +7,21 @@ using namespace std;
 class Book
 {
 private:
-    QString code;	/*строка формата «NNN.MMM»,
-                    где NNN – номер тематического раздела(цифры),
-                    MMM – порядковый номер книги в разделе(цифры)*/
-    QString authors;
-    QString title;
-    QString publisher;
-    int yearOfPublication;
-    int allCopies; // Кол-во экземпляров всего
-    int copiesInStock; // Кол-во экземпляров в наличии
-
+    QString _code;              /*строка формата «NNN.MMM»,
+                                где NNN – номер тематического раздела(цифры),
+                                MMM – порядковый номер книги в разделе(цифры)*/
+    QString _authors;
+    QString _title;
+    QString _publisher;
+    int     _yearOfPublication;
+    int     _allCopies;         // Кол-во экземпляров всего
+    int     _copiesInStock;     // Кол-во экземпляров в наличии
+    Book*   _left;
+    Book*   _right;
 public:
     Book();
-    Book(QString c, QString t, QString p, int yOfP, int aC, int cIS);
+    Book(QString const& c, QString const& t, QString const& p, int yOfP, int aC, int cIS);
+
 };
 
 

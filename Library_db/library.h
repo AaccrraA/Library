@@ -1,26 +1,24 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-#include <QVector>
-#include <QString>
-#include <QDate>
+#include <QtCore>
 #include <QDebug>
-#include <QChar>
-#include <qmath.h>
+//#include <qmath.h>
 
 #include "Reader.h"
 #include "Book.h"
 #include "IOBooksInfo.h"
+#include "myframework.h"
 
-using namespace std;
+const int HASHMAP_SIZE = 256;
 
 class Library
 {
 private:
-    QVector<Reader*> _readers;   // Хеш-таблица с открытым хешированием
-    const int _hashTableSize = 256;
-    //Book* bookST;	// АВЛ-Дерево поиска с симметричным методом обхода
-    //IOBooksInfo *ioBooksInfo;	// Линейный двунаправленный список
+    ReadersHashMap readersHM(HASHMAP_SIZE);
+    QVector<Reader*>    readerHashMap;      // Хеш-таблица с открытым хешированием
+    Book                *bookAVLTree;            // АВЛ-Дерево поиска с симметричным методом обхода
+    IOBooksInfo         *ioBooksInfo;       // Линейный двунаправленный список
 
     // Служебные функции
     int _getNumberOfReaders();
@@ -32,8 +30,7 @@ public:
     Library();
     // Основные функции
     void AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP);
-
-    //    bool DeleteReader();
+//    bool DeleteReader();
 //    void DrawAllReaders();
 //    void DeleteAllReaders();
 //    void SearchReaderByNumber(string cardNumber);

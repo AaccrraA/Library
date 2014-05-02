@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     book.cpp \
     createreaderdialog.cpp \
     readershashmap.cpp \
-    mylibrary.cpp
+    myframework.cpp
 
 HEADERS  += mainwindow.h \
     reader.h \
@@ -29,7 +29,7 @@ HEADERS  += mainwindow.h \
     book.h \
     createreaderdialog.h \
     readershashmap.h \
-    mylibrary.h
+    myframework.h
 
 FORMS    += mainwindow.ui \
     createreaderdialog.ui
