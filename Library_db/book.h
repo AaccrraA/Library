@@ -20,8 +20,34 @@ private:
     Book*   _right;
 public:
     Book();
-    Book(QString const& c, QString const& t, QString const& p, int yOfP, int aC, int cIS);
-
+    Book(QString    code,
+         QString    authors,
+         QString    title,
+         QString    publisher,
+         int        yearOfPublication,
+         int        allCopies,
+         int        copiesInStock,
+         Book*      const& left,
+         Book*      const& right
+         );
+    void setCode(QString code);
+    void setAuthors(QString authors);
+    void setTitle(QString title);
+    void setPublisher(QString publisher);
+    void setYearOfPublication(QString yearOfPublication);
+    void setAllCopies(int allCopies);
+    void setCopiesInStock(int copiesInStock);
+    void setLeft(Book* const& left);
+    void setRight(Book* const& right);
+    QString getCode();
+    QString getAuthors();
+    QString getTitle();
+    QString getPublisher();
+    QString getYearOfPublication();
+    int     getAllCopies();
+    int     getCopiesInStock();
+    Book*   getLeft();
+    Book*   getRight();
 };
 
 

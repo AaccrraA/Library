@@ -2,12 +2,43 @@
 
 #include <QString>
 
-Book::Book(const QString &c, const QString &t, const QString &p, int yOfP, int aC, int cIS)
+Book::Book(QString    code,
+           QString    authors,
+           QString    title,
+           QString    publisher,
+           int        yearOfPublication,
+           int        allCopies,
+           int        copiesInStock,
+           Book*      const& left,
+           Book*      const& right)
 {
-    code = c;
-    title = t;
-    publisher = p;
-    yearOfPublication = yOfP;
-    allCopies = aC;
-    copiesInStock = cIS;
+    _code = code;
+    _authors = authors;
+    _title = title;
+    _publisher = publisher;
+    _yearOfPublication = yearOfPublication;
+    _allCopies = allCopies;
+    _copiesInStock = copiesInStock;
+    _left = left;
+    _right = right;
 }
+
+/*
+void Book::setCode(QString code);
+void Book::setAuthors(QString authors);
+void Book::setTitle(QString title);
+void Book::setPublisher(QString publisher);
+void Book::setYearOfPublication(QString yearOfPublication);
+void Book::setAllCopies(int allCopies);
+void Book::setCopiesInStock(int copiesInStock);
+void Book::setLeft(Book* const& left);
+void Book::setRight(Book* const& right);
+QString Book::getCode();
+QString Book::getAuthors();
+QString Book::getTitle();
+QString Book::getPublisher();
+QString Book::getYearOfPublication();
+int Book::getAllCopies();
+int Book::getCopiesInStock();
+Book* Book::getLeft();
+Book* Book::getRight();*/
