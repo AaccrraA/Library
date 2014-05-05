@@ -1,5 +1,5 @@
 #include "myframework.h"
-
+/*
 // --- DL LINEAR LIST ITEM --- //
 DLLinearListItem::DLLinearListItem() {
     this->date = NULL;
@@ -36,7 +36,7 @@ T* DLLinearListItem::getNext() {
 T* DLLinearListItem::getPrev() {
     return this->prev;
 }
-
+*/
 // --- READERS HASH MAP --- //
 ReadersHashMap::ReadersHashMap() {
     map.resize(TABLE_SIZE);
@@ -74,7 +74,7 @@ Reader* ReadersHashMap::Add(Reader* r) {
     return r;
 }
 
-Reader* ReadersHashMap::SearchByCardNumber(string cN) {
+Reader* ReadersHashMap::SearchByCardNumber(QString cN) {
     int index = GenerateIndex(cN);
     Reader* temp = map.at(index);
     while (temp != NULL) {
@@ -85,7 +85,7 @@ Reader* ReadersHashMap::SearchByCardNumber(string cN) {
     return temp;
 }
 
-QVector<Reader*> ReadersHashMap::SearchByFIO(string f) {
+QVector<Reader*> ReadersHashMap::SearchByFIO(QString f) {
     QVector<Reader*> result;
     foreach (Reader* r, map) {
         while (r != NULL) {

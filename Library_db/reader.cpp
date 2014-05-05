@@ -6,13 +6,15 @@ Reader::Reader()
 {
 }
 
-Reader::Reader(QString const& cardNumber, QString const& fio, int yearOfBirth, QString const& adress, QString const& jobOrStudyPlace)
+Reader::Reader(QString const& cardNumber, QString const& fio, int yearOfBirth, QString const& adress, QString const& jobOrStudyPlace, Reader * const &next, Reader * const &prev)
 {
     setCardNumber(cardNumber);
     setFio(fio);
     setYearOfBirth(yearOfBirth);
     setAdress(adress);
     setJobOrStudyPlace(jobOrStudyPlace);
+    setNext(next);
+    setPrev(prev);
 }
 
 void Reader::setCardNumber (QString const& cardNumber) {
@@ -39,7 +41,7 @@ void Reader::setNext(Reader* const& n) {
     _next = n;
 }
 
-void Redaer::setPrev(Reader* const& p) {
+void Reader::setPrev(Reader* const& p) {
     _prev = p;
 }
 

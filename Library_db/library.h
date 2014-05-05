@@ -15,8 +15,8 @@ const int HASHMAP_SIZE = 256;
 class Library
 {
 private:
-    ReadersHashMap readersHM(HASHMAP_SIZE);
-    QVector<Reader*>    readerHashMap;      // Хеш-таблица с открытым хешированием
+    //ReadersHashMap _readersHashMap(HASHMAP_SIZE);
+    QVector<Reader*>    _readers;      // Хеш-таблица с открытым хешированием
     Book                *bookAVLTree;            // АВЛ-Дерево поиска с симметричным методом обхода
     IOBooksInfo         *ioBooksInfo;       // Линейный двунаправленный список
 

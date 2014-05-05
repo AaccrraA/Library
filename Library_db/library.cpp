@@ -3,7 +3,7 @@
 
 Library::Library()
 {
-    _readers.resize(_hashTableSize);
+    _readers.resize(256);
 }
 
 void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP)
@@ -13,12 +13,12 @@ void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jO
     // --------- Нужна проверка на существующего читателя
     if (_readers[ind] == NULL)
     {
-        _readers[ind] = new Reader(cN, f, yOfB, a, jOrSP, NULL);
+        _readers[ind] = new Reader(cN, f, yOfB, a, jOrSP, NULL, NULL);
     }
     else {
         while (_readers[ind]->getNext() != NULL)
             _readers[ind] = _readers[ind]->getNext();
-        _readers[ind]->setNext(new Reader(cN, f, yOfB, a, jOrSP, _readers[ind]));
+        _readers[ind]->setNext(new Reader(cN, f, yOfB, a, jOrSP, _readers[ind], NULL));
     }
 }
 
@@ -65,6 +65,6 @@ int Library::_gainHashTableIndex(QString key)
     {
         index = index + key[i-1].unicode() * (static_cast<int>(qPow(i, 3.0)));
     }
-    index %= _hashTableSize;
+    index %= 256;
     return index;
 }

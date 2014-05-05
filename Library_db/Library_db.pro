@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     iobooksinfo.cpp \
     book.cpp \
     createreaderdialog.cpp \
-    readershashmap.cpp \
     myframework.cpp
 
 HEADERS  += mainwindow.h \
@@ -28,7 +27,6 @@ HEADERS  += mainwindow.h \
     iobooksinfo.h \
     book.h \
     createreaderdialog.h \
-    readershashmap.h \
     myframework.h
 
 FORMS    += mainwindow.ui \

@@ -38,8 +38,8 @@ private:
 public:
     ReadersHashMap();
     Reader*             Add(Reader* r);
-    Reader*             SearchByCardNumber(string cN);
-    QVector<Reader*>    SearchByFIO(string f);
+    Reader*             SearchByCardNumber(QString cN);
+    QVector<Reader*>    SearchByFIO(QString f);
     void                Delete(Reader* const& r);
 };
 #endif // MYFRAMEWORK_H

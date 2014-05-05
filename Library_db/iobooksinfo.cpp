@@ -1,7 +1,7 @@
 #include "iobooksinfo.h"
 
 #include <QString>
-
+/*
 IOBooksInfo();
 IOBooksInfo(QString libCardNumber,
             QString code,
@@ -21,3 +21,4 @@ QString getODate();
 QString getIDate();
 IOBooksInfo* getNext();
 IOBooksInfo* getPrev();
+*/

@@ -24,7 +24,9 @@ public:
            QString const&   fio,
            int              yearOfBirth,
            QString const&   adress,
-           QString const&   jobOrStudyPlace
+           QString const&   jobOrStudyPlace,
+           Reader* const& next,
+           Reader* const& prev
            );
     void    setCardNumber (QString const& cardNumber);
     void    setFio (QString const& fio);
