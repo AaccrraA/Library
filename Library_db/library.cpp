@@ -3,7 +3,7 @@
 
 Library::Library()
 {
-    readersHashMap_ = new ReadersHashMap(MY_HASHMAP_SIZE);
+    //readersHashMap_ = new ReadersHashMap;
 }
 /*
 void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP)
@@ -21,12 +21,12 @@ void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jO
         _readers[ind]->setNext(new Reader(cN, f, yOfB, a, jOrSP, _readers[ind], NULL));
     }
 }
-
+*/
 void Library::AddReader(Reader *reader) {
     // --- Search for copy --- //
-
+    readersHashMap->Add(reader);
 }
-
+/*
 int Library::_getNumberOfReaders()
 {
     int numOfR = 0;

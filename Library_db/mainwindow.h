@@ -6,8 +6,6 @@
 #include <QStackedWidget>
 #include <QMainWindow>
 #include "library.h"
-#include "librarywidget.h"
-#include "createreaderwidget.h"
 
 namespace Ui {
     class MainWindow;
@@ -20,6 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void AddReaderToLibrary();
 
 private slots:
     // --- Menu Library --- //
@@ -28,16 +27,15 @@ private slots:
     void on_add_reader_action_triggered();
     void on_search_reader_action_triggered();
 
+    void on_add_reader_pushButton_clicked();
+
+    void on_ok_pushButton_clicked();
+
 private:
-    QStackedWidget      *stackedWidget;
     Ui::MainWindow      *ui;
-    Library             *_library;
+    Library             *library;
 
-    LibraryWidget       *libraryWidget_;
-    CreateReaderWidget  *createReaderWidget_;
-
-    Library* CreateLibrary();
-    Library* OpenLibrary();
+    Reader* CreateReader();
 
 };
 
