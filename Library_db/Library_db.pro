@@ -18,18 +18,23 @@ SOURCES += main.cpp\
     library.cpp \
     iobooksinfo.cpp \
     book.cpp \
-    createreaderdialog.cpp \
-    myframework.cpp
+    myframework.cpp \
+    createreaderwidget.cpp \
+    readershashmap.cpp \
+    librarywidget.cpp
 
 HEADERS  += mainwindow.h \
     reader.h \
     library.h \
     iobooksinfo.h \
     book.h \
-    createreaderdialog.h \
-    myframework.h
+    myframework.h \
+    createreaderwidget.h \
+    readershashmap.h \
+    librarywidget.h
 
 FORMS    += mainwindow.ui \
-    createreaderdialog.ui
+    createreaderwidget.ui \
+    librarywidget.ui
 
 OTHER_FILES +=

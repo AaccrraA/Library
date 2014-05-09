@@ -3,22 +3,20 @@
 
 #include <QtCore>
 #include <QDebug>
-//#include <qmath.h>
 
 #include "Reader.h"
 #include "Book.h"
 #include "IOBooksInfo.h"
-#include "myframework.h"
-
-const int HASHMAP_SIZE = 256;
+#include "readershashmap.h"
 
 class Library
 {
 private:
-    //ReadersHashMap _readersHashMap(HASHMAP_SIZE);
-    QVector<Reader*>    _readers;      // Хеш-таблица с открытым хешированием
-    Book                *bookAVLTree;            // АВЛ-Дерево поиска с симметричным методом обхода
-    IOBooksInfo         *ioBooksInfo;       // Линейный двунаправленный список
+    const int MY_HASHMAP_SIZE = 256;
+    ReadersHashMap      *readersHashMap_;
+    Book                *bookAVLTree_;            // АВЛ-Дерево поиска с симметричным методом обхода
+    IOBooksInfo         *ioBooksInfo_;       // Линейный двунаправленный список
+
 
     // Служебные функции
     int _getNumberOfReaders();
@@ -30,8 +28,9 @@ public:
     Library();
     // Основные функции
     void AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP);
+    void AddReader(Reader* reader);
 //    bool DeleteReader();
-//    void DrawAllReaders();
+//    void ShowAllReaders();
 //    void DeleteAllReaders();
 //    void SearchReaderByNumber(string cardNumber);
 //    void SearchReaderByName(string name);

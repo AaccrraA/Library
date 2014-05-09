@@ -2,8 +2,7 @@
 
 #include <QString>
 
-Reader::Reader()
-{
+Reader::Reader() : Reader("", "", -1, "", "", NULL, NULL) {
 }
 
 Reader::Reader(QString const& cardNumber, QString const& fio, int yearOfBirth, QString const& adress, QString const& jobOrStudyPlace, Reader * const &next, Reader * const &prev)

@@ -4,7 +4,8 @@
 #include <QtCore>
 #include <QtGui>
 
-#include "library.h"
+// --- READERS HASH MAP --- //
+
 
 // --- DL LINEAR LIST ITEM --- //
 template <typename T> class DLLinearListItem
@@ -26,20 +27,5 @@ public:
     T*    getPrev();
 };
 
-// --- READERS HASH MAP --- //
-class ReadersHashMap
-{
-private:
-    const int TABLE_SIZE = 1024;
-    QVector<Reader*> map;
 
-    int     GenerateIndex(QString key);
-
-public:
-    ReadersHashMap();
-    Reader*             Add(Reader* r);
-    Reader*             SearchByCardNumber(QString cN);
-    QVector<Reader*>    SearchByFIO(QString f);
-    void                Delete(Reader* const& r);
-};
 #endif // MYFRAMEWORK_H

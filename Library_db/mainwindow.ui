@@ -14,205 +14,15 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_4">
-    <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="reader_tab">
-       <attribute name="title">
-        <string>Читатели</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QTableWidget" name="reader_tableWidget"/>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>Добавить...</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string>Удалить</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_7">
-            <property name="text">
-             <string>Просмотреть всех</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_9">
-            <property name="text">
-             <string>Стерерть всех</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_10">
-            <property name="text">
-             <string>Поиск...</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="book_tab">
-       <attribute name="title">
-        <string>Книги</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QTableWidget" name="book_tableWidget"/>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QPushButton" name="pushButton_11">
-            <property name="text">
-             <string>Добавить...</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_12">
-            <property name="text">
-             <string>Удалить</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_13">
-            <property name="text">
-             <string>Просмотреть всех</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_14">
-            <property name="text">
-             <string>Стерерть всех</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_15">
-            <property name="text">
-             <string>Поиск...</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="ioinfo_tab">
-       <attribute name="title">
-        <string>Прием/Выдача</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QTableWidget" name="ioinfo_tableWidget"/>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item>
-           <widget class="QPushButton" name="pushButton_5">
-            <property name="text">
-             <string>Принять книгу</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_6">
-            <property name="text">
-             <string>Выдать книгу</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-       </layout>
-       <zorder>ioinfo_tableWidget</zorder>
-       <zorder>pushButton_5</zorder>
-       <zorder>lineEdit_3</zorder>
-       <zorder>verticalSpacer_3</zorder>
-       <zorder>label_3</zorder>
-       <zorder>pushButton_6</zorder>
-       <zorder>label_3</zorder>
-       <zorder>lineEdit_3</zorder>
-      </widget>
-     </widget>
-    </item>
-   </layout>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -235,6 +45,9 @@
     <addaction name="quit_library_action"/>
    </widget>
    <widget class="QMenu" name="reader_menu">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
      <string>Читатель</string>
     </property>
@@ -247,6 +60,9 @@
     <addaction name="search_reader_action"/>
    </widget>
    <widget class="QMenu" name="book_menu">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
      <string>Книга</string>
     </property>
@@ -258,14 +74,17 @@
     <addaction name="separator"/>
     <addaction name="search_book_action"/>
    </widget>
-   <widget class="QMenu" name="ioinfo_menu">
+   <widget class="QMenu" name="iobooksinfo_menu">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
      <string>Прием\Выдача</string>
     </property>
-    <addaction name="take_ioinfo_action"/>
-    <addaction name="give_ioinfo_action"/>
+    <addaction name="take_iobooksinfo_action"/>
+    <addaction name="give_iobooksinfo_action"/>
     <addaction name="separator"/>
-    <addaction name="see_ioinfo_action"/>
+    <addaction name="see_iobooksinfo_action"/>
    </widget>
    <widget class="QMenu" name="help_menu">
     <property name="title">
@@ -276,7 +95,7 @@
    <addaction name="library_menu"/>
    <addaction name="reader_menu"/>
    <addaction name="book_menu"/>
-   <addaction name="ioinfo_menu"/>
+   <addaction name="iobooksinfo_menu"/>
    <addaction name="help_menu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -286,11 +105,20 @@
    </property>
   </action>
   <action name="save_library_action">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Сохранить</string>
    </property>
   </action>
   <action name="add_reader_action">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Добавить...</string>
    </property>
@@ -340,22 +168,25 @@
     <string>Поиск...</string>
    </property>
   </action>
-  <action name="take_ioinfo_action">
+  <action name="take_iobooksinfo_action">
    <property name="text">
     <string>Принять книгу</string>
    </property>
   </action>
-  <action name="give_ioinfo_action">
+  <action name="give_iobooksinfo_action">
    <property name="text">
     <string>Выдать книгу</string>
    </property>
   </action>
-  <action name="see_ioinfo_action">
+  <action name="see_iobooksinfo_action">
    <property name="text">
     <string>Просмотреть?</string>
    </property>
   </action>
   <action name="save_as_library_action">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Сохранить как...</string>
    </property>

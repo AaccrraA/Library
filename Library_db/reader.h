@@ -2,7 +2,6 @@
 #define READER_H
 
 #include <QString>
-//using namespace std;
 
 class Reader
 {
@@ -25,8 +24,8 @@ public:
            int              yearOfBirth,
            QString const&   adress,
            QString const&   jobOrStudyPlace,
-           Reader* const& next,
-           Reader* const& prev
+           Reader* const&   next,
+           Reader* const&   prev
            );
     void    setCardNumber (QString const& cardNumber);
     void    setFio (QString const& fio);

@@ -3,9 +3,9 @@
 
 Library::Library()
 {
-    _readers.resize(256);
+    readersHashMap_ = new ReadersHashMap(MY_HASHMAP_SIZE);
 }
-
+/*
 void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP)
 {
     QString cN = _gainCardNumber(rOfA);
@@ -20,6 +20,11 @@ void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jO
             _readers[ind] = _readers[ind]->getNext();
         _readers[ind]->setNext(new Reader(cN, f, yOfB, a, jOrSP, _readers[ind], NULL));
     }
+}
+
+void Library::AddReader(Reader *reader) {
+    // --- Search for copy --- //
+
 }
 
 int Library::_getNumberOfReaders()
@@ -68,3 +73,4 @@ int Library::_gainHashTableIndex(QString key)
     index %= 256;
     return index;
 }
+*/

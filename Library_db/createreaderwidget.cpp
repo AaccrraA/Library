@@ -1,25 +1,25 @@
-#include "createreaderdialog.h"
-#include "ui_createreaderdialog.h"
+#include "createreaderwidget.h"
+#include "ui_createreaderwidget.h"
 
-CreateReaderDialog::CreateReaderDialog(QWidget *parent) : QDialog(parent), ui(new Ui::CreateReaderDialog)
+CreateReaderWidget::CreateReaderWidget(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::CreateReaderWidget)
 {
+    newReader_ = new Reader;
     ui->setupUi(this);
-    this->setModal(true);
-    this->setWindowTitle("Добавление нового читателя");
 }
 
-CreateReaderDialog::~CreateReaderDialog()
-{
+CreateReaderWidget::~CreateReaderWidget() {
     delete ui;
 }
 
-// Ok Button Clicked
-void CreateReaderDialog::on_ok_pushButton_clicked()
+void CreateReaderWidget::on_ok_pushButton_clicked()
 {
+    /*
     bool isCorrectForm = true;
 
     QString fio_txt = this->ui->fio_lineEdit->text();
-    QString yOfB_txt = ui->year_of_birth_lineEdit->text();
+    //QString yOfB_txt = this->ui->year_of_birth_lineEdit->text();
     QString adress_txt = this->ui->adress_lineEdit->text();
     QString jOrSP_txt = this->ui->job_or_study_place_lineEdit->text();
 
@@ -57,16 +57,16 @@ void CreateReaderDialog::on_ok_pushButton_clicked()
         adress = this->ui->adress_lineEdit->text();
         jOrSP = this->ui->job_or_study_place_lineEdit->text();
         this->close();
-    }
+    }*/
 }
 
+
 // Cancel Button Clicked
-void CreateReaderDialog::on_cancel_pushButton_clicked()
-{
+void CreateReaderWidget::on_cancel_pushButton_clicked() {
     this->close();
 }
 
-void CreateReaderDialog::CleanField(QString &field)
+void CreateReaderWidget::CleanField(QString &field)
 {
     bool isWordStarted = false;
     for (int i = 0; i < field.length(); i++)
@@ -82,34 +82,3 @@ void CreateReaderDialog::CleanField(QString &field)
             isWordStarted = false;
     }
 }
-
-QString CreateReaderDialog::getROfA()
-{
-    return rOfA;
-}
-
-QString CreateReaderDialog::getFio()
-{
-    return fio;
-}
-
-int CreateReaderDialog::getYOfB()
-{
-    return yOfB;
-}
-
-QString CreateReaderDialog::getAdress()
-{
-    return adress;
-}
-
-QString CreateReaderDialog::getJOrSP()
-{
-    return jOrSP;
-}
-
-
-
-
-
-
