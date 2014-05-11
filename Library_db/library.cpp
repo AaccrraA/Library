@@ -1,60 +1,36 @@
 #include "library.h"
 #include "reader.h"
 
-Library::Library()
-{
-    //readersHashMap_ = new ReadersHashMap;
+Library::Library() {
+    readersHashMap = new ReadersHashMap;
 }
-/*
-void Library::AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP)
-{
-    QString cN = _gainCardNumber(rOfA);
-    int ind = _gainHashTableIndex(cN);
-    // --------- Нужна проверка на существующего читателя
-    if (_readers[ind] == NULL)
-    {
-        _readers[ind] = new Reader(cN, f, yOfB, a, jOrSP, NULL, NULL);
+
+bool Library::AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP) {
+    Reader *newReader = new Reader(GenerateCardNumber(rOfA), fio, yOfB, adress, jOrSP, NULL, NULL);
+
+    bool isReaderAdded = true;
+
+    if (readersHashMap->SearchByCardNumber(newReader->getCardNumber()) == NULL &&
+        readersHashMap->SearchByFIO(newReader->getFio()).size() == 0) {
+        // --- Добавляем читателя
+        readersHashMap->Add(newReader);
     }
     else {
-        while (_readers[ind]->getNext() != NULL)
-            _readers[ind] = _readers[ind]->getNext();
-        _readers[ind]->setNext(new Reader(cN, f, yOfB, a, jOrSP, _readers[ind], NULL));
+        // Такой читатель уже существует
+        isReaderAdded = false;
+        delete newReader;
     }
-}
-*/
-void Library::AddReader(Reader *reader) {
-    // --- Search for copy --- //
-    readersHashMap->Add(reader);
-}
-/*
-int Library::_getNumberOfReaders()
-{
-    int numOfR = 0;
-    for (int i = 0; i < _readers.size(); i++)
-        if (_readers[i] != NULL)
-            numOfR++;
-    return numOfR;
+
+    return isReaderAdded;
 }
 
-int Library::_getRegistraitonNumber()
-{
-    int regNum = 0;
-    for (int i = 0; i < _readers.size(); i++)
-        if (_readers[i] != NULL)
-        {
-            regNum++;
-        }
-
-    return regNum;
-}
-
-QString Library::_gainCardNumber(QString rOfA)
-{
+QString Library::GenerateCardNumber(QString rOfA) {
     QString cN;
     cN += rOfA;
-    QString regNumStr = QString::number(_getRegistraitonNumber());
-    for(int i = 0; i < 4-regNumStr.length(); i++)
+    QString regNumStr = QString::number((this->readersHashMap->GetNumberOfReaders())+1);
+    for(int i = 0; i < 4-regNumStr.length(); i++) {
         cN += "0";
+    }
     cN += regNumStr;
     QDate date = QDate::currentDate();
     QString dateStr = date.toString();
@@ -63,14 +39,4 @@ QString Library::_gainCardNumber(QString rOfA)
     return cN;
 }
 
-int Library::_gainHashTableIndex(QString key)
-{
-    int index = 0;
-    for(int i = 1; i < key.length()+1; i++)
-    {
-        index = index + key[i-1].unicode() * (static_cast<int>(qPow(i, 3.0)));
-    }
-    index %= 256;
-    return index;
-}
-*/
+

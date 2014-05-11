@@ -2,10 +2,10 @@
 
 #include <QString>
 
-Reader::Reader() : Reader("", "", -1, "", "", NULL, NULL) {
+Reader::Reader() : Reader("", "", "", "", "", NULL, NULL) {
 }
 
-Reader::Reader(QString const& cardNumber, QString const& fio, int yearOfBirth, QString const& adress, QString const& jobOrStudyPlace, Reader * const &next, Reader * const &prev)
+Reader::Reader(QString cardNumber, QString fio, QString yearOfBirth, QString adress, QString jobOrStudyPlace, Reader *next, Reader *prev)
 {
     setCardNumber(cardNumber);
     setFio(fio);
@@ -16,31 +16,31 @@ Reader::Reader(QString const& cardNumber, QString const& fio, int yearOfBirth, Q
     setPrev(prev);
 }
 
-void Reader::setCardNumber (QString const& cardNumber) {
+void Reader::setCardNumber (QString cardNumber) {
     _cardNumber = cardNumber;
 }
 
-void Reader::setFio (QString const& fio) {
+void Reader::setFio (QString fio) {
     _fio = fio;
 }
 
-void Reader::setYearOfBirth (int yearOfBirth) {
+void Reader::setYearOfBirth (QString yearOfBirth) {
     _yearOfBirth = yearOfBirth;
 }
 
-void Reader::setAdress (QString const& adress) {
+void Reader::setAdress (QString adress) {
     _adress = adress;
 }
 
-void Reader::setJobOrStudyPlace (QString const& jobOrStudyPlace) {
+void Reader::setJobOrStudyPlace (QString jobOrStudyPlace) {
     _jobOrStudyPlace = jobOrStudyPlace;
 }
 
-void Reader::setNext(Reader* const& n) {
+void Reader::setNext(Reader* n) {
     _next = n;
 }
 
-void Reader::setPrev(Reader* const& p) {
+void Reader::setPrev(Reader* p) {
     _prev = p;
 }
 
@@ -52,7 +52,7 @@ QString Reader::getFio() {
     return _fio;
 }
 
-int     Reader::getYearOfBirth() {
+QString Reader::getYearOfBirth() {
     return _yearOfBirth;
 }
 

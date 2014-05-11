@@ -1,21 +1,22 @@
 #include "readershashmap.h"
 
-ReadersHashMap::ReadersHashMap() : ReadersHashMap(TABLE_SIZE) { }
-
-ReadersHashMap::ReadersHashMap(const int size) {
-    map.resize(size);
+ReadersHashMap::ReadersHashMap() {
+    // *********
+    numberOfReaders = 0;
+    map.resize(HASHMAP_SIZE);
 }
 
 int ReadersHashMap::GenerateIndex(QString key) {
     int index = 0;
     for (int i = 0; i < key.length()-1; i++) {
-        index += key.at(i).unicode();
+        //index += key.at(i).unicode();
+        index = index + key.at(i).unicode() * (static_cast<int>(qPow(i, 3.0)));
     }
     index %= TABLE_SIZE;
     return index;
 }
 
-Reader* ReadersHashMap::Add(Reader* r) {
+void ReadersHashMap::Add(Reader* r) {
     int index = GenerateIndex(r->getCardNumber());
     Reader* temp = map.at(index);
 
@@ -24,29 +25,27 @@ Reader* ReadersHashMap::Add(Reader* r) {
     }
     else {
         while (temp->getNext() != NULL) {
-            if (temp->getCardNumber() != r->getCardNumber()) {
-                temp = temp->getNext();
-            }
-            else {
-                return NULL;
-            }
+            temp = temp->getNext();
         }
         temp->setNext(r);
         r->setPrev(temp);
         r->setNext(NULL);
     }
-    return r;
 }
 
 Reader* ReadersHashMap::SearchByCardNumber(QString cN) {
     int index = GenerateIndex(cN);
+
     Reader* temp = map.at(index);
+    bool isFounded = false;
     while (temp != NULL) {
         if (temp->getCardNumber() == cN) {
+            isFounded = true;
             break;
         }
+        temp = temp->getNext();
     }
-    return temp;
+    return isFounded ? temp : NULL;
 }
 
 QVector<Reader*> ReadersHashMap::SearchByFIO(QString f) {
@@ -70,5 +69,15 @@ void ReadersHashMap::Delete(Reader* const& r) {
     if (r->getNext() != NULL) {
         r->getNext()->setPrev(r->getPrev());
     }
+    // *************
+    numberOfReaders--;
     delete r;
+}
+
+int ReadersHashMap::GetSize() {
+    return map.size();
+}
+
+int ReadersHashMap::GetNumberOfReaders() {
+    return numberOfReaders;
 }

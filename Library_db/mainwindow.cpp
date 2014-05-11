@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "createreaderwidget.h"
-#include "ui_createreaderwidget.h"
 
 #include "library.h"
 
@@ -10,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
     library = NULL;
     ui->setupUi(this);
 
+    // --- Unenabling access
     ui->reader_menu->setEnabled(false);
     ui->book_menu->setEnabled(false);
     ui->iobooksinfo_menu->setEnabled(false);
@@ -18,6 +17,24 @@ MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
     ui->save_as_library_action->setEnabled(false);
     ui->reader_tableWidget->setRowCount(5);
     ui->reader_tableWidget->setColumnCount(5);
+
+    // --- Setting up main widget
+    ui->stackedWidget->setCurrentWidget(ui->library_page);
+    ui->library_tabWidget->setCurrentWidget(ui->reader_tab);
+    // --- Setting up tables
+    QStringList readerLabels, bookLabels, iobooksinfoLabels;
+    readerLabels << tr("#") << tr("№ ЧБ") << tr("ФИО") << tr("Год рождения") << tr("Адрес") << tr("Место работы/учебы");
+    bookLabels << tr("#") << tr("Шифр") << tr("Автор(ы)") << tr("Название") << tr("Издатель") << tr("Год издания") << tr("Тираж(шт.)") << tr("На складе(шт.)");
+    iobooksinfoLabels << tr("#") << tr("№ ЧБ") << tr("Шифр") << tr("Дата выдачи") << tr("Дата приема");
+    ui->reader_tableWidget->setColumnCount(readerLabels.length());
+    ui->book_tableWidget->setColumnCount(bookLabels.length());
+    ui->iobooksinfo_tableWidget->setColumnCount(iobooksinfoLabels.length());
+    ui->reader_tableWidget->setRowCount(0);
+    ui->book_tableWidget->setRowCount(0);
+    ui->iobooksinfo_tableWidget->setRowCount(0);
+    ui->reader_tableWidget->setHorizontalHeaderLabels(readerLabels);
+    ui->book_tableWidget->setHorizontalHeaderLabels(bookLabels);
+    ui->iobooksinfo_tableWidget->setHorizontalHeaderLabels(iobooksinfoLabels);
 
 }
 
@@ -44,75 +61,68 @@ void MainWindow::on_create_library_action_triggered() {
     }
 }
 
-void MainWindow::on_add_reader_action_triggered() {
-    AddReaderToLibrary();
+void MainWindow::on_add_reader_action_triggered() { SetupCreateReaderWidget(); }
+void MainWindow::on_add_reader_pushButton_clicked() { SetupCreateReaderWidget(); }
+
+void MainWindow::SetupCreateReaderWidget() {
+    // --- Setting up Create Reader Page
+    ui->cr_right_of_acces_comboBox->setCurrentIndex(0);
+    ui->cr_fio_lineEdit->setText("");
+    ui->cr_year_of_birth_lineEdit->setText("");
+    ui->cr_adress_lineEdit->setText("");
+    ui->cr_job_or_study_place_lineEdit->setText("");
+    // --- Show Create Reader Page
+    ui->stackedWidget->setCurrentWidget(ui->create_reader_page);
 }
 
-void MainWindow::on_add_reader_pushButton_clicked() {
-    AddReaderToLibrary();
-}
+void MainWindow::on_cr_ok_pushButton_clicked() {
+    bool isCorrectForm = true;
 
-void MainWindow::AddReaderToLibrary() {
-    ui->stackedWidget->setCurrentIndex(ui->create_reader_page);
-    Reader* newReader = CreateReader();
-    if (newReader != NULL) {
-        library->AddReader(newReader);
+    QString rOfA_str = QString::number(ui->cr_right_of_acces_comboBox->currentIndex());
+    QString fio_str = ui->cr_fio_lineEdit->text();
+    QString yOfB_str = ui->cr_year_of_birth_lineEdit->text();
+    QString adress_str = ui->cr_adress_lineEdit->text();
+    QString jOrSP_str = ui->cr_job_or_study_place_lineEdit->text();
+
+    QRegExp fio_rexp("");
+    QRegExp yOfB_rexp("");
+    QRegExp adress_rexp("");
+    QRegExp jOrSP_rexp("");
+
+    if (fio_rexp.indexIn(fio_str) < 0) {
+        // Не павильная фамилия
+        isCorrectForm = false;
+    }
+
+    if (yOfB_rexp.indexIn(yOfB_str) < 0) {
+        // Не правильный год рождения
+        isCorrectForm = false;
+    }
+
+    if (adress_rexp.indexIn(adress_str) < 0) {
+        // Не правильный адрес
+        isCorrectForm = false;
+    }
+
+    if (jOrSP_rexp.indexIn(jOrSP_str) < 0) {
+        // Не правильная работа
+        isCorrectForm = false;
+    }
+
+    if (isCorrectForm) {
+        if (library->AddReader(rOfA_str, fio_str, yOfB_str, adress_str, jOrSP_str)) {
+            // Вывести поздравление
+            QMessageBox::information(this, "Алилуя!", "Новый читатель успешно добавленв библиотеку.", QMessageBox::Ok);
+            ui->stackedWidget->setCurrentWidget(ui->library_page);
+        }
+        else {
+            // Вывести ошибку о попытке добавления существующего читателя
+        }
     }
     else {
-        ui->stackedWidget->setCurrentWidget(ui->library_page);
+        // Вывести ошибку о заполнении полей
     }
-}
-
-Reader* MainWindow::CreateReader() {
-    Reader *newReader = new Reader;
-    return NULL;
 }
 
 void MainWindow::on_search_reader_action_triggered() {
-}
-
-void MainWindow::on_ok_pushButton_clicked() {
-    /*
-    bool isCorrectForm = true;
-
-    QString fio_txt = this->ui->fio_lineEdit->text();
-    //QString yOfB_txt = this->ui->year_of_birth_lineEdit->text();
-    QString adress_txt = this->ui->adress_lineEdit->text();
-    QString jOrSP_txt = this->ui->job_or_study_place_lineEdit->text();
-
-    CleanField(fio_txt);
-    CleanField(adress_txt);
-    CleanField(jOrSP_txt);
-
-    if (fio_txt.isEmpty() || adress_txt.isEmpty() || jOrSP_txt.isEmpty())
-        isCorrectForm = false;
-
-    if (!isCorrectForm)
-    {
-        QMessageBox::StandardButton msgBox = QMessageBox::warning(this, "Ошибка заполнения",
-                                                                  "Заполните все поля.",
-                                                                  QMessageBox::Ok);
-    }
-    else
-    {
-        switch (this->ui->right_of_acces_comboBox->currentIndex()) {
-        case 0:
-            rOfA = "А";
-            break;
-        case 1:
-            rOfA = "Ч";
-            break;
-        case 2:
-            rOfA = "В";
-            break;
-        default:
-            qDebug() << "Error: Incorrect value of right_of_acces_comboBox->currentIndex() in CreateReaderDialog.";
-            break;
-        }
-        fio = this->ui->fio_lineEdit->text();
-        //yOfB = this->ui->year_of_birth_lineEdit->text().toInt();
-        adress = this->ui->adress_lineEdit->text();
-        jOrSP = this->ui->job_or_study_place_lineEdit->text();
-        this->close();
-    }*/
 }

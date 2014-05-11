@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Библиотека</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
@@ -65,7 +65,7 @@
                <number>0</number>
               </property>
               <property name="columnCount">
-               <number>11</number>
+               <number>0</number>
               </property>
               <attribute name="horizontalHeaderVisible">
                <bool>true</bool>
@@ -74,49 +74,23 @@
                <bool>false</bool>
               </attribute>
               <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>150</number>
+               <number>100</number>
               </attribute>
               <attribute name="horizontalHeaderHighlightSections">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="verticalHeaderVisible">
                <bool>true</bool>
               </attribute>
               <attribute name="verticalHeaderDefaultSectionSize">
-               <number>100</number>
+               <number>50</number>
               </attribute>
-              <column>
-               <property name="text">
-                <string>#</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>№ ЧБ</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>ФИО</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Год рождения</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Адрес</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Место работы/учебы</string>
-               </property>
-              </column>
-              <column/>
-              <column/>
-              <column/>
-              <column/>
-              <column/>
              </widget>
             </item>
             <item>
@@ -285,6 +259,9 @@
         </item>
         <item row="0" column="1">
          <widget class="QComboBox" name="cr_right_of_acces_comboBox">
+          <property name="maxVisibleItems">
+           <number>3</number>
+          </property>
           <item>
            <property name="text">
             <string>только абонемент (А)</string>
@@ -315,7 +292,11 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="cr_fio_lineEdit"/>
+         <widget class="QLineEdit" name="cr_fio_lineEdit">
+          <property name="inputMask">
+           <string notr="true"/>
+          </property>
+         </widget>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="cr_year_of_birth_label">
@@ -325,7 +306,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Дата рождения:</string>
+           <string>Год рождения:</string>
           </property>
          </widget>
         </item>
@@ -353,9 +334,6 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
-         <widget class="QLineEdit" name="cr_adress_lineEdit"/>
-        </item>
         <item row="8" column="1">
          <widget class="QLineEdit" name="cr_job_or_study_place_lineEdit"/>
         </item>
@@ -364,7 +342,20 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="QDateEdit" name="cr_dateEdit"/>
+             <widget class="QLineEdit" name="cr_year_of_birth_lineEdit">
+              <property name="inputMask">
+               <string/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="maxLength">
+               <number>32767</number>
+              </property>
+              <property name="cursorPosition">
+               <number>0</number>
+              </property>
+             </widget>
             </item>
             <item>
              <spacer name="horizontalSpacer_2">
@@ -413,6 +404,9 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item row="7" column="1">
+         <widget class="QLineEdit" name="cr_adress_lineEdit"/>
         </item>
        </layout>
       </widget>
@@ -679,6 +673,33 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>reader_tableWidget</tabstop>
+  <tabstop>add_reader_pushButton</tabstop>
+  <tabstop>delete_reader_pushButton</tabstop>
+  <tabstop>delete_all_readers_pushButton</tabstop>
+  <tabstop>search_reader_pushButton</tabstop>
+  <tabstop>book_tableWidget</tabstop>
+  <tabstop>add_book_pushButton</tabstop>
+  <tabstop>delete_book_pushButton</tabstop>
+  <tabstop>delete_all_books_pushButton</tabstop>
+  <tabstop>search_book_pushButton</tabstop>
+  <tabstop>iobooksinfo_tableWidget</tabstop>
+  <tabstop>take_iobooksinfo_pushButton</tabstop>
+  <tabstop>give_iobooksinfo_pushButton</tabstop>
+  <tabstop>cr_right_of_acces_comboBox</tabstop>
+  <tabstop>cr_fio_lineEdit</tabstop>
+  <tabstop>cr_year_of_birth_lineEdit</tabstop>
+  <tabstop>cr_adress_lineEdit</tabstop>
+  <tabstop>cr_job_or_study_place_lineEdit</tabstop>
+  <tabstop>cr_ok_pushButton</tabstop>
+  <tabstop>cr_cancel_pushButton</tabstop>
+  <tabstop>sr_search_lineEdit</tabstop>
+  <tabstop>sr_card_number_radioButton</tabstop>
+  <tabstop>sr_FIO_radioButton</tabstop>
+  <tabstop>library_tabWidget</tabstop>
+  <tabstop>sr_go_pushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

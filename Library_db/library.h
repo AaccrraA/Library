@@ -12,23 +12,19 @@
 class Library
 {
 private:
-    //const int MY_HASHMAP_SIZE = 256;
     ReadersHashMap      *readersHashMap;
     Book                *bookAVLTree;            // АВЛ-Дерево поиска с симметричным методом обхода
     IOBooksInfo         *ioBooksInfo;       // Линейный двунаправленный список
 
-
-    // Служебные функции
     int _getNumberOfReaders();
     int _getRegistraitonNumber();
-    QString _gainCardNumber(QString rOfA);
-    int _gainHashTableIndex(QString key);
+    QString GenerateCardNumber(QString rOfA);
+    int GenerateHashTableIndex(QString key);
 
 public:
     Library();
     // Основные функции
-    //void AddReader(QString rOfA, QString f, int yOfB, QString a, QString jOrSP);
-    void AddReader(Reader* reader);
+    bool AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP);
 //    bool DeleteReader();
 //    void ShowAllReaders();
 //    void DeleteAllReaders();

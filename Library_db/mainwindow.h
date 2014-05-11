@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include <QtGui>
+#include <QMessageBox>
 #include <QStackedWidget>
 #include <QMainWindow>
 #include "library.h"
@@ -18,25 +19,22 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void AddReaderToLibrary();
+
 
 private slots:
-    // --- Menu Library --- //
+    // --- Library
     void on_create_library_action_triggered();
-    // --- Menu Reader --- //
+    // --- Reader
     void on_add_reader_action_triggered();
     void on_search_reader_action_triggered();
-
     void on_add_reader_pushButton_clicked();
-
-    void on_ok_pushButton_clicked();
+    void on_cr_ok_pushButton_clicked();
 
 private:
     Ui::MainWindow      *ui;
     Library             *library;
 
-    Reader* CreateReader();
-
+    void SetupCreateReaderWidget();
 };
 
 #endif // MAINWINDOW_H

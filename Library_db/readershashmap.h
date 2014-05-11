@@ -4,21 +4,23 @@
 #include <QtCore>
 #include <reader.h>
 
-class ReadersHashMap
-{
-private:
-    const int TABLE_SIZE = 1024;
-    QVector<Reader*> map;
+const int TABLE_SIZE = 1024;
 
-    int     GenerateIndex(QString key);
+class ReadersHashMap {
+private:
+    QVector<Reader*> map;
+    static const int HASHMAP_SIZE = 1024;
+    int              GenerateIndex(QString key);
+    int              numberOfReaders;
 
 public:
     ReadersHashMap();
-    ReadersHashMap(const int size);
-    Reader*             Add(Reader* r);
+    void                Add(Reader* r);
     Reader*             SearchByCardNumber(QString cN);
     QVector<Reader*>    SearchByFIO(QString f);
     void                Delete(Reader* const& r);
+    int                 GetSize();
+    int                 GetNumberOfReaders();
 };
 
 #endif // READERSHASHMAP_H
