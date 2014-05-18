@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>514</width>
-    <height>420</height>
+    <width>593</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,6 @@
     <bool>true</bool>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_6">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_6"/>
-    </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="enabled">
@@ -33,7 +30,7 @@
        <property name="enabled">
         <bool>true</bool>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QTabWidget" name="library_tabWidget">
           <property name="enabled">
@@ -58,45 +55,105 @@
            <attribute name="title">
             <string>Читатели</string>
            </attribute>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QTableWidget" name="reader_tableWidget">
-              <property name="rowCount">
-               <number>0</number>
-              </property>
-              <property name="columnCount">
-               <number>0</number>
-              </property>
-              <attribute name="horizontalHeaderVisible">
-               <bool>true</bool>
-              </attribute>
-              <attribute name="horizontalHeaderCascadingSectionResizes">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>100</number>
-              </attribute>
-              <attribute name="horizontalHeaderHighlightSections">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>true</bool>
-              </attribute>
-              <attribute name="verticalHeaderVisible">
-               <bool>true</bool>
-              </attribute>
-              <attribute name="verticalHeaderDefaultSectionSize">
-               <number>50</number>
-              </attribute>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <widget class="QTableWidget" name="reader_tableWidget">
+                <property name="rowCount">
+                 <number>0</number>
+                </property>
+                <property name="columnCount">
+                 <number>0</number>
+                </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>150</number>
+                </attribute>
+                <attribute name="horizontalHeaderHighlightSections">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderDefaultSectionSize">
+                 <number>25</number>
+                </attribute>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <item>
+                   <widget class="QLabel" name="search_label">
+                    <property name="text">
+                     <string>Введите для поиска:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="search_lineEdit"/>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="search_reader_pushButton">
+                    <property name="text">
+                     <string>Найти</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="search_parameters_groupBox">
+                  <property name="title">
+                   <string>Поиск по:</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout">
+                   <item row="0" column="0" colspan="2">
+                    <widget class="QRadioButton" name="search_by_FIO_radioButton">
+                     <property name="text">
+                      <string>ФИО</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0" colspan="2">
+                    <widget class="QRadioButton" name="search_by_card_number_radioButton">
+                     <property name="text">
+                      <string>№ читательского билета</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
                <widget class="QPushButton" name="add_reader_pushButton">
+                <property name="font">
+                 <font>
+                  <pointsize>8</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Добавить...</string>
                 </property>
@@ -117,9 +174,9 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="search_reader_pushButton">
+               <widget class="QPushButton" name="show_all_readers_pushButton">
                 <property name="text">
-                 <string>Поиск...</string>
+                 <string>Показать всех</string>
                 </property>
                </widget>
               </item>
@@ -139,6 +196,13 @@
              </layout>
             </item>
            </layout>
+           <zorder>reader_tableWidget</zorder>
+           <zorder></zorder>
+           <zorder>search_parameters_groupBox</zorder>
+           <zorder>search_reader_pushButton</zorder>
+           <zorder>search_lineEdit</zorder>
+           <zorder>search_label</zorder>
+           <zorder>delete_all_readers_pushButton</zorder>
           </widget>
           <widget class="QWidget" name="book_tab">
            <attribute name="title">
@@ -146,7 +210,17 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QTableWidget" name="book_tableWidget"/>
+             <widget class="QTableWidget" name="book_tableWidget">
+              <attribute name="horizontalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>150</number>
+              </attribute>
+              <attribute name="verticalHeaderDefaultSectionSize">
+               <number>25</number>
+              </attribute>
+             </widget>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -201,7 +275,14 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QTableWidget" name="iobooksinfo_tableWidget"/>
+             <widget class="QTableWidget" name="iobooksinfo_tableWidget">
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>150</number>
+              </attribute>
+              <attribute name="verticalHeaderDefaultSectionSize">
+               <number>25</number>
+              </attribute>
+             </widget>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -249,7 +330,11 @@
          <widget class="QLabel" name="cr_right_of_acces_label">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <family>MS Shell Dlg 2</family>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+            <kerning>true</kerning>
            </font>
           </property>
           <property name="text">
@@ -283,7 +368,7 @@
          <widget class="QLabel" name="cr_fio_label">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>10</pointsize>
            </font>
           </property>
           <property name="text">
@@ -302,7 +387,7 @@
          <widget class="QLabel" name="cr_year_of_birth_label">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>10</pointsize>
            </font>
           </property>
           <property name="text">
@@ -314,7 +399,7 @@
          <widget class="QLabel" name="cr_adress_label">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>10</pointsize>
            </font>
           </property>
           <property name="text">
@@ -326,7 +411,7 @@
          <widget class="QLabel" name="cr_job_or_study_place_label">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>10</pointsize>
            </font>
           </property>
           <property name="text">
@@ -410,91 +495,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="search_reader_page">
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_10">
-          <item>
-           <widget class="QLabel" name="sr_search_label">
-            <property name="text">
-             <string>Введите текст:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="sr_search_lineEdit">
-            <property name="inputMask">
-             <string comment="1"/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Поиск по:</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QRadioButton" name="sr_card_number_radioButton">
-             <property name="text">
-              <string>№ Читательского билета</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="sr_FIO_radioButton">
-             <property name="text">
-              <string>ФИО</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="sr_go_pushButton">
-            <property name="text">
-             <string>Найти</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -507,7 +507,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>514</width>
+     <width>593</width>
      <height>21</height>
     </rect>
    </property>
@@ -536,7 +536,7 @@
     <addaction name="separator"/>
     <addaction name="delete_all_readers_action"/>
     <addaction name="separator"/>
-    <addaction name="search_reader_action"/>
+    <addaction name="show_all_readers_action"/>
    </widget>
    <widget class="QMenu" name="book_menu">
     <property name="enabled">
@@ -610,12 +610,12 @@
     <string>Стереть всех</string>
    </property>
   </action>
-  <action name="search_reader_action">
+  <action name="show_all_readers_action">
    <property name="checkable">
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Поиск...</string>
+    <string>Показать всех</string>
    </property>
   </action>
   <action name="add_book_action">
@@ -678,7 +678,7 @@
   <tabstop>add_reader_pushButton</tabstop>
   <tabstop>delete_reader_pushButton</tabstop>
   <tabstop>delete_all_readers_pushButton</tabstop>
-  <tabstop>search_reader_pushButton</tabstop>
+  <tabstop>show_all_readers_pushButton</tabstop>
   <tabstop>book_tableWidget</tabstop>
   <tabstop>add_book_pushButton</tabstop>
   <tabstop>delete_book_pushButton</tabstop>
@@ -694,11 +694,7 @@
   <tabstop>cr_job_or_study_place_lineEdit</tabstop>
   <tabstop>cr_ok_pushButton</tabstop>
   <tabstop>cr_cancel_pushButton</tabstop>
-  <tabstop>sr_search_lineEdit</tabstop>
-  <tabstop>sr_card_number_radioButton</tabstop>
-  <tabstop>sr_FIO_radioButton</tabstop>
   <tabstop>library_tabWidget</tabstop>
-  <tabstop>sr_go_pushButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -22,19 +22,39 @@ public:
 
 
 private slots:
-    // --- Library
+    // --------- Library
     void on_create_library_action_triggered();
-    // --- Reader
+    // --------- Reader
     void on_add_reader_action_triggered();
-    void on_search_reader_action_triggered();
     void on_add_reader_pushButton_clicked();
     void on_cr_ok_pushButton_clicked();
+    void on_cr_cancel_pushButton_clicked();
+    void on_delete_reader_action_triggered();
+    void on_delete_reader_pushButton_clicked();
+    void on_delete_all_readers_pushButton_clicked();
+    void on_delete_all_readers_action_triggered();
+
+    void on_show_all_readers_pushButton_clicked();
+    void on_search_reader_pushButton_clicked();
+
+
+
+    void on_show_all_readers_action_triggered();
 
 private:
     Ui::MainWindow      *ui;
     Library             *library;
 
-    void SetupCreateReaderWidget();
+    void UpdateReaderTableWidget();
+    void CreateReader();
+    void AddItemInReaderTableWidget(Reader* r, qint32 row);
+    void DeleteReader();
+    void DeleteAllReaders();
+    void SearchReader();
+    void ClearReaderTableWidget();
+    void AddItemInSearchResultsTableWidget(Reader*, qint32 row);
+
+
 };
 
 #endif // MAINWINDOW_H

@@ -1,26 +1,28 @@
-#ifndef READERSHASHMAP_H
-#define READERSHASHMAP_H
+#ifndef READERSHASH_H
+#define READERSHASH_H
 
 #include <QtCore>
 #include <reader.h>
 
 const int TABLE_SIZE = 1024;
 
-class ReadersHashMap {
+class ReadersHash {
 private:
-    QVector<Reader*> map;
-    static const int HASHMAP_SIZE = 1024;
-    int              GenerateIndex(QString key);
-    int              numberOfReaders;
+    QVector<Reader*>    map;
+    static const qint32 HASH_SIZE = 1024;
+    qint32              GenerateIndex(QString key);
+    int                 numberOfReaders;
 
 public:
-    ReadersHashMap();
+    ReadersHash();
     void                Add(Reader* r);
     Reader*             SearchByCardNumber(QString cN);
     QVector<Reader*>    SearchByFIO(QString f);
-    void                Delete(Reader* const& r);
+    void                Delete(qint32 index);
     int                 GetSize();
     int                 GetNumberOfReaders();
+    Reader*             At(qint32 index);
+
 };
 
 #endif // READERSHASHMAP_H

@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     library.cpp \
     iobooksinfo.cpp \
     book.cpp \
-    readershashmap.cpp
+    readershash.cpp \
+    extraframework.cpp
 
 HEADERS  += mainwindow.h \
     reader.h \
     library.h \
     iobooksinfo.h \
     book.h \
-    readershashmap.h
+    readershash.h \
+    extraframework.h
 
 FORMS    += mainwindow.ui
 

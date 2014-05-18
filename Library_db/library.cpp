@@ -2,32 +2,34 @@
 #include "reader.h"
 
 Library::Library() {
-    readersHashMap = new ReadersHashMap;
+    registrationNumber = 0;
+    readersHash = new ReadersHash;
 }
 
-bool Library::AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP) {
+Reader* Library::AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP) {
     Reader *newReader = new Reader(GenerateCardNumber(rOfA), fio, yOfB, adress, jOrSP, NULL, NULL);
 
     bool isReaderAdded = true;
 
-    if (readersHashMap->SearchByCardNumber(newReader->getCardNumber()) == NULL &&
-        readersHashMap->SearchByFIO(newReader->getFio()).size() == 0) {
+    if (readersHash->SearchByCardNumber(newReader->getCardNumber()) == NULL) {
         // --- Добавляем читателя
-        readersHashMap->Add(newReader);
+        readersHash->Add(newReader);
+        ++registrationNumber;
     }
     else {
         // Такой читатель уже существует
         isReaderAdded = false;
         delete newReader;
+        newReader = NULL;
     }
 
-    return isReaderAdded;
+    return newReader;
 }
 
 QString Library::GenerateCardNumber(QString rOfA) {
     QString cN;
     cN += rOfA;
-    QString regNumStr = QString::number((this->readersHashMap->GetNumberOfReaders())+1);
+    QString regNumStr = QString::number((this->registrationNumber));
     for(int i = 0; i < 4-regNumStr.length(); i++) {
         cN += "0";
     }
@@ -39,4 +41,18 @@ QString Library::GenerateCardNumber(QString rOfA) {
     return cN;
 }
 
+void Library::DeleteAllReaders() {
+    for (int i = 0; i < readersHash->GetSize()-1; ++i) {
+        this->readersHash->Delete(i);
+    }
+}
+
+int Library::GetReadersHashSize() {
+    int i = this->readersHash->GetSize();
+    return i;
+}
+
+void Library::DeleteReader(qint32 index) {
+    this->readersHash->Delete(index);
+}
 

@@ -1,14 +1,15 @@
-#include "readershashmap.h"
+#include "ReadersHash.h"
 
-ReadersHashMap::ReadersHashMap() {
+ReadersHash::ReadersHash() {
     // *********
     numberOfReaders = 0;
-    map.resize(HASHMAP_SIZE);
+    map.resize(HASH_SIZE);
+    map.fill(NULL);
 }
 
-int ReadersHashMap::GenerateIndex(QString key) {
-    int index = 0;
-    for (int i = 0; i < key.length()-1; i++) {
+qint32 ReadersHash::GenerateIndex(QString key) {
+    qint32 index = 0;
+    for (qint32 i = 0; i < key.length()-1; i++) {
         //index += key.at(i).unicode();
         index = index + key.at(i).unicode() * (static_cast<int>(qPow(i, 3.0)));
     }
@@ -16,8 +17,9 @@ int ReadersHashMap::GenerateIndex(QString key) {
     return index;
 }
 
-void ReadersHashMap::Add(Reader* r) {
-    int index = GenerateIndex(r->getCardNumber());
+void ReadersHash::Add(Reader* r) {
+    qint32 index = GenerateIndex(r->getCardNumber());
+    r->setHashIndex(index);
     Reader* temp = map.at(index);
 
     if (temp == NULL) {
@@ -31,9 +33,10 @@ void ReadersHashMap::Add(Reader* r) {
         r->setPrev(temp);
         r->setNext(NULL);
     }
+    numberOfReaders++;
 }
 
-Reader* ReadersHashMap::SearchByCardNumber(QString cN) {
+Reader* ReadersHash::SearchByCardNumber(QString cN) {
     int index = GenerateIndex(cN);
 
     Reader* temp = map.at(index);
@@ -48,36 +51,35 @@ Reader* ReadersHashMap::SearchByCardNumber(QString cN) {
     return isFounded ? temp : NULL;
 }
 
-QVector<Reader*> ReadersHashMap::SearchByFIO(QString f) {
+QVector<Reader*> ReadersHash::SearchByFIO(QString f) {
     QVector<Reader*> result;
-    foreach (Reader* r, map) {
+    Reader* r;
+    for (int i = 0; i < map.size()-1; ++i) {
+        r = map.at(i);
         while (r != NULL) {
             if (r->getFio() == f) {
                 result.append(r);
-                r = r->getNext();
             }
+            r = r->getNext();
         }
     }
     return result;
 }
 
-void ReadersHashMap::Delete(Reader* const& r) {
-    if (r->getPrev() != NULL) {
-        r->getPrev()->setNext(r->getNext());
-        map.replace(GenerateIndex(r->getCardNumber()), r->getNext());
-    }
-    if (r->getNext() != NULL) {
-        r->getNext()->setPrev(r->getPrev());
-    }
-    // *************
-    numberOfReaders--;
-    delete r;
+void ReadersHash::Delete(qint32 index) {
+    delete map.at(index);
+    map.replace(index, NULL);
+    --numberOfReaders;
 }
 
-int ReadersHashMap::GetSize() {
+Reader* ReadersHash::At(qint32 index) {
+    return map.at(index);
+}
+
+int ReadersHash::GetSize() {
     return map.size();
 }
 
-int ReadersHashMap::GetNumberOfReaders() {
+int ReadersHash::GetNumberOfReaders() {
     return numberOfReaders;
 }

@@ -14,6 +14,7 @@ private:
     QString _yearOfBirth;
     QString _adress;
     QString _jobOrStudyPlace;
+    qint32  _hashIndex;
     Reader* _next;
     Reader* _prev;
 
@@ -32,6 +33,7 @@ public:
     void    setYearOfBirth (QString yearOfBirth);
     void    setAdress (QString adress);
     void    setJobOrStudyPlace (QString  jobOrStudyPlace);
+    void    setHashIndex(qint32 hashIndex);
     void    setNext(Reader* n);
     void    setPrev(Reader* p);
     QString getCardNumber();
@@ -39,6 +41,7 @@ public:
     QString getYearOfBirth();
     QString getAdress();
     QString getJobOrStudyPlace();
+    qint32  getHashIndex();
     Reader* getNext();
     Reader* getPrev();
 };

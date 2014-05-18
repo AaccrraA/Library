@@ -36,6 +36,10 @@ void Reader::setJobOrStudyPlace (QString jobOrStudyPlace) {
     _jobOrStudyPlace = jobOrStudyPlace;
 }
 
+void Reader::setHashIndex(qint32 hashIndex) {
+    _hashIndex = hashIndex;
+}
+
 void Reader::setNext(Reader* n) {
     _next = n;
 }
@@ -62,6 +66,10 @@ QString Reader::getAdress() {
 
 QString Reader::getJobOrStudyPlace() {
     return _jobOrStudyPlace;
+}
+
+qint32 Reader::getHashIndex() {
+    return _hashIndex;
 }
 
 Reader* Reader::getNext() {

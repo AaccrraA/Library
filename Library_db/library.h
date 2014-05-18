@@ -7,27 +7,26 @@
 #include "Reader.h"
 #include "Book.h"
 #include "IOBooksInfo.h"
-#include "readershashmap.h"
+#include "readershash.h"
 
 class Library
 {
 private:
-    ReadersHashMap      *readersHashMap;
+    int GetNumberOfReaders();
+    QString GenerateCardNumber(QString rOfA);
+    int GenerateHashTableIndex(QString key);
+    int registrationNumber;
+
+public:
+    ReadersHash         *readersHash;
     Book                *bookAVLTree;            // АВЛ-Дерево поиска с симметричным методом обхода
     IOBooksInfo         *ioBooksInfo;       // Линейный двунаправленный список
 
-    int _getNumberOfReaders();
-    int _getRegistraitonNumber();
-    QString GenerateCardNumber(QString rOfA);
-    int GenerateHashTableIndex(QString key);
-
-public:
     Library();
     // Основные функции
-    bool AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP);
-//    bool DeleteReader();
-//    void ShowAllReaders();
-//    void DeleteAllReaders();
+    Reader *AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP);
+    void DeleteReader(qint32 index);
+    void DeleteAllReaders();
 //    void SearchReaderByNumber(string cardNumber);
 //    void SearchReaderByName(string name);
 //    void AddBook();
@@ -38,6 +37,7 @@ public:
 //    void RegOutBook();
 //    void RegInBook();
 
+    int GetReadersHashSize();
 };
 
 #endif
