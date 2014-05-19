@@ -8,6 +8,26 @@ MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
     library = NULL;
     ui->setupUi(this);
 
+    bookSections.insert("Художественная литература", 0);
+    bookSections.insert("Литература для детей", 0);
+    bookSections.insert("Учебная литература для школы", 0);
+    bookSections.insert("Иностранные языки", 0);
+    bookSections.insert("Краеведение", 0);
+    bookSections.insert("Искусство", 0);
+    bookSections.insert("Бизнес, экономика и право", 0);
+    bookSections.insert("Компьютерная литература", 0);
+    bookSections.insert("Психология и эзотерика", 0);
+    bookSections.insert("Медицина, здоровье, дети", 0);
+    bookSections.insert("Домашний круг", 0);
+    bookSections.insert("Научная литература", 0);
+    bookSections.insert("История и политика", 0);
+    bookSections.insert("Путешествия, автомобили, спорт", 0);
+    QHashIterator<QString, qint32> i(bookSections);
+    while (i.hasNext()) {
+        i.next();
+        ui->cb_section_comboBox->addItem(i.key());
+    }
+
     // --- Unenabling access
     ui->reader_menu->setEnabled(false);
     ui->book_menu->setEnabled(false);
@@ -38,15 +58,25 @@ MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
     ui->book_tableWidget->setHorizontalHeaderLabels(bookLabels);
     ui->iobooksinfo_tableWidget->setHorizontalHeaderLabels(iobooksinfoLabels);
 
-    ui->reader_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->book_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->iobooksinfo_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    // --- Enabling(Disenabling) editing tables
+    //ui->reader_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //ui->book_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //ui->iobooksinfo_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::ClearTableWidget(QTableWidget* tw) {
+    while (tw->rowCount() > 0) {
+        tw->removeRow(0);
+    }
+}
+
+// ---------------
+// --- LIBRARY ---
+// ---------------
 void MainWindow::on_create_library_action_triggered() {
     if (library == NULL) {
         // --- Creating New Library
@@ -65,21 +95,19 @@ void MainWindow::on_create_library_action_triggered() {
     }
 }
 
-// --- READER
+
+
+// --------------
+// --- READER ---
+// --------------
 void MainWindow::UpdateReaderTableWidget() {
-    ClearReaderTableWidget();
+    ClearTableWidget(ui->reader_tableWidget);
     for (int i = 0; i < library->readersHash->GetSize(); ++i) {
         if (library->readersHash->At(i) != NULL) {
             int row = ui->reader_tableWidget->rowCount();
             ui->reader_tableWidget->insertRow(row);
             AddItemInReaderTableWidget(library->readersHash->At(i), row);
         }
-    }
-}
-
-void MainWindow::ClearReaderTableWidget() {
-    while (ui->reader_tableWidget->rowCount() > 0) {
-        ui->reader_tableWidget->removeRow(0);
     }
 }
 
@@ -155,7 +183,7 @@ void MainWindow::on_cr_cancel_pushButton_clicked() {
     ui->stackedWidget->setCurrentWidget(ui->library_page);
 }
 
-void MainWindow::AddItemInReaderTableWidget(Reader* r, qint32 row) {
+void MainWindow::AddItemInReaderTableWidget(Reader* r, int row) {
     ui->reader_tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(r->getHashIndex())));
     ui->reader_tableWidget->setItem(row, 1, new QTableWidgetItem(r->getCardNumber()));
     ui->reader_tableWidget->setItem(row, 2, new QTableWidgetItem(r->getFio()));
@@ -205,7 +233,7 @@ void MainWindow::on_delete_all_readers_action_triggered() { DeleteAllReaders(); 
 void MainWindow::on_delete_all_readers_pushButton_clicked() { DeleteAllReaders(); }
 
 void MainWindow::DeleteAllReaders() {
-    if (library->readersHash->GetNumberOfReaders() > 0) {
+    if (library->readersHash->GetSize() > 0) {
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("Стереть все записи?"));
         msgBox.setInformativeText(tr("Вы уверены, что хотите стереть все записи таблицы \"Читатели\"?"));
@@ -221,7 +249,7 @@ void MainWindow::DeleteAllReaders() {
         }
         UpdateReaderTableWidget();
     } else {
-        QMessageBox::critical(this, tr("Нет выбранных строк"), tr("Для удаления, выберите строки или ячейки строк."), QMessageBox::Ok);
+        QMessageBox::critical(this, tr("Нет читателей"), tr("Отстствуют записи для удаления"), QMessageBox::Ok);
     }
 }
 
@@ -234,12 +262,12 @@ void MainWindow::on_show_all_readers_pushButton_clicked() { UpdateReaderTableWid
 
 void MainWindow::on_search_reader_pushButton_clicked() {
     int row;
-    if (ui->search_lineEdit->text() != "") {
-        if (ui->search_by_FIO_radioButton->isChecked()) {
+    if (ui->search_reader_lineEdit->text() != "") {
+        if (ui->search_reader_by_FIO_radioButton->isChecked()) {
             QVector<Reader*> results;
-            results = library->readersHash->SearchByFIO(ui->search_lineEdit->text());
+            results = library->readersHash->SearchByFIO(ui->search_reader_lineEdit->text());
             if (results.size() != 0) {
-                ClearReaderTableWidget();
+                ClearTableWidget(ui->reader_tableWidget);
                 foreach (Reader* r, results) {
                     row = ui->reader_tableWidget->rowCount();
                     ui->reader_tableWidget->insertRow(row);
@@ -249,10 +277,10 @@ void MainWindow::on_search_reader_pushButton_clicked() {
             else {
                 QMessageBox::information(this, tr("Совпадения отсутствуют"), tr("Читателей с таким имненем не зарегистрировано."), QMessageBox::Ok);
             }
-        } else if (ui->search_by_card_number_radioButton->isChecked()) {
-            Reader *r = library->readersHash->SearchByCardNumber(ui->search_lineEdit->text());
+        } else if (ui->search_reader_by_card_number_radioButton->isChecked()) {
+            Reader *r = library->readersHash->SearchByCardNumber(ui->search_reader_lineEdit->text());
             if (r != NULL) {
-                ClearReaderTableWidget();
+                ClearTableWidget(ui->reader_tableWidget);
                 row = ui->reader_tableWidget->rowCount();
                 ui->reader_tableWidget->insertRow(row);
                 AddItemInReaderTableWidget(r, row);
@@ -269,4 +297,197 @@ void MainWindow::on_search_reader_pushButton_clicked() {
     }
 }
 
+// ------------
+// --- BOOK ---
+// ------------
+void MainWindow::UpdateBookTableWidget() {
+    ClearTableWidget(ui->book_tableWidget);
+    QVector<Book*> vector = library->bookAVLTree->GetVectorOfBooks();
+    foreach (Book* b, vector) {
+        int row = ui->book_tableWidget->rowCount();
+        ui->book_tableWidget->insertRow(row);
+        AddItemInBookTableWidget(b, row);
+    }
+}
 
+// ------ Create Book
+void MainWindow::AddItemInBookTableWidget(Book* b, int row) {
+    ui->book_tableWidget->setItem(row, 0, new QTableWidgetItem(b->getCode()));
+    ui->book_tableWidget->setItem(row, 1, new QTableWidgetItem(b->getAuthors()));
+    ui->book_tableWidget->setItem(row, 2, new QTableWidgetItem(b->getTitle()));
+    ui->book_tableWidget->setItem(row, 3, new QTableWidgetItem(b->getPublisher()));
+    ui->book_tableWidget->setItem(row, 4, new QTableWidgetItem(b->getYearOfPublication()));
+    ui->book_tableWidget->setItem(row, 5, new QTableWidgetItem(b->getAllCopies()));
+    ui->book_tableWidget->setItem(row, 6, new QTableWidgetItem(b->getCopiesInStock()));
+}
+
+void MainWindow::on_add_book_pushButton_clicked() { CreateBook(); }
+
+void MainWindow::on_add_book_action_triggered() { CreateBook(); }
+
+void MainWindow::CreateBook() {
+    ui->cb_section_count_label->setText(QString::number(bookSections.value(ui->cb_section_comboBox->currentText())));
+    // --- Setting up Create Book Page
+    ui->cb_section_comboBox->setCurrentIndex(0);
+    ui->cb_authors_lineEdit->setText("");
+    ui->cb_title_lineEdit->setText("");
+    ui->cb_publisher_lineEdit->setText("");
+    ui->cb_year_of_publication_lineEdit->setText("");
+    ui->cb_all_copies_lineEdit->setText("");
+    ui->cb_copies_in_stock_lineEdit->setText("");
+    // --- Show Create Reader Page
+    ui->stackedWidget->setCurrentWidget(ui->create_book_page);
+}
+
+void MainWindow::on_cb_ok_pushButton_clicked() {
+    bool isCorrectForm = true;
+
+    QString sectionId_str = QString::number(ui->cb_section_comboBox->currentIndex());
+    QString copies_in_section_str = QString::number(bookSections.value(ui->cb_section_comboBox->currentText()));
+    QString authors_str = ui->cb_authors_lineEdit->text();
+    QString title_str = ui->cb_title_lineEdit->text();
+    QString publisher_str = ui->cb_publisher_lineEdit->text();
+    QString yOfP_str = ui->cb_year_of_publication_lineEdit->text();
+    QString all_copies_str = ui->cb_all_copies_lineEdit->text();
+    QString copies_in_stock_str = ui->cb_copies_in_stock_lineEdit->text();
+
+    QRegExp authors_rexp("");
+    QRegExp title_rexp("");
+    QRegExp publisher_rexp("");
+    QRegExp yOfP_rexp("");
+    QRegExp all_copies_rexp("");
+    QRegExp copies_in_stock_rexp("");
+
+    QString errorMsg = tr("Ошибка в поле ");
+    if (authors_rexp.indexIn(authors_str) < 0) {
+        // Не павильная фамилия
+        isCorrectForm = false;
+        errorMsg += ui->cb_authors_label->text();
+        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+    }
+    else if (title_rexp.indexIn(title_str) < 0) {
+        // Не правильный год рождения
+        isCorrectForm = false;
+        errorMsg += ui->cb_title_label->text();
+        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+    }
+    else if (publisher_rexp.indexIn(publisher_str) < 0) {
+        // Не правильный адрес
+        isCorrectForm = false;
+        errorMsg += ui->cb_publisher_label->text();
+        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+    }
+    else if (yOfP_rexp.indexIn(yOfP_str) < 0) {
+        // Не правильная работа
+        isCorrectForm = false;
+        errorMsg += ui->cb_year_of_publishing_label->text();
+        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+    }
+    else if (all_copies_rexp.indexIn(all_copies_str) < 0) {
+        // Не правильный адрес
+        isCorrectForm = false;
+        errorMsg += ui->cb_all_copies_label->text();
+        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+    }
+    else if (copies_in_stock_rexp.indexIn(copies_in_stock_str) < 0) {
+        // Не правильная работа
+        isCorrectForm = false;
+        errorMsg += ui->cb_copies_in_stock_label->text();
+        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+    }
+    else if (isCorrectForm) {
+        Book* r = library->AddBook(sectionId_str, copies_in_section_str, authors_str, title_str, publisher_str, yOfP_str, all_copies_str, copies_in_stock_str);
+        if (r != NULL) {
+            UpdateBookTableWidget();
+            QString str = ui->cb_section_comboBox->currentText();
+            //bookSections.insert(bookSections.find(ui->cb_section_comboBox->currentText()), ui->cb_section_comboBox->currentText(), bookSections.value(ui->cb_section_comboBox->currentText())+1)
+            bookSections.insert(str, bookSections.value(ui->cb_section_comboBox->currentText())+1);
+            ui->stackedWidget->setCurrentWidget(ui->library_page);
+            ui->library_tabWidget->setCurrentWidget(ui->book_tab);
+        }
+        else {
+            QMessageBox::critical(this, tr("Ошибка"), tr("Книга с таки шифром уже содержится."), QMessageBox::Ok);
+        }
+    }
+}
+
+void MainWindow::on_cb_cancel_pushButton_clicked() {
+    ui->stackedWidget->setCurrentWidget(ui->library_page);
+    ui->library_tabWidget->setCurrentWidget(ui->book_tab);
+}
+
+// ------ Delete Book
+void MainWindow::on_delete_book_pushButton_clicked() { DeleteBook(); }
+
+void MainWindow::on_delete_book_action_triggered() { DeleteBook(); }
+
+void MainWindow::DeleteBook() {
+    QList<QTableWidgetItem*> selectionRangeList = ui->book_tableWidget->selectedItems();
+    int rowIndex;
+    QListIterator<QTableWidgetItem*> selectionRangeListIter(selectionRangeList);
+
+    if (selectionRangeList.size() > 0) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("Удалить строки"));
+        msgBox.setInformativeText(tr("Вы уверены, что хотите удалить выбранные строки?"));
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+        switch (ret) {
+            case QMessageBox::Ok:
+                while(selectionRangeListIter.hasNext()){
+                    rowIndex = ((int)((QTableWidgetItem*)selectionRangeListIter.next())->row());
+                    QTableWidgetItem *item = ui->book_tableWidget->item(rowIndex, 0);
+                    library->DeleteBook(item->text());
+                }
+                break;
+            case QMessageBox::Cancel:
+                break;
+        }
+        UpdateBookTableWidget();
+    } else {
+        QMessageBox::critical(this, tr("Нет выбранных строк"), tr("Для удаления, выберите строки или ячейки строк."), QMessageBox::Ok);
+    }
+}
+
+// ------ Delete All Books
+void MainWindow::on_delete_all_books_pushButton_clicked() { DeleteAllBooks(); }
+
+void MainWindow::on_delete_all_books_action_triggered() { DeleteAllBooks(); }
+
+void MainWindow::DeleteAllBooks() {
+    if (library->bookAVLTree->root != NULL) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("Стереть все записи?"));
+        msgBox.setInformativeText(tr("Вы уверены, что хотите стереть все записи таблицы \"Читатели\"?"));
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+        switch (ret) {
+            case QMessageBox::Ok:
+                library->DeleteAllBooks();
+                break;
+            case QMessageBox::Cancel:
+                break;
+        }
+        UpdateBookTableWidget();
+    } else {
+        QMessageBox::critical(this, tr("Нет читателей"), tr("Отстствуют записи для удаления"), QMessageBox::Ok);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+void MainWindow::on_cb_section_comboBox_currentIndexChanged(const QString &arg1) {
+    ui->cb_section_count_label->setText(QString::number(bookSections.value(ui->cb_section_comboBox->currentText())));
+}

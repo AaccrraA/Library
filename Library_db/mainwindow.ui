@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>593</width>
-    <height>601</height>
+    <width>510</width>
+    <height>464</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="library_page">
        <property name="enabled">
@@ -49,7 +49,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="reader_tab">
            <attribute name="title">
@@ -100,14 +100,14 @@
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_5">
                   <item>
-                   <widget class="QLabel" name="search_label">
+                   <widget class="QLabel" name="search_reader_label">
                     <property name="text">
                      <string>Введите для поиска:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="search_lineEdit"/>
+                   <widget class="QLineEdit" name="search_reader_lineEdit"/>
                   </item>
                   <item>
                    <widget class="QPushButton" name="search_reader_pushButton">
@@ -119,20 +119,20 @@
                  </layout>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="search_parameters_groupBox">
+                 <widget class="QGroupBox" name="search_reader_parameters_groupBox">
                   <property name="title">
                    <string>Поиск по:</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout">
                    <item row="0" column="0" colspan="2">
-                    <widget class="QRadioButton" name="search_by_FIO_radioButton">
+                    <widget class="QRadioButton" name="search_reader_by_FIO_radioButton">
                      <property name="text">
                       <string>ФИО</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="0" colspan="2">
-                    <widget class="QRadioButton" name="search_by_card_number_radioButton">
+                    <widget class="QRadioButton" name="search_reader_by_card_number_radioButton">
                      <property name="text">
                       <string>№ читательского билета</string>
                      </property>
@@ -196,13 +196,7 @@
              </layout>
             </item>
            </layout>
-           <zorder>reader_tableWidget</zorder>
            <zorder></zorder>
-           <zorder>search_parameters_groupBox</zorder>
-           <zorder>search_reader_pushButton</zorder>
-           <zorder>search_lineEdit</zorder>
-           <zorder>search_label</zorder>
-           <zorder>delete_all_readers_pushButton</zorder>
           </widget>
           <widget class="QWidget" name="book_tab">
            <attribute name="title">
@@ -210,17 +204,72 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QTableWidget" name="book_tableWidget">
-              <attribute name="horizontalHeaderCascadingSectionResizes">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>150</number>
-              </attribute>
-              <attribute name="verticalHeaderDefaultSectionSize">
-               <number>25</number>
-              </attribute>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <widget class="QTableWidget" name="book_tableWidget">
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>150</number>
+                </attribute>
+                <attribute name="verticalHeaderDefaultSectionSize">
+                 <number>25</number>
+                </attribute>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <item>
+                   <widget class="QLabel" name="search_book_label">
+                    <property name="text">
+                     <string>Введите для поиска:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="search_book_lineEdit"/>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="search_book_pushButton_2">
+                    <property name="text">
+                     <string>Найти</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="search_book_parameters_groupBox">
+                  <property name="title">
+                   <string>Поиск по:</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_2">
+                   <item row="0" column="0" colspan="2">
+                    <widget class="QRadioButton" name="search_book_by_Code_radioButton">
+                     <property name="text">
+                      <string>Шифру</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0" colspan="2">
+                    <widget class="QRadioButton" name="search_book_by_author_or_title_radioButton">
+                     <property name="text">
+                      <string>Автору или названию</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -246,9 +295,9 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="search_book_pushButton">
+               <widget class="QPushButton" name="show_all_books_pushButton">
                 <property name="text">
-                 <string>Поиск...</string>
+                 <string>Показать все</string>
                 </property>
                </widget>
               </item>
@@ -459,7 +508,10 @@
           </item>
          </layout>
         </item>
-        <item row="10" column="1">
+        <item row="7" column="1">
+         <widget class="QLineEdit" name="cr_adress_lineEdit"/>
+        </item>
+        <item row="10" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
            <spacer name="horizontalSpacer">
@@ -477,7 +529,7 @@
           <item>
            <widget class="QPushButton" name="cr_ok_pushButton">
             <property name="text">
-             <string>Ok</string>
+             <string>Добавить</string>
             </property>
            </widget>
           </item>
@@ -490,8 +542,131 @@
           </item>
          </layout>
         </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="create_book_page">
+       <layout class="QFormLayout" name="formLayout_2">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="cb_section_label">
+          <property name="text">
+           <string>Выберите раздел:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QComboBox" name="cb_section_comboBox"/>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="cb_authors_label">
+          <property name="text">
+           <string>Автор(ы):</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="cb_authors_lineEdit"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="cb_title_label">
+          <property name="text">
+           <string>Название:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="cb_title_lineEdit"/>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="cb_publisher_label">
+          <property name="text">
+           <string>Издатель:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="cb_publisher_lineEdit"/>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="cb_year_of_publishing_label">
+          <property name="text">
+           <string>Год публикации:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="cb_year_of_publication_lineEdit"/>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="cb_all_copies_label">
+          <property name="text">
+           <string>Тираж(шт.):</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="cb_all_copies_lineEdit"/>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="cb_copies_in_stock_label">
+          <property name="text">
+           <string>В наличии(шт.):</string>
+          </property>
+         </widget>
+        </item>
         <item row="7" column="1">
-         <widget class="QLineEdit" name="cr_adress_lineEdit"/>
+         <widget class="QLineEdit" name="cb_copies_in_stock_lineEdit"/>
+        </item>
+        <item row="8" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cb_ok_pushButton">
+            <property name="text">
+             <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cb_cancel_pushButton">
+            <property name="text">
+             <string>Отмена</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="cb_section_count_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="cb_section_count_label_2">
+          <property name="text">
+           <string>Кол-во книг в разделе:</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -507,7 +682,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>593</width>
+     <width>510</width>
      <height>21</height>
     </rect>
    </property>
@@ -635,7 +810,7 @@
   </action>
   <action name="search_book_action">
    <property name="text">
-    <string>Поиск...</string>
+    <string>Показать все</string>
    </property>
   </action>
   <action name="take_iobooksinfo_action">
@@ -683,7 +858,6 @@
   <tabstop>add_book_pushButton</tabstop>
   <tabstop>delete_book_pushButton</tabstop>
   <tabstop>delete_all_books_pushButton</tabstop>
-  <tabstop>search_book_pushButton</tabstop>
   <tabstop>iobooksinfo_tableWidget</tabstop>
   <tabstop>take_iobooksinfo_pushButton</tabstop>
   <tabstop>give_iobooksinfo_pushButton</tabstop>

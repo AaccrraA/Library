@@ -1,6 +1,7 @@
 #ifndef BOOK_H
 #define BOOK_H
 
+#include <QtCore>
 #include <QString>
 using namespace std;
 
@@ -13,39 +14,41 @@ private:
     QString _authors;
     QString _title;
     QString _publisher;
-    int     _yearOfPublication;
-    int     _allCopies;         // Кол-во экземпляров всего
-    int     _copiesInStock;     // Кол-во экземпляров в наличии
+    QString _yearOfPublication;
+    QString _allCopies;         // Кол-во экземпляров всего
+    QString _copiesInStock;     // Кол-во экземпляров в наличии
+    quint8  _height;
     Book*   _left;
     Book*   _right;
+
 public:
     Book();
     Book(QString    code,
          QString    authors,
          QString    title,
          QString    publisher,
-         int        yearOfPublication,
-         int        allCopies,
-         int        copiesInStock,
-         Book*      const& left,
-         Book*      const& right
+         QString    yearOfPublication,
+         QString    allCopies,
+         QString    copiesInStock
          );
     void setCode(QString code);
     void setAuthors(QString authors);
     void setTitle(QString title);
     void setPublisher(QString publisher);
     void setYearOfPublication(QString yearOfPublication);
-    void setAllCopies(int allCopies);
-    void setCopiesInStock(int copiesInStock);
-    void setLeft(Book* const& left);
-    void setRight(Book* const& right);
+    void setAllCopies(QString allCopies);
+    void setCopiesInStock(QString copiesInStock);
+    void setHeight(quint8 height);
+    void setLeft(Book *left);
+    void setRight(Book* right);
     QString getCode();
     QString getAuthors();
     QString getTitle();
     QString getPublisher();
     QString getYearOfPublication();
-    int     getAllCopies();
-    int     getCopiesInStock();
+    QString getAllCopies();
+    QString getCopiesInStock();
+    quint8  getHeight();
     Book*   getLeft();
     Book*   getRight();
 };

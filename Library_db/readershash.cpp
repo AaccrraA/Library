@@ -52,18 +52,18 @@ Reader* ReadersHash::SearchByCardNumber(QString cN) {
 }
 
 QVector<Reader*> ReadersHash::SearchByFIO(QString f) {
-    QVector<Reader*> result;
+    QVector<Reader*> results;
     Reader* r;
     for (int i = 0; i < map.size()-1; ++i) {
         r = map.at(i);
         while (r != NULL) {
             if (r->getFio() == f) {
-                result.append(r);
+                results.append(r);
             }
             r = r->getNext();
         }
     }
-    return result;
+    return results;
 }
 
 void ReadersHash::Delete(qint32 index) {

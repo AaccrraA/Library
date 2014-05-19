@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include <QtGui>
+#include <QTableWidget>
 #include <QMessageBox>
 #include <QStackedWidget>
 #include <QMainWindow>
@@ -22,9 +23,9 @@ public:
 
 
 private slots:
-    // --------- Library
+    // --- LIBRARY
     void on_create_library_action_triggered();
-    // --------- Reader
+    // --- READER
     void on_add_reader_action_triggered();
     void on_add_reader_pushButton_clicked();
     void on_cr_ok_pushButton_clicked();
@@ -33,26 +34,41 @@ private slots:
     void on_delete_reader_pushButton_clicked();
     void on_delete_all_readers_pushButton_clicked();
     void on_delete_all_readers_action_triggered();
-
     void on_show_all_readers_pushButton_clicked();
     void on_search_reader_pushButton_clicked();
-
-
-
     void on_show_all_readers_action_triggered();
+    // --- BOOK
+    void on_add_book_action_triggered();
+    void on_add_book_pushButton_clicked();
+    void on_cb_ok_pushButton_clicked();
+    void on_cb_cancel_pushButton_clicked();
+    void on_delete_book_pushButton_clicked();
+    void on_delete_book_action_triggered();
+    void on_delete_all_books_pushButton_clicked();
+    void on_delete_all_books_action_triggered();
+
+    void on_cb_section_comboBox_currentIndexChanged(const QString &arg1);
 
 private:
-    Ui::MainWindow      *ui;
-    Library             *library;
+    Ui::MainWindow          *ui;
+    Library                 *library;
+    QHash<QString, qint32>  bookSections;
 
+    void ClearTableWidget(QTableWidget* tw);
+    // --- READER
     void UpdateReaderTableWidget();
     void CreateReader();
-    void AddItemInReaderTableWidget(Reader* r, qint32 row);
+    void AddItemInReaderTableWidget(Reader* r, int row);
     void DeleteReader();
     void DeleteAllReaders();
     void SearchReader();
-    void ClearReaderTableWidget();
     void AddItemInSearchResultsTableWidget(Reader*, qint32 row);
+    // --- BOOK
+    void CreateBook();
+    void UpdateBookTableWidget();
+    void AddItemInBookTableWidget(Book* b, int row);
+    void DeleteBook();
+    void DeleteAllBooks();
 
 
 };

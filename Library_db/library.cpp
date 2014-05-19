@@ -1,9 +1,12 @@
 #include "library.h"
 #include "reader.h"
+//#include "readershash.h"
+//#include "booktree.h"
 
 Library::Library() {
     registrationNumber = 0;
     readersHash = new ReadersHash;
+    bookAVLTree = new BookTree;
 }
 
 Reader* Library::AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP) {
@@ -56,3 +59,46 @@ void Library::DeleteReader(qint32 index) {
     this->readersHash->Delete(index);
 }
 
+Book* Library::AddBook(QString sectionId,
+                    QString copiesInSection,
+                    QString authors,
+                    QString title,
+                    QString publisher,
+                    QString yearOfPublication,
+                    QString allCopies,
+                    QString copiesInStock) {
+    Book* newBook = new Book(GenerateCode(sectionId, copiesInSection), authors, title, publisher, yearOfPublication, allCopies, copiesInStock);
+    bool isBookAdded = true;
+    if (bookAVLTree->SearchByCode(newBook->getCode()) == NULL) {
+        // --- Добавляем читателя
+        bookAVLTree->root = bookAVLTree->Add(bookAVLTree->root, newBook);
+    }
+    else {
+        // Такой читатель уже существует
+        isBookAdded = false;
+        delete newBook;
+        newBook = NULL;
+    }
+    return newBook;
+}
+
+QString Library::GenerateCode(QString sectionId, QString copiesInSection) {
+    QString code = "";
+    for(int i = 0; i < 3-sectionId.length(); i++) {
+        code += "0";
+    }
+    code += sectionId;
+    code += ".";
+    for(int i = 0; i < 3-copiesInSection.length(); i++) {
+        code += "0";
+    }
+    code += copiesInSection;
+    return code;
+}
+
+void Library::DeleteBook(QString code) {
+    bookAVLTree->Delete(bookAVLTree->root, bookAVLTree->SearchByCode(code));
+}
+void Library::DeleteAllBooks() {
+    bookAVLTree->DeleteAll(bookAVLTree->root);
+}

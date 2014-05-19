@@ -19,7 +19,7 @@ SOURCES += main.cpp\
     iobooksinfo.cpp \
     book.cpp \
     readershash.cpp \
-    extraframework.cpp
+    booktree.cpp
 
 HEADERS  += mainwindow.h \
     reader.h \
@@ -27,7 +27,7 @@ HEADERS  += mainwindow.h \
     iobooksinfo.h \
     book.h \
     readershash.h \
-    extraframework.h
+    booktree.h
 
 FORMS    += mainwindow.ui
 
