@@ -1,7 +1,7 @@
 #ifndef BOOKTREE_H
 #define BOOKTREE_H
 
-#include <book.h>
+#include <QtCore>
 #include "book.h"
 
 class BookTree
@@ -23,8 +23,9 @@ public:
     void    Visit(Book* p, QVector<Book *> &r);
     void    DeleteAll(Book* p);
     Book*   SearchByCode(QString code);
-    QVector<Book*> SearchBookByAuthorsOrTitle(QString authors);
+    QVector<Book*> SearchByAuthorsOrTitle(QString authors);
     QVector<Book*> GetVectorOfBooks();
+    int     BoyerMooreHorspoolSearch(QString haystack, QString needle);
 
 };
 

@@ -41,8 +41,8 @@ public:
                     QString copiesInStock);
     void    DeleteBook(QString code);
     void    DeleteAllBooks();
-//    void RegOutBook();
-//    void RegInBook();
+    void    GiveBook(QString cN, QString code, QString givingDate, QString takingDate);
+    void    TakeBook();
 
 
 };

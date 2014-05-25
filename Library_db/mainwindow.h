@@ -49,6 +49,18 @@ private slots:
 
     void on_cb_section_comboBox_currentIndexChanged(const QString &arg1);
 
+    void on_show_all_books_pushButton_clicked();
+
+    void on_show_all_books_action_triggered();
+
+    void on_search_book_pushButton_clicked();
+
+    void on_give_iobooksinfo_pushButton_clicked();
+
+    void on_give_book_action_triggered();
+
+    void on_gb_give_book_pushButton_clicked();
+
 private:
     Ui::MainWindow          *ui;
     Library                 *library;
@@ -58,7 +70,7 @@ private:
     // --- READER
     void UpdateReaderTableWidget();
     void CreateReader();
-    void AddItemInReaderTableWidget(Reader* r, int row);
+    void AddReaderInTableWidget(Reader* r, QTableWidget* tw, int row);
     void DeleteReader();
     void DeleteAllReaders();
     void SearchReader();
@@ -66,10 +78,11 @@ private:
     // --- BOOK
     void CreateBook();
     void UpdateBookTableWidget();
-    void AddItemInBookTableWidget(Book* b, int row);
+    void AddBookInTableWidget(Book* b, QTableWidget* tw, int row);
     void DeleteBook();
     void DeleteAllBooks();
-
+    // --- IOBOOKSINFO
+    void GiveBook();
 
 };
 

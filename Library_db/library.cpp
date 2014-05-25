@@ -44,19 +44,9 @@ QString Library::GenerateCardNumber(QString rOfA) {
     return cN;
 }
 
-void Library::DeleteAllReaders() {
-    for (int i = 0; i < readersHash->GetSize()-1; ++i) {
-        this->readersHash->Delete(i);
-    }
-}
-
 int Library::GetReadersHashSize() {
     int i = this->readersHash->GetSize();
     return i;
-}
-
-void Library::DeleteReader(qint32 index) {
-    this->readersHash->Delete(index);
 }
 
 Book* Library::AddBook(QString sectionId,
@@ -74,7 +64,7 @@ Book* Library::AddBook(QString sectionId,
         bookAVLTree->root = bookAVLTree->Add(bookAVLTree->root, newBook);
     }
     else {
-        // Такой читатель уже существует
+        // --- Такой читатель уже существует
         isBookAdded = false;
         delete newBook;
         newBook = NULL;
@@ -97,8 +87,14 @@ QString Library::GenerateCode(QString sectionId, QString copiesInSection) {
 }
 
 void Library::DeleteBook(QString code) {
-    bookAVLTree->Delete(bookAVLTree->root, bookAVLTree->SearchByCode(code));
+    bookAVLTree->root = bookAVLTree->Delete(bookAVLTree->root, bookAVLTree->SearchByCode(code));
 }
 void Library::DeleteAllBooks() {
     bookAVLTree->DeleteAll(bookAVLTree->root);
+    bookAVLTree->root = NULL;
+}
+
+void Library::GiveBook(QString cN, QString code, QString givingDate, QString takingDate) {
+    IOBooksInfo* newInfo = new IOBooksInfo(cN, code, givingDate, takingDate, NULL, NULL);
+
 }
