@@ -1,12 +1,11 @@
 #include "library.h"
 #include "reader.h"
-//#include "readershash.h"
-//#include "booktree.h"
 
 Library::Library() {
     registrationNumber = 0;
     readersHash = new ReadersHash;
     bookAVLTree = new BookTree;
+    ioBooksInfoList = new IOBooksInfoLinkedList;
 }
 
 Reader* Library::AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP) {
@@ -94,7 +93,10 @@ void Library::DeleteAllBooks() {
     bookAVLTree->root = NULL;
 }
 
-void Library::GiveBook(QString cN, QString code, QString givingDate, QString takingDate) {
-    IOBooksInfo* newInfo = new IOBooksInfo(cN, code, givingDate, takingDate, NULL, NULL);
+void Library::GiveBook(IOBooksInfo* iobi) {
+    ioBooksInfoList->Add(iobi);
+}
 
+void Library::TakeBook(int index) {
+    ioBooksInfoList->Delete(index);
 }

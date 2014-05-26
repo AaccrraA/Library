@@ -1,7 +1,8 @@
 #ifndef IOBOOKSINFOLINKEDLIST_H
 #define IOBOOKSINFOLINKEDLIST_H
 
-#include "iobooksinfo.h" b
+#include <QtCore>
+#include "iobooksinfo.h"
 
 class IOBooksInfoLinkedList
 {
@@ -10,6 +11,9 @@ private:
 public:
     IOBooksInfoLinkedList();
     void Add(IOBooksInfo* iobi);
+    void setFirst(IOBooksInfo* iobi);
+    IOBooksInfo* getFirst();
+    void Delete(int index);
 };
 
 #endif // IOBOOKSINFOLINKEDLIST_H

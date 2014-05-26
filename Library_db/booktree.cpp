@@ -156,6 +156,7 @@ int BookTree::BoyerMooreHorspoolSearch(QString haystack, QString needle ) {
     else {
         return -1;
     }*/
+    return 0;
 }
 
 QVector<Book*> BookTree::GetVectorOfBooks() {

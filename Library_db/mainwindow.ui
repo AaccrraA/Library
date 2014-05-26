@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>401</width>
-    <height>307</height>
+    <width>616</width>
+    <height>492</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="library_page">
        <property name="enabled">
@@ -149,11 +149,6 @@
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
                <widget class="QPushButton" name="add_reader_pushButton">
-                <property name="font">
-                 <font>
-                  <pointsize>8</pointsize>
-                 </font>
-                </property>
                 <property name="text">
                  <string>Добавить...</string>
                 </property>
@@ -212,6 +207,9 @@
                 </attribute>
                 <attribute name="horizontalHeaderDefaultSectionSize">
                  <number>150</number>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
                 </attribute>
                 <attribute name="verticalHeaderDefaultSectionSize">
                  <number>25</number>
@@ -328,6 +326,9 @@
               <attribute name="horizontalHeaderDefaultSectionSize">
                <number>150</number>
               </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
               <attribute name="verticalHeaderDefaultSectionSize">
                <number>25</number>
               </attribute>
@@ -336,16 +337,16 @@
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
-               <widget class="QPushButton" name="take_iobooksinfo_pushButton">
+               <widget class="QPushButton" name="give_book_pushButton">
                 <property name="text">
-                 <string>Принять книгу</string>
+                 <string>Выдать книгу</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="give_iobooksinfo_pushButton">
+               <widget class="QPushButton" name="take_iobooksinfo_pushButton">
                 <property name="text">
-                 <string>Выдать книгу</string>
+                 <string>Принять книгу</string>
                 </property>
                </widget>
               </item>
@@ -374,7 +375,32 @@
        <property name="enabled">
         <bool>true</bool>
        </property>
-       <layout class="QFormLayout" name="formLayout">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="6" column="1">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="cr_fio_label">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>ФИО:</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="cr_right_of_acces_label">
           <property name="font">
@@ -388,6 +414,52 @@
           </property>
           <property name="text">
            <string>Права доступа:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="cr_year_of_birth_label">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Год рождения:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="cr_job_or_study_place_label">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Место работы или учебы:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="cr_fio_lineEdit">
+          <property name="inputMask">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="cr_job_or_study_place_lineEdit"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="cr_adress_label">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Адрес:</string>
           </property>
          </widget>
         </item>
@@ -413,105 +485,26 @@
           </item>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="cr_fio_label">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>ФИО:</string>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="cr_fio_lineEdit">
-          <property name="inputMask">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="cr_year_of_birth_label">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Год рождения:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="cr_adress_label">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Адрес:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="0">
-         <widget class="QLabel" name="cr_job_or_study_place_label">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Место работы или учебы:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QLineEdit" name="cr_job_or_study_place_lineEdit"/>
-        </item>
-        <item row="5" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_8">
-            <item>
-             <widget class="QLineEdit" name="cr_year_of_birth_lineEdit">
-              <property name="inputMask">
-               <string/>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="maxLength">
-               <number>32767</number>
-              </property>
-              <property name="cursorPosition">
-               <number>0</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item row="7" column="1">
          <widget class="QLineEdit" name="cr_adress_lineEdit"/>
         </item>
-        <item row="10" column="0" colspan="2">
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="cr_year_of_birth_lineEdit">
+          <property name="inputMask">
+           <string/>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="maxLength">
+           <number>32767</number>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
            <spacer name="horizontalSpacer">
@@ -545,24 +538,7 @@
        </layout>
       </widget>
       <widget class="QWidget" name="create_book_page">
-       <layout class="QFormLayout" name="formLayout_2">
-        <property name="fieldGrowthPolicy">
-         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="cb_section_label">
-          <property name="text">
-           <string>Выберите раздел:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_11">
-          <item>
-           <widget class="QComboBox" name="cb_section_comboBox"/>
-          </item>
-         </layout>
-        </item>
+       <layout class="QGridLayout" name="gridLayout_5">
         <item row="2" column="0">
          <widget class="QLabel" name="cb_authors_label">
           <property name="text">
@@ -573,25 +549,12 @@
         <item row="2" column="1">
          <widget class="QLineEdit" name="cb_authors_lineEdit"/>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="cb_title_label">
-          <property name="text">
-           <string>Название:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="cb_title_lineEdit"/>
-        </item>
         <item row="4" column="0">
          <widget class="QLabel" name="cb_publisher_label">
           <property name="text">
            <string>Издатель:</string>
           </property>
          </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="cb_publisher_lineEdit"/>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="cb_year_of_publishing_label">
@@ -600,8 +563,8 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QLineEdit" name="cb_year_of_publication_lineEdit"/>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="cb_title_lineEdit"/>
         </item>
         <item row="6" column="0">
          <widget class="QLabel" name="cb_all_copies_label">
@@ -610,18 +573,35 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="QLineEdit" name="cb_all_copies_lineEdit"/>
+        <item row="7" column="1">
+         <widget class="QLineEdit" name="cb_copies_in_stock_lineEdit"/>
         </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="cb_copies_in_stock_label">
+        <item row="1" column="0">
+         <widget class="QLabel" name="cb_section_count_label_2">
           <property name="text">
-           <string>В наличии(шт.):</string>
+           <string>Кол-во книг в разделе:</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
-         <widget class="QLineEdit" name="cb_copies_in_stock_lineEdit"/>
+        <item row="1" column="1">
+         <widget class="QLabel" name="cb_section_count_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="cb_publisher_lineEdit"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="cb_section_comboBox"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="cb_title_label">
+          <property name="text">
+           <string>Название:</string>
+          </property>
+         </widget>
         </item>
         <item row="8" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -654,24 +634,43 @@
           </item>
          </layout>
         </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="cb_section_count_label">
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="cb_all_copies_lineEdit"/>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="cb_year_of_publication_lineEdit"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="cb_section_label">
           <property name="text">
-           <string/>
+           <string>Выберите раздел:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="cb_section_count_label_2">
+        <item row="7" column="0">
+         <widget class="QLabel" name="cb_copies_in_stock_label">
           <property name="text">
-           <string>Кол-во книг в разделе:</string>
+           <string>В наличии(шт.):</string>
           </property>
          </widget>
+        </item>
+        <item row="9" column="0" colspan="2">
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="give_book_page">
-       <layout class="QFormLayout" name="formLayout_3">
+       <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
@@ -679,32 +678,25 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="gb_readers_comboBox"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Выберите книгу:</string>
+        <item row="6" column="0" colspan="2">
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QComboBox" name="gb_books_comboBox"/>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="gb_giving_label">
-          <property name="text">
-           <string>Дата выдачи:</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-         </widget>
+         </spacer>
         </item>
-        <item row="2" column="1">
+        <item row="4" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_12">
           <item>
            <widget class="QDateEdit" name="gb_giving_dateEdit">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -723,19 +715,12 @@
           </item>
          </layout>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="gb_taking_label">
-          <property name="text">
-           <string>Дата приема:</string>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_13">
           <item>
            <widget class="QDateEdit" name="gb_taking_dateEdit">
             <property name="enabled">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -754,10 +739,24 @@
           </item>
          </layout>
         </item>
-        <item row="4" column="0" colspan="2">
+        <item row="4" column="0">
+         <widget class="QLabel" name="gb_taking_label">
+          <property name="text">
+           <string>Дата приема:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Выберите книгу:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout_15">
           <item>
-           <spacer name="horizontalSpacer_4">
+           <spacer name="horizontalSpacer_7">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -785,9 +784,21 @@
           </item>
          </layout>
         </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="gb_giving_label">
+          <property name="text">
+           <string>Дата выдачи:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="gb_readers_comboBox"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="gb_books_comboBox"/>
+        </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="take_book_page"/>
      </widget>
     </item>
    </layout>
@@ -800,8 +811,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>401</width>
-     <height>21</height>
+     <width>616</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="library_menu">
@@ -852,8 +863,8 @@
     <property name="title">
      <string>Прием\Выдача</string>
     </property>
-    <addaction name="take_iobooksinfo_action"/>
     <addaction name="give_book_action"/>
+    <addaction name="take_iobooksinfo_action"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="help_menu">
@@ -968,7 +979,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>reader_tableWidget</tabstop>
-  <tabstop>add_reader_pushButton</tabstop>
   <tabstop>delete_reader_pushButton</tabstop>
   <tabstop>delete_all_readers_pushButton</tabstop>
   <tabstop>show_all_readers_pushButton</tabstop>
@@ -978,7 +988,6 @@
   <tabstop>delete_all_books_pushButton</tabstop>
   <tabstop>iobooksinfo_tableWidget</tabstop>
   <tabstop>take_iobooksinfo_pushButton</tabstop>
-  <tabstop>give_iobooksinfo_pushButton</tabstop>
   <tabstop>cr_right_of_acces_comboBox</tabstop>
   <tabstop>cr_fio_lineEdit</tabstop>
   <tabstop>cr_year_of_birth_lineEdit</tabstop>

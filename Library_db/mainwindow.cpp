@@ -49,28 +49,19 @@ MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
     ui->reader_tableWidget->setColumnCount(readerLabels.length());
     ui->book_tableWidget->setColumnCount(bookLabels.length());
     ui->iobooksinfo_tableWidget->setColumnCount(iobooksinfoLabels.length());
-    ui->gb_readers_tableWidget->setColumnCount(readerLabels.length());
-    ui->gb_books_tableWidget->setColumnCount(bookLabels.length());
 
     ui->reader_tableWidget->setRowCount(0);
     ui->book_tableWidget->setRowCount(0);
     ui->iobooksinfo_tableWidget->setRowCount(0);
-    ui->gb_readers_tableWidget->setRowCount(0);
-    ui->gb_books_tableWidget->setRowCount(0);
 
     ui->reader_tableWidget->setHorizontalHeaderLabels(readerLabels);
     ui->book_tableWidget->setHorizontalHeaderLabels(bookLabels);
     ui->iobooksinfo_tableWidget->setHorizontalHeaderLabels(iobooksinfoLabels);
-    ui->gb_readers_tableWidget->setHorizontalHeaderLabels(readerLabels);
-    ui->gb_books_tableWidget->setHorizontalHeaderLabels(bookLabels);
 
     // --- Enabling(Disenabling) editing tables
     ui->reader_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->book_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->iobooksinfo_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->gb_readers_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->gb_books_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
 }
 
 MainWindow::~MainWindow() {
@@ -111,9 +102,10 @@ void MainWindow::on_create_library_action_triggered() {
 // --------------
 void MainWindow::UpdateReaderTableWidget() {
     ClearTableWidget(ui->reader_tableWidget);
+    int row;
     for (int i = 0; i < library->readersHash->GetSize(); ++i) {
         if (library->readersHash->At(i) != NULL) {
-            int row = ui->reader_tableWidget->rowCount();
+            row = ui->reader_tableWidget->rowCount();
             ui->reader_tableWidget->insertRow(row);
             AddReaderInTableWidget(library->readersHash->At(i),ui->reader_tableWidget, row);
         }
@@ -316,8 +308,9 @@ void MainWindow::on_search_reader_pushButton_clicked() {
 void MainWindow::UpdateBookTableWidget() {
     ClearTableWidget(ui->book_tableWidget);
     QVector<Book*> vector = library->bookAVLTree->GetVectorOfBooks();
+    int row;
     foreach (Book* b, vector) {
-        int row = ui->book_tableWidget->rowCount();
+        row = ui->book_tableWidget->rowCount();
         ui->book_tableWidget->insertRow(row);
         AddBookInTableWidget(b, ui->book_tableWidget, row);
     }
@@ -540,12 +533,12 @@ void MainWindow::on_search_book_pushButton_clicked() {
 // --- IOINFO --- //
 // -------------- //
 
-void MainWindow::on_give_iobooksinfo_pushButton_clicked() { GiveBook(); }
+void MainWindow::on_give_book_pushButton_clicked() { GiveBook(); }
 
 void MainWindow::on_give_book_action_triggered() { GiveBook(); }
 
 void MainWindow::GiveBook() {
-    ClearTableWidget(ui->gb_readers_tableWidget);
+    ui->gb_readers_comboBox->clear();
     for (int i = 0; i < library->readersHash->GetSize(); ++i) {
         if (library->readersHash->At(i) != NULL) {
             QString str = library->readersHash->At(i)->getFio() + "/" + library->readersHash->At(i)->getCardNumber();
@@ -553,7 +546,7 @@ void MainWindow::GiveBook() {
         }
     }
 
-    ClearTableWidget(ui->gb_books_tableWidget);
+    ui->gb_books_comboBox->clear();
     QVector<Book*> vector = library->bookAVLTree->GetVectorOfBooks();
     foreach (Book* b, vector) {
         QString str = b->getTitle() + "/" + b->getCode();
@@ -575,14 +568,15 @@ void MainWindow::GiveBook() {
 }
 
 void MainWindow::on_gb_give_book_pushButton_clicked() {
-    if (ui->gb_giving_dateEdit->date() >= ui->gb_taking_dateEdit->date()) {
-        QString readerCardNumber;
-        QString bookCode;
+    if (ui->gb_giving_dateEdit->date() < ui->gb_taking_dateEdit->date()) {
+        QString readerCardNumber = ui->gb_readers_comboBox->currentText();
+        QString bookCode = ui->gb_books_comboBox->currentText();
         QString givingDate = ui->gb_giving_dateEdit->date().toString("dd.MM.yy");
         QString takingDate = ui->gb_taking_dateEdit->date().toString("dd.MM.yy");;
         for (int i = 0; i < readerCardNumber.length(); ++i) {
             if (readerCardNumber.at(i) != '/') {
                 readerCardNumber.remove(i, 1);
+                --i;
             }
             else {
                 readerCardNumber.remove(i, 1);
@@ -592,15 +586,70 @@ void MainWindow::on_gb_give_book_pushButton_clicked() {
         for (int i = 0; i < bookCode.length(); ++i) {
             if (bookCode.at(i) != '/') {
                 bookCode.remove(i, 1);
+                i--;
             }
             else {
                 bookCode.remove(i, 1);
                 break;
             }
         }
-        library->add
+        IOBooksInfo* iobi = new IOBooksInfo(readerCardNumber, bookCode, givingDate, takingDate, NULL, NULL);
+        library->GiveBook(iobi);
+        UpdateIOBooksInfoTableWidget();
     }
     else {
         QMessageBox::information(this, tr("Неверная дата приема"), tr("Дата приема должна быть позже даты выдачи."), QMessageBox::Ok);
+    }
+    ui->stackedWidget->setCurrentWidget(ui->library_page);
+    ui->library_tabWidget->setCurrentWidget(ui->iobooksinfo_tab);
+}
+
+void MainWindow::AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw, int row) {
+    tw->setItem(row, 0, new QTableWidgetItem(iobi->getCardNumber()));
+    tw->setItem(row, 1, new QTableWidgetItem(iobi->getCode()));
+    tw->setItem(row, 2, new QTableWidgetItem(iobi->getODate()));
+    tw->setItem(row, 3, new QTableWidgetItem(iobi->getIDate()));
+}
+
+void MainWindow::UpdateIOBooksInfoTableWidget() {
+    IOBooksInfo* temp = library->ioBooksInfoList->getFirst();
+    int row;
+    ClearTableWidget(ui->iobooksinfo_tableWidget);
+    while (temp != NULL) {
+        row = ui->iobooksinfo_tableWidget->rowCount();
+        ui->iobooksinfo_tableWidget->insertRow(row);
+        AddIOBooksInfoInTableWidget(temp, ui->iobooksinfo_tableWidget, row);
+        temp = temp->getNext();
+    }
+}
+
+void MainWindow::on_take_iobooksinfo_action_triggered() { TakeBook(); }
+void MainWindow::on_take_iobooksinfo_pushButton_clicked() { TakeBook(); }
+
+void MainWindow::TakeBook() {
+    QList<QTableWidgetItem*> selectionRangeList = ui->iobooksinfo_tableWidget->selectedItems();
+    int rowIndex;
+    QListIterator<QTableWidgetItem*> selectionRangeListIter(selectionRangeList);
+
+    if (selectionRangeList.size() > 0) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("Удалить строки"));
+        msgBox.setInformativeText(tr("Вы уверены, что хотите принять данные книги? Выбранные строки будут удалены."));
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+        switch (ret) {
+            case QMessageBox::Ok:
+                while(selectionRangeListIter.hasNext()){
+                    rowIndex = ((int)((QTableWidgetItem*)selectionRangeListIter.next())->row());
+                    library->TakeBook(rowIndex);
+                }
+                break;
+            case QMessageBox::Cancel:
+                break;
+        }
+        UpdateIOBooksInfoTableWidget();
+    } else {
+        QMessageBox::critical(this, tr("Нет выбранных строк"), tr("Для удаления, выберите строки или ячейки строк."), QMessageBox::Ok);
     }
 }

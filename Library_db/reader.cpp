@@ -2,7 +2,9 @@
 
 #include <QString>
 
-Reader::Reader() : Reader("", "", "", "", "", NULL, NULL) {
+Reader::Reader() {
+    setNext(NULL);
+    setPrev(NULL);
 }
 
 Reader::Reader(QString cardNumber, QString fio, QString yearOfBirth, QString adress, QString jobOrStudyPlace, Reader *next, Reader *prev)

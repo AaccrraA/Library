@@ -9,6 +9,7 @@
 #include "IOBooksInfo.h"
 #include "readershash.h"
 #include "booktree.h"
+#include "iobooksinfolinkedlist.h"
 
 class Library
 {
@@ -22,9 +23,9 @@ private:
 
 
 public:
-    ReadersHash *readersHash;
-    BookTree    *bookAVLTree;            // АВЛ-Дерево поиска с симметричным методом обхода
-    IOBooksInfo *ioBooksInfo;       // Линейный двунаправленный список
+    ReadersHash             *readersHash;
+    BookTree                *bookAVLTree;            // АВЛ-Дерево поиска с симметричным методом обхода
+    IOBooksInfoLinkedList   *ioBooksInfoList;       // Линейный двунаправленный список
 
     Library();
     // Основные функции
@@ -41,10 +42,8 @@ public:
                     QString copiesInStock);
     void    DeleteBook(QString code);
     void    DeleteAllBooks();
-    void    GiveBook(QString cN, QString code, QString givingDate, QString takingDate);
-    void    TakeBook();
-
-
+    void    GiveBook(IOBooksInfo* iobi);
+    void    TakeBook(int index);
 };
 
 #endif

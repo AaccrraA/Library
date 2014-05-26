@@ -21,19 +21,19 @@ private:
 
 public:
     IOBooksInfo();
-    IOBooksInfo(QString libCardNumber,
+    IOBooksInfo(QString cardNumber,
                 QString code,
                 QString oDate,
                 QString iDate,
                 IOBooksInfo* next,
                 IOBooksInfo* prev);
-    void setLibCardNumber(QString libCardNumber);
+    void setCardNumber(QString libCardNumber);
     void setCode(QString code);
     void setODate(QString oDate);
     void setIDate(QString iDate);
-    void setNext(IOBooksInfo* const& next);
-    void setPrev(IOBooksInfo* const& next);
-    QString     getLibCardNumber();
+    void setNext(IOBooksInfo* next);
+    void setPrev(IOBooksInfo* prev);
+    QString     getCardNumber();
     QString     getCode();
     QString     getODate();
     QString     getIDate();

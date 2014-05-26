@@ -46,20 +46,19 @@ private slots:
     void on_delete_book_action_triggered();
     void on_delete_all_books_pushButton_clicked();
     void on_delete_all_books_action_triggered();
-
     void on_cb_section_comboBox_currentIndexChanged(const QString &arg1);
-
     void on_show_all_books_pushButton_clicked();
-
     void on_show_all_books_action_triggered();
-
     void on_search_book_pushButton_clicked();
 
-    void on_give_iobooksinfo_pushButton_clicked();
-
+    // --- IOBOOKSINFO
     void on_give_book_action_triggered();
-
+    void on_give_book_pushButton_clicked();
     void on_gb_give_book_pushButton_clicked();
+
+    void on_take_iobooksinfo_pushButton_clicked();
+
+    void on_take_iobooksinfo_action_triggered();
 
 private:
     Ui::MainWindow          *ui;
@@ -83,6 +82,9 @@ private:
     void DeleteAllBooks();
     // --- IOBOOKSINFO
     void GiveBook();
+    void AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw, int row);
+    void UpdateIOBooksInfoTableWidget();
+    void TakeBook();
 
 };
 
