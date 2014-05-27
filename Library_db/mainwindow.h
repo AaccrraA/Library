@@ -60,6 +60,10 @@ private slots:
 
     void on_take_iobooksinfo_action_triggered();
 
+    void on_quit_library_action_triggered();
+
+    void on_about_help_action_triggered();
+
 private:
     Ui::MainWindow          *ui;
     Library                 *library;

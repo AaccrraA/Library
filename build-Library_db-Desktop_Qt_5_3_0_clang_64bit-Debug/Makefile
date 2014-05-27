@@ -54,7 +54,9 @@ SOURCES       = ../Library_db/main.cpp \
 		../Library_db/readershash.cpp \
 		../Library_db/booktree.cpp \
 		../Library_db/iobooksinfolinkedlist.cpp \
-		../Library_db/patternmatcher.cpp moc_mainwindow.cpp
+		../Library_db/patternmatcher.cpp \
+		../Library_db/aboutdilog.cpp moc_mainwindow.cpp \
+		moc_aboutdilog.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		reader.o \
@@ -65,7 +67,9 @@ OBJECTS       = main.o \
 		booktree.o \
 		iobooksinfolinkedlist.o \
 		patternmatcher.o \
-		moc_mainwindow.o
+		aboutdilog.o \
+		moc_mainwindow.o \
+		moc_aboutdilog.o
 DIST          = ../../../Qt/5.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.3/clang_64/mkspecs/qdevice.pri \
 		../../../Qt/5.3/clang_64/mkspecs/features/device_config.prf \
@@ -191,7 +195,8 @@ DIST          = ../../../Qt/5.3/clang_64/mkspecs/features/spec_pre.prf \
 		../Library_db/readershash.cpp \
 		../Library_db/booktree.cpp \
 		../Library_db/iobooksinfolinkedlist.cpp \
-		../Library_db/patternmatcher.cpp
+		../Library_db/patternmatcher.cpp \
+		../Library_db/aboutdilog.cpp
 QMAKE_TARGET  = Library_db
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Library_db.app/Contents/MacOS/Library_db
@@ -231,7 +236,7 @@ first: all
 
 all: Makefile Library_db.app/Contents/PkgInfo Library_db.app/Contents/Resources/empty.lproj Library_db.app/Contents/Info.plist $(TARGET)
 
-$(TARGET): ui_mainwindow.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_aboutdilog.h $(OBJECTS)  
 	@test -d Library_db.app/Contents/MacOS/ || mkdir -p Library_db.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -495,7 +500,7 @@ Library_db.app/Contents/Info.plist:
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@BUNDLEIDENTIFIER@,com.InsomniaLibrary_db,g" -e "s,@EXECUTABLE@,Library_db,g" -e "s,@TYPEINFO@,????,g" ../../../Qt/5.3/clang_64/mkspecs/macx-clang/Info.plist.app >Library_db.app/Contents/Info.plist
 dist: 
 	@test -d .tmp/Library_db1.0.0 || mkdir -p .tmp/Library_db1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/Library_db1.0.0/ && $(COPY_FILE) --parents ../Library_db/mainwindow.h ../Library_db/reader.h ../Library_db/library.h ../Library_db/iobooksinfo.h ../Library_db/book.h ../Library_db/readershash.h ../Library_db/booktree.h ../Library_db/iobooksinfolinkedlist.h ../Library_db/patternmatcher.h .tmp/Library_db1.0.0/ && $(COPY_FILE) --parents ../Library_db/main.cpp ../Library_db/mainwindow.cpp ../Library_db/reader.cpp ../Library_db/library.cpp ../Library_db/iobooksinfo.cpp ../Library_db/book.cpp ../Library_db/readershash.cpp ../Library_db/booktree.cpp ../Library_db/iobooksinfolinkedlist.cpp ../Library_db/patternmatcher.cpp .tmp/Library_db1.0.0/ && $(COPY_FILE) --parents ../Library_db/mainwindow.ui .tmp/Library_db1.0.0/ && (cd `dirname .tmp/Library_db1.0.0` && $(TAR) Library_db1.0.0.tar Library_db1.0.0 && $(COMPRESS) Library_db1.0.0.tar) && $(MOVE) `dirname .tmp/Library_db1.0.0`/Library_db1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Library_db1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/Library_db1.0.0/ && $(COPY_FILE) --parents ../Library_db/mainwindow.h ../Library_db/reader.h ../Library_db/library.h ../Library_db/iobooksinfo.h ../Library_db/book.h ../Library_db/readershash.h ../Library_db/booktree.h ../Library_db/iobooksinfolinkedlist.h ../Library_db/patternmatcher.h ../Library_db/aboutdilog.h .tmp/Library_db1.0.0/ && $(COPY_FILE) --parents ../Library_db/main.cpp ../Library_db/mainwindow.cpp ../Library_db/reader.cpp ../Library_db/library.cpp ../Library_db/iobooksinfo.cpp ../Library_db/book.cpp ../Library_db/readershash.cpp ../Library_db/booktree.cpp ../Library_db/iobooksinfolinkedlist.cpp ../Library_db/patternmatcher.cpp ../Library_db/aboutdilog.cpp .tmp/Library_db1.0.0/ && $(COPY_FILE) --parents ../Library_db/mainwindow.ui ../Library_db/aboutdilog.ui .tmp/Library_db1.0.0/ && (cd `dirname .tmp/Library_db1.0.0` && $(TAR) Library_db1.0.0.tar Library_db1.0.0 && $(COMPRESS) Library_db1.0.0.tar) && $(MOVE) `dirname .tmp/Library_db1.0.0`/Library_db1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Library_db1.0.0
 
 
 clean:compiler_clean 
@@ -520,9 +525,9 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_aboutdilog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_aboutdilog.cpp
 moc_mainwindow.cpp: ../../../Qt/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QtCore \
 		../../../Qt/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qabstractanimation.h \
 		../../../Qt/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qanimationgroup.h \
@@ -800,13 +805,21 @@ moc_mainwindow.cpp: ../../../Qt/5.3/clang_64/lib/QtCore.framework/Versions/5/Hea
 		../Library_db/mainwindow.h
 	/Users/voronov/Qt/5.3/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/voronov/Qt/5.3/clang_64/mkspecs/macx-clang -I/Users/voronov/Desktop/Library/Library_db -I/Users/voronov/Qt/5.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/voronov/Qt/5.3/clang_64/lib/QtGui.framework/Headers -I/Users/voronov/Qt/5.3/clang_64/lib/QtCore.framework/Headers -I. -F/Users/voronov/Qt/5.3/clang_64/lib ../Library_db/mainwindow.h -o moc_mainwindow.cpp
 
+moc_aboutdilog.cpp: ../../../Qt/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		../../../Qt/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../Library_db/aboutdilog.h
+	/Users/voronov/Qt/5.3/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/voronov/Qt/5.3/clang_64/mkspecs/macx-clang -I/Users/voronov/Desktop/Library/Library_db -I/Users/voronov/Qt/5.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/voronov/Qt/5.3/clang_64/lib/QtGui.framework/Headers -I/Users/voronov/Qt/5.3/clang_64/lib/QtCore.framework/Headers -I. -F/Users/voronov/Qt/5.3/clang_64/lib ../Library_db/aboutdilog.h -o moc_aboutdilog.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_aboutdilog.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_mainwindow.h ui_aboutdilog.h
 ui_mainwindow.h: ../Library_db/mainwindow.ui
 	/Users/voronov/Qt/5.3/clang_64/bin/uic ../Library_db/mainwindow.ui -o ui_mainwindow.h
+
+ui_aboutdilog.h: ../Library_db/aboutdilog.ui
+	/Users/voronov/Qt/5.3/clang_64/bin/uic ../Library_db/aboutdilog.ui -o ui_aboutdilog.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -1374,7 +1387,10 @@ mainwindow.o: ../Library_db/mainwindow.cpp ../Library_db/mainwindow.h \
 		../Library_db/readershash.h \
 		../Library_db/booktree.h \
 		../Library_db/iobooksinfolinkedlist.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		../Library_db/aboutdilog.h \
+		../../../Qt/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		../../../Qt/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Library_db/mainwindow.cpp
 
 reader.o: ../Library_db/reader.cpp ../Library_db/reader.h \
@@ -2387,8 +2403,17 @@ patternmatcher.o: ../Library_db/patternmatcher.cpp ../Library_db/patternmatcher.
 		../../../Qt/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtcoreversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o patternmatcher.o ../Library_db/patternmatcher.cpp
 
+aboutdilog.o: ../Library_db/aboutdilog.cpp ../Library_db/aboutdilog.h \
+		../../../Qt/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		../../../Qt/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		ui_aboutdilog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o aboutdilog.o ../Library_db/aboutdilog.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_aboutdilog.o: moc_aboutdilog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_aboutdilog.o moc_aboutdilog.cpp
 
 ####### Install
 

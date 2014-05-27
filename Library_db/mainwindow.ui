@@ -821,10 +821,6 @@
     </property>
     <addaction name="separator"/>
     <addaction name="create_library_action"/>
-    <addaction name="open_library_action"/>
-    <addaction name="separator"/>
-    <addaction name="save_library_action"/>
-    <addaction name="save_as_library_action"/>
     <addaction name="separator"/>
     <addaction name="quit_library_action"/>
    </widget>

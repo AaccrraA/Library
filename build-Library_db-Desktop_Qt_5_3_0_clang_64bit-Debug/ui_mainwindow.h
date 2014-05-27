@@ -837,10 +837,6 @@ public:
         menuBar->addAction(help_menu->menuAction());
         library_menu->addSeparator();
         library_menu->addAction(create_library_action);
-        library_menu->addAction(open_library_action);
-        library_menu->addSeparator();
-        library_menu->addAction(save_library_action);
-        library_menu->addAction(save_as_library_action);
         library_menu->addSeparator();
         library_menu->addAction(quit_library_action);
         reader_menu->addAction(add_reader_action);

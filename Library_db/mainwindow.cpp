@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "library.h"
+#include "aboutdilog.h"
 
 MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
                                             ui(new Ui::MainWindow) {
@@ -137,10 +138,10 @@ void MainWindow::on_cr_ok_pushButton_clicked() {
     QString adress_str = ui->cr_adress_lineEdit->text();
     QString jOrSP_str = ui->cr_job_or_study_place_lineEdit->text();
 
-    QRegExp fio_rexp("");
-    QRegExp yOfB_rexp("");
-    QRegExp adress_rexp("");
-    QRegExp jOrSP_rexp("");
+    QRegExp fio_rexp("[A-Z, a-z, А-Я, а-я]{100}");
+    QRegExp yOfB_rexp("[0-9]{4}");
+    QRegExp adress_rexp("[A-Z, a-z, А-Я, а-я]{100}");
+    QRegExp jOrSP_rexp("[A-Z, a-z, А-Я, а-я]{100}");
 
     if (fio_rexp.indexIn(fio_str) < 0) {
         // Не павильная фамилия
@@ -349,12 +350,12 @@ void MainWindow::on_cb_ok_pushButton_clicked() {
     QString all_copies_str = ui->cb_all_copies_lineEdit->text();
     QString copies_in_stock_str = ui->cb_copies_in_stock_lineEdit->text();
 
-    QRegExp authors_rexp("");
-    QRegExp title_rexp("");
-    QRegExp publisher_rexp("");
-    QRegExp yOfP_rexp("");
-    QRegExp all_copies_rexp("");
-    QRegExp copies_in_stock_rexp("");
+    QRegExp authors_rexp("[A-Z, a-z, А-Я, а-я]{100}");
+    QRegExp title_rexp("[A-Z, a-z, А-Я, а-я]{100}");
+    QRegExp publisher_rexp("[A-Z, a-z, А-Я, а-я]{100}");
+    QRegExp yOfP_rexp("[0-9]{4}");
+    QRegExp all_copies_rexp("[0-9]{10}");
+    QRegExp copies_in_stock_rexp("[0-9]{10}");
 
     QString errorMsg = tr("Ошибка в поле ");
     if (authors_rexp.indexIn(authors_str) < 0) {
@@ -644,4 +645,13 @@ void MainWindow::TakeBook() {
     } else {
         QMessageBox::critical(this, tr("Нет выбранных строк"), tr("Для удаления, выберите строки или ячейки строк."), QMessageBox::Ok);
     }
+}
+
+void MainWindow::on_quit_library_action_triggered() {
+    this->close();
+}
+
+void MainWindow::on_about_help_action_triggered() {
+    AboutDilog ad(this);
+    ad.exec();
 }
