@@ -16,7 +16,7 @@ private:
 public:
     ReadersHash();
     void                Add(Reader* r);
-    Reader*             SearchByCardNumber(QString cN);
+    QVector<Reader*>    SearchByCardNumber(QString cN);
     QVector<Reader*>    SearchByFIO(QString f);
     void                Delete(qint32 index);
     int                 GetSize();

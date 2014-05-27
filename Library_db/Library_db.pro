@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     book.cpp \
     readershash.cpp \
     booktree.cpp \
-    iobooksinfolinkedlist.cpp
+    iobooksinfolinkedlist.cpp \
+    patternmatcher.cpp
 
 HEADERS  += mainwindow.h \
     reader.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     book.h \
     readershash.h \
     booktree.h \
-    iobooksinfolinkedlist.h
+    iobooksinfolinkedlist.h \
+    patternmatcher.h
 
 FORMS    += mainwindow.ui
 

@@ -36,19 +36,19 @@ void ReadersHash::Add(Reader* r) {
     numberOfReaders++;
 }
 
-Reader* ReadersHash::SearchByCardNumber(QString cN) {
-    int index = GenerateIndex(cN);
-
-    Reader* temp = map.at(index);
-    bool isFounded = false;
-    while (temp != NULL) {
-        if (temp->getCardNumber() == cN) {
-            isFounded = true;
-            break;
+QVector<Reader*> ReadersHash::SearchByCardNumber(QString cN) {
+    QVector<Reader*> results;
+    Reader* r;
+    for (int i = 0; i < map.size()-1; ++i) {
+        r = map.at(i);
+        while (r != NULL) {
+            if (r->getCardNumber().contains(cN, Qt::CaseSensitive)) {
+                results.append(r);
+            }
+            r = r->getNext();
         }
-        temp = temp->getNext();
     }
-    return isFounded ? temp : NULL;
+    return results;
 }
 
 QVector<Reader*> ReadersHash::SearchByFIO(QString f) {
@@ -57,7 +57,8 @@ QVector<Reader*> ReadersHash::SearchByFIO(QString f) {
     for (int i = 0; i < map.size()-1; ++i) {
         r = map.at(i);
         while (r != NULL) {
-            if (r->getFio() == f) {
+            if (r->getFio().contains(f, Qt::CaseSensitive)) {
+                //r->getFio() == f
                 results.append(r);
             }
             r = r->getNext();

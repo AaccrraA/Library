@@ -267,38 +267,30 @@ void MainWindow::on_show_all_readers_pushButton_clicked() { UpdateReaderTableWid
 
 void MainWindow::on_search_reader_pushButton_clicked() {
     int row;
+    QVector<Reader*> results;
     if (ui->search_reader_lineEdit->text() != "") {
         if (ui->search_reader_by_FIO_radioButton->isChecked()) {
-            QVector<Reader*> results;
             results = library->readersHash->SearchByFIO(ui->search_reader_lineEdit->text());
-            if (results.size() != 0) {
-                ClearTableWidget(ui->reader_tableWidget);
-                foreach (Reader* r, results) {
-                    row = ui->reader_tableWidget->rowCount();
-                    ui->reader_tableWidget->insertRow(row);
-                    AddReaderInTableWidget(r, ui->reader_tableWidget, row);
-                }
-            }
-            else {
-                QMessageBox::information(this, tr("Совпадения отсутствуют"), tr("Читателей с таким имненем не зарегистрировано."), QMessageBox::Ok);
-            }
         } else if (ui->search_reader_by_card_number_radioButton->isChecked()) {
-            Reader *r = library->readersHash->SearchByCardNumber(ui->search_reader_lineEdit->text());
-            if (r != NULL) {
-                ClearTableWidget(ui->reader_tableWidget);
-                row = ui->reader_tableWidget->rowCount();
-                ui->reader_tableWidget->insertRow(row);
-                AddReaderInTableWidget(r, ui->reader_tableWidget, row);
-            }
-            else {
-                QMessageBox::information(this, tr("Совпадения отсутствуют"), tr("Поиск не дал результатов."), QMessageBox::Ok);
-            }
+            results = library->readersHash->SearchByCardNumber(ui->search_reader_lineEdit->text());
         }
         else {
             QMessageBox::critical(this, tr("Отсутствуют параметры поиска"), tr("Выберите один из вариантов поиска."), QMessageBox::Ok);
         }
     } else {
         QMessageBox::critical(this, tr("Строка поиска пуста"), tr("Заполните строку поиска."), QMessageBox::Ok);
+    }
+
+    if (results.size() != 0) {
+        ClearTableWidget(ui->reader_tableWidget);
+        foreach (Reader* r, results) {
+            row = ui->reader_tableWidget->rowCount();
+            ui->reader_tableWidget->insertRow(row);
+            AddReaderInTableWidget(r, ui->reader_tableWidget, row);
+        }
+    }
+    else {
+        QMessageBox::information(this, tr("Совпадения отсутствуют"), tr("Читателей не найдено."), QMessageBox::Ok);
     }
 }
 

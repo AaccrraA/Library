@@ -13,7 +13,7 @@ Reader* Library::AddReader(QString rOfA, QString fio, QString yOfB, QString adre
 
     bool isReaderAdded = true;
 
-    if (readersHash->SearchByCardNumber(newReader->getCardNumber()) == NULL) {
+    if (readersHash->SearchByCardNumber(newReader->getCardNumber()).size() == 0) {
         // --- Добавляем читателя
         readersHash->Add(newReader);
         ++registrationNumber;
