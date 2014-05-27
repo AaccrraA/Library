@@ -26,7 +26,7 @@ IOBooksInfo* IOBooksInfoLinkedList::getFirst() {
     return first;
 }
 
-void IOBooksInfoLinkedList::Delete(int index) {
+void IOBooksInfoLinkedList::Delete(qint32 index) {
     IOBooksInfo* temp = first;
     while (index != 0 && temp != NULL) {
         temp = temp->getNext();

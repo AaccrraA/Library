@@ -49,7 +49,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="reader_tab">
            <attribute name="title">
@@ -812,7 +812,7 @@
      <x>0</x>
      <y>0</y>
      <width>616</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="library_menu">
@@ -821,10 +821,6 @@
     </property>
     <addaction name="separator"/>
     <addaction name="create_library_action"/>
-    <addaction name="open_library_action"/>
-    <addaction name="separator"/>
-    <addaction name="save_library_action"/>
-    <addaction name="save_as_library_action"/>
     <addaction name="separator"/>
     <addaction name="quit_library_action"/>
    </widget>
@@ -883,14 +879,6 @@
   <action name="create_library_action">
    <property name="text">
     <string>Создать</string>
-   </property>
-  </action>
-  <action name="save_library_action">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Сохранить</string>
    </property>
   </action>
   <action name="add_reader_action">
@@ -952,19 +940,6 @@
     <string>Выдать книгу</string>
    </property>
   </action>
-  <action name="save_as_library_action">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Сохранить как...</string>
-   </property>
-  </action>
-  <action name="open_library_action">
-   <property name="text">
-    <string>Открыть</string>
-   </property>
-  </action>
   <action name="quit_library_action">
    <property name="text">
     <string>Выход</string>
@@ -978,24 +953,50 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>reader_tableWidget</tabstop>
+  <tabstop>add_reader_pushButton</tabstop>
   <tabstop>delete_reader_pushButton</tabstop>
   <tabstop>delete_all_readers_pushButton</tabstop>
   <tabstop>show_all_readers_pushButton</tabstop>
-  <tabstop>book_tableWidget</tabstop>
-  <tabstop>add_book_pushButton</tabstop>
-  <tabstop>delete_book_pushButton</tabstop>
-  <tabstop>delete_all_books_pushButton</tabstop>
-  <tabstop>iobooksinfo_tableWidget</tabstop>
-  <tabstop>take_iobooksinfo_pushButton</tabstop>
-  <tabstop>cr_right_of_acces_comboBox</tabstop>
+  <tabstop>search_reader_lineEdit</tabstop>
+  <tabstop>search_reader_by_FIO_radioButton</tabstop>
+  <tabstop>search_reader_by_card_number_radioButton</tabstop>
+  <tabstop>search_reader_pushButton</tabstop>
   <tabstop>cr_fio_lineEdit</tabstop>
   <tabstop>cr_year_of_birth_lineEdit</tabstop>
   <tabstop>cr_adress_lineEdit</tabstop>
   <tabstop>cr_job_or_study_place_lineEdit</tabstop>
   <tabstop>cr_ok_pushButton</tabstop>
   <tabstop>cr_cancel_pushButton</tabstop>
+  <tabstop>cb_section_comboBox</tabstop>
+  <tabstop>cb_authors_lineEdit</tabstop>
+  <tabstop>cb_title_lineEdit</tabstop>
   <tabstop>library_tabWidget</tabstop>
+  <tabstop>cb_publisher_lineEdit</tabstop>
+  <tabstop>cb_year_of_publication_lineEdit</tabstop>
+  <tabstop>cb_all_copies_lineEdit</tabstop>
+  <tabstop>cb_copies_in_stock_lineEdit</tabstop>
+  <tabstop>cb_ok_pushButton</tabstop>
+  <tabstop>cb_cancel_pushButton</tabstop>
+  <tabstop>gb_readers_comboBox</tabstop>
+  <tabstop>gb_books_comboBox</tabstop>
+  <tabstop>gb_taking_dateEdit</tabstop>
+  <tabstop>gb_giving_dateEdit</tabstop>
+  <tabstop>gb_give_book_pushButton</tabstop>
+  <tabstop>gb_cancel_pushButton</tabstop>
+  <tabstop>add_book_pushButton</tabstop>
+  <tabstop>delete_book_pushButton</tabstop>
+  <tabstop>delete_all_books_pushButton</tabstop>
+  <tabstop>show_all_books_pushButton</tabstop>
+  <tabstop>search_book_lineEdit</tabstop>
+  <tabstop>search_book_pushButton</tabstop>
+  <tabstop>search_book_by_Code_radioButton</tabstop>
+  <tabstop>search_book_by_author_or_title_radioButton</tabstop>
+  <tabstop>give_book_pushButton</tabstop>
+  <tabstop>take_iobooksinfo_pushButton</tabstop>
+  <tabstop>cr_right_of_acces_comboBox</tabstop>
+  <tabstop>reader_tableWidget</tabstop>
+  <tabstop>book_tableWidget</tabstop>
+  <tabstop>iobooksinfo_tableWidget</tabstop>
  </tabstops>
  <resources/>
  <connections/>

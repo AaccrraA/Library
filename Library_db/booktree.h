@@ -23,9 +23,9 @@ public:
     void    Visit(Book* p, QVector<Book *> &r);
     void    DeleteAll(Book* p);
     Book*   SearchByCode(QString code);
-    QVector<Book*> SearchByAuthorsOrTitle(QString authors);
+    QVector<Book*> SearchByAuthorsOrTitle(QString str);
     QVector<Book*> GetVectorOfBooks();
-    int     BoyerMooreHorspoolSearch(QString haystack, QString needle);
+    qint32 BMSearch(QString haystack, QString needle);
 
 };
 

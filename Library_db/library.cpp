@@ -11,16 +11,13 @@ Library::Library() {
 Reader* Library::AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP) {
     Reader *newReader = new Reader(GenerateCardNumber(rOfA), fio, yOfB, adress, jOrSP, NULL, NULL);
 
-    bool isReaderAdded = true;
-
-    if (readersHash->SearchByCardNumber(newReader->getCardNumber()) == NULL) {
+    if (readersHash->SearchByCardNumber(newReader->getCardNumber()).size() == 0) {
         // --- Добавляем читателя
         readersHash->Add(newReader);
         ++registrationNumber;
     }
     else {
         // Такой читатель уже существует
-        isReaderAdded = false;
         delete newReader;
         newReader = NULL;
     }
@@ -32,7 +29,7 @@ QString Library::GenerateCardNumber(QString rOfA) {
     QString cN;
     cN += rOfA;
     QString regNumStr = QString::number((this->registrationNumber));
-    for(int i = 0; i < 4-regNumStr.length(); i++) {
+    for(qint32 i = 0; i < 4-regNumStr.length(); i++) {
         cN += "0";
     }
     cN += regNumStr;
@@ -43,8 +40,8 @@ QString Library::GenerateCardNumber(QString rOfA) {
     return cN;
 }
 
-int Library::GetReadersHashSize() {
-    int i = this->readersHash->GetSize();
+qint32 Library::GetReadersHashSize() {
+    qint32 i = this->readersHash->GetSize();
     return i;
 }
 
@@ -57,14 +54,12 @@ Book* Library::AddBook(QString sectionId,
                     QString allCopies,
                     QString copiesInStock) {
     Book* newBook = new Book(GenerateCode(sectionId, copiesInSection), authors, title, publisher, yearOfPublication, allCopies, copiesInStock);
-    bool isBookAdded = true;
     if (bookAVLTree->SearchByCode(newBook->getCode()) == NULL) {
         // --- Добавляем читателя
         bookAVLTree->root = bookAVLTree->Add(bookAVLTree->root, newBook);
     }
     else {
         // --- Такой читатель уже существует
-        isBookAdded = false;
         delete newBook;
         newBook = NULL;
     }
@@ -73,12 +68,12 @@ Book* Library::AddBook(QString sectionId,
 
 QString Library::GenerateCode(QString sectionId, QString copiesInSection) {
     QString code = "";
-    for(int i = 0; i < 3-sectionId.length(); i++) {
+    for(qint32 i = 0; i < 3-sectionId.length(); i++) {
         code += "0";
     }
     code += sectionId;
     code += ".";
-    for(int i = 0; i < 3-copiesInSection.length(); i++) {
+    for(qint32 i = 0; i < 3-copiesInSection.length(); i++) {
         code += "0";
     }
     code += copiesInSection;
@@ -97,6 +92,6 @@ void Library::GiveBook(IOBooksInfo* iobi) {
     ioBooksInfoList->Add(iobi);
 }
 
-void Library::TakeBook(int index) {
+void Library::TakeBook(qint32 index) {
     ioBooksInfoList->Delete(index);
 }

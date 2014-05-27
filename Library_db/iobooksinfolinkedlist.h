@@ -13,7 +13,7 @@ public:
     void Add(IOBooksInfo* iobi);
     void setFirst(IOBooksInfo* iobi);
     IOBooksInfo* getFirst();
-    void Delete(int index);
+    void Delete(qint32 index);
 };
 
 #endif // IOBOOKSINFOLINKEDLIST_H

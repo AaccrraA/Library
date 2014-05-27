@@ -1,5 +1,6 @@
 #include <QtCore>
 #include "booktree.h"
+#include "patternmatcher.h"
 
 BookTree::BookTree() {
     root = NULL;
@@ -111,52 +112,14 @@ Book* BookTree::SearchByCode(QString code) {
     return tmp;
 }
 
-QVector<Book*> BookTree::SearchByAuthorsOrTitle(QString authors) {
+QVector<Book*> BookTree::SearchByAuthorsOrTitle(QString str) {
     QVector<Book*> treeVec, results;
     Visit(root, treeVec);
     foreach (Book* b, treeVec) {
-        if (BoyerMooreHorspoolSearch(b->getAuthors(), authors) || BoyerMooreHorspoolSearch(b->getTitle(), authors))
+        if (PatternMatcher::bmpSearch(b->getAuthors(), str) != -1 || PatternMatcher::bmpSearch(b->getTitle(), str) != -1)
             results.append(b);
     }
     return results;
-}
-
-int BookTree::BoyerMooreHorspoolSearch(QString haystack, QString needle ) {
-    /*int needleLen = needle.length();
-    int haystackLen = haystack.length();
-    if (needleLen < haystackLen) {
-        QHash<QChar, int> offsetTable;
-
-        for (int i = 0; i < 256; ++i) {
-            //QChar c((short) i);
-            offsetTable.insert(i, needleLen);
-        }
-        for (int i = 0; i < needleLen; ++i) {
-            QChar c = needle.at(i);
-            offsetTable.insert(c, haystackLen - i - 1);
-        }
-        int i = needleLen - 1;
-        int j = i;
-        int k = i;
-        while (j >= 0 && i <= haystackLen - 1) {
-                j = needleLen - 1;
-                k = i;
-                while (j >= 0 && haystack.at(k) == haystack.at(j)) {
-                    k--;
-                    j--;
-                }
-                i += offsetTable.take(needle.at(i));
-            }
-            if (k >= haystackLen - needleLen) {
-                return -1;
-            } else {
-                return k + 1;
-            }
-    }
-    else {
-        return -1;
-    }*/
-    return 0;
 }
 
 QVector<Book*> BookTree::GetVectorOfBooks() {
@@ -180,7 +143,6 @@ void BookTree::DeleteAll(Book *p) {
         delete p;
     }
 }
-
 
 
 

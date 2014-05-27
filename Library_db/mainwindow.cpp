@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "library.h"
+#include "aboutdilog.h"
 
 MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
                                             ui(new Ui::MainWindow) {
@@ -33,8 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :   QMainWindow(parent),
     ui->book_menu->setEnabled(false);
     ui->iobooksinfo_menu->setEnabled(false);
     ui->stackedWidget->setEnabled(false);
-    ui->save_library_action->setEnabled(false);
-    ui->save_as_library_action->setEnabled(false);
 
     // --- Setting up main widget
     ui->stackedWidget->setCurrentWidget(ui->library_page);
@@ -87,8 +86,6 @@ void MainWindow::on_create_library_action_triggered() {
         ui->book_menu->setEnabled(true);
         ui->iobooksinfo_menu->setEnabled(true);
         ui->stackedWidget->setEnabled(true);
-        ui->save_library_action->setEnabled(true);
-        ui->save_as_library_action->setEnabled(true);
     }
     else {
         // --- Saving Current Library
@@ -102,8 +99,8 @@ void MainWindow::on_create_library_action_triggered() {
 // --------------
 void MainWindow::UpdateReaderTableWidget() {
     ClearTableWidget(ui->reader_tableWidget);
-    int row;
-    for (int i = 0; i < library->readersHash->GetSize(); ++i) {
+    qint32 row;
+    for (qint32 i = 0; i < library->readersHash->GetSize(); ++i) {
         if (library->readersHash->At(i) != NULL) {
             row = ui->reader_tableWidget->rowCount();
             ui->reader_tableWidget->insertRow(row);
@@ -129,40 +126,34 @@ void MainWindow::CreateReader() {
 }
 
 void MainWindow::on_cr_ok_pushButton_clicked() {
-    bool isCorrectForm = true;
-
     QString rOfA_str = QString::number(ui->cr_right_of_acces_comboBox->currentIndex());
     QString fio_str = ui->cr_fio_lineEdit->text();
     QString yOfB_str = ui->cr_year_of_birth_lineEdit->text();
     QString adress_str = ui->cr_adress_lineEdit->text();
     QString jOrSP_str = ui->cr_job_or_study_place_lineEdit->text();
 
-    QRegExp fio_rexp("");
-    QRegExp yOfB_rexp("");
-    QRegExp adress_rexp("");
-    QRegExp jOrSP_rexp("");
+    QRegExp fio_rexp("[A-Z, a-z, А-Я, а-я]");
+    QRegExp yOfB_rexp("[0-9]{4}");
+    QRegExp adress_rexp("[A-Z, a-z, А-Я, а-я]");
+    QRegExp jOrSP_rexp("[A-Z, a-z, А-Я, а-я]");
 
     if (fio_rexp.indexIn(fio_str) < 0) {
         // Не павильная фамилия
-        isCorrectForm = false;
+        QMessageBox::critical(this, tr("Заполнение поля"), tr("Поле фамилия заполнено неверно."), QMessageBox::Ok);
     }
-
-    if (yOfB_rexp.indexIn(yOfB_str) < 0) {
+    else if (yOfB_rexp.indexIn(yOfB_str) < 0) {
         // Не правильный год рождения
-        isCorrectForm = false;
+        QMessageBox::critical(this, tr("Заполнение поля"), tr("Поле год рождения заполнено неверно."), QMessageBox::Ok);
     }
-
-    if (adress_rexp.indexIn(adress_str) < 0) {
+    else if (adress_rexp.indexIn(adress_str) < 0) {
         // Не правильный адрес
-        isCorrectForm = false;
+        QMessageBox::critical(this, tr("Заполнение поля"), tr("Поле адрес заполнено неверно."), QMessageBox::Ok);
     }
-
-    if (jOrSP_rexp.indexIn(jOrSP_str) < 0) {
+    else if (jOrSP_rexp.indexIn(jOrSP_str) < 0) {
         // Не правильная работа
-        isCorrectForm = false;
+        QMessageBox::critical(this, tr("Заполнение поля"), tr("Поле место работы или учебы заполнено неверно."), QMessageBox::Ok);
     }
-
-    if (isCorrectForm) {
+    else {
         Reader* r = library->AddReader(rOfA_str, fio_str, yOfB_str, adress_str, jOrSP_str);
         if (r != NULL) {
             UpdateReaderTableWidget();
@@ -175,10 +166,6 @@ void MainWindow::on_cr_ok_pushButton_clicked() {
             QMessageBox::critical(this, tr("Ошибка"), tr("Такой читатель уже зарегистрирован."), QMessageBox::Ok);
         }
     }
-    else {
-        // Вывести ошибку о заполнении полей
-        QMessageBox::critical(this, tr("Ошибка"), tr("Следующие поля заполнены неверно"), QMessageBox::Ok);
-    }
 }
 
 void MainWindow::on_cr_cancel_pushButton_clicked() {
@@ -186,7 +173,7 @@ void MainWindow::on_cr_cancel_pushButton_clicked() {
     ui->library_tabWidget->setCurrentWidget(ui->reader_tab);
 }
 
-void MainWindow::AddReaderInTableWidget(Reader* r, QTableWidget* tw, int row) {
+void MainWindow::AddReaderInTableWidget(Reader* r, QTableWidget* tw, qint32 row) {
     tw->setItem(row, 0, new QTableWidgetItem(QString::number(r->getHashIndex())));
     tw->setItem(row, 1, new QTableWidgetItem(r->getCardNumber()));
     tw->setItem(row, 2, new QTableWidgetItem(r->getFio()));
@@ -202,7 +189,7 @@ void MainWindow::on_delete_reader_pushButton_clicked() { DeleteReader(); }
 
 void MainWindow::DeleteReader() {
     QList<QTableWidgetItem*> selectionRangeList = this->ui->reader_tableWidget->selectedItems();
-    int rowIndex;
+    qint32 rowIndex;
     QListIterator<QTableWidgetItem*> selectionRangeListIter(selectionRangeList);
 
     if (selectionRangeList.size() > 0) {
@@ -211,7 +198,7 @@ void MainWindow::DeleteReader() {
         msgBox.setInformativeText(tr("Вы уверены, что хотите удалить выбранные строки?"));
         msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        qint32 ret = msgBox.exec();
         switch (ret) {
             case QMessageBox::Ok:
                 while(selectionRangeListIter.hasNext()){
@@ -242,10 +229,10 @@ void MainWindow::DeleteAllReaders() {
         msgBox.setInformativeText(tr("Вы уверены, что хотите стереть все записи таблицы \"Читатели\"?"));
         msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        qint32 ret = msgBox.exec();
         switch (ret) {
             case QMessageBox::Ok:
-                for (int i = 0; i < library->readersHash->GetSize()-1; ++i) {
+                for (qint32 i = 0; i < library->readersHash->GetSize()-1; ++i) {
                     library->readersHash->Delete(i);
                 }
                 break;
@@ -266,39 +253,31 @@ void MainWindow::on_show_all_readers_pushButton_clicked() { UpdateReaderTableWid
 // ------ Search Reader
 
 void MainWindow::on_search_reader_pushButton_clicked() {
-    int row;
+    qint32 row;
+    QVector<Reader*> results;
     if (ui->search_reader_lineEdit->text() != "") {
         if (ui->search_reader_by_FIO_radioButton->isChecked()) {
-            QVector<Reader*> results;
             results = library->readersHash->SearchByFIO(ui->search_reader_lineEdit->text());
-            if (results.size() != 0) {
-                ClearTableWidget(ui->reader_tableWidget);
-                foreach (Reader* r, results) {
-                    row = ui->reader_tableWidget->rowCount();
-                    ui->reader_tableWidget->insertRow(row);
-                    AddReaderInTableWidget(r, ui->reader_tableWidget, row);
-                }
-            }
-            else {
-                QMessageBox::information(this, tr("Совпадения отсутствуют"), tr("Читателей с таким имненем не зарегистрировано."), QMessageBox::Ok);
-            }
         } else if (ui->search_reader_by_card_number_radioButton->isChecked()) {
-            Reader *r = library->readersHash->SearchByCardNumber(ui->search_reader_lineEdit->text());
-            if (r != NULL) {
-                ClearTableWidget(ui->reader_tableWidget);
-                row = ui->reader_tableWidget->rowCount();
-                ui->reader_tableWidget->insertRow(row);
-                AddReaderInTableWidget(r, ui->reader_tableWidget, row);
-            }
-            else {
-                QMessageBox::information(this, tr("Совпадения отсутствуют"), tr("Поиск не дал результатов."), QMessageBox::Ok);
-            }
+            results = library->readersHash->SearchByCardNumber(ui->search_reader_lineEdit->text());
         }
         else {
             QMessageBox::critical(this, tr("Отсутствуют параметры поиска"), tr("Выберите один из вариантов поиска."), QMessageBox::Ok);
         }
     } else {
         QMessageBox::critical(this, tr("Строка поиска пуста"), tr("Заполните строку поиска."), QMessageBox::Ok);
+    }
+
+    if (results.size() != 0) {
+        ClearTableWidget(ui->reader_tableWidget);
+        foreach (Reader* r, results) {
+            row = ui->reader_tableWidget->rowCount();
+            ui->reader_tableWidget->insertRow(row);
+            AddReaderInTableWidget(r, ui->reader_tableWidget, row);
+        }
+    }
+    else {
+        QMessageBox::information(this, tr("Совпадения отсутствуют"), tr("Читателей не найдено."), QMessageBox::Ok);
     }
 }
 
@@ -308,7 +287,7 @@ void MainWindow::on_search_reader_pushButton_clicked() {
 void MainWindow::UpdateBookTableWidget() {
     ClearTableWidget(ui->book_tableWidget);
     QVector<Book*> vector = library->bookAVLTree->GetVectorOfBooks();
-    int row;
+    qint32 row;
     foreach (Book* b, vector) {
         row = ui->book_tableWidget->rowCount();
         ui->book_tableWidget->insertRow(row);
@@ -317,7 +296,7 @@ void MainWindow::UpdateBookTableWidget() {
 }
 
 // ------ Create Book
-void MainWindow::AddBookInTableWidget(Book* b, QTableWidget* tw, int row) {
+void MainWindow::AddBookInTableWidget(Book* b, QTableWidget* tw, qint32 row) {
     tw->setItem(row, 0, new QTableWidgetItem(b->getCode()));
     tw->setItem(row, 1, new QTableWidgetItem(b->getAuthors()));
     tw->setItem(row, 2, new QTableWidgetItem(b->getTitle()));
@@ -357,12 +336,12 @@ void MainWindow::on_cb_ok_pushButton_clicked() {
     QString all_copies_str = ui->cb_all_copies_lineEdit->text();
     QString copies_in_stock_str = ui->cb_copies_in_stock_lineEdit->text();
 
-    QRegExp authors_rexp("");
-    QRegExp title_rexp("");
-    QRegExp publisher_rexp("");
-    QRegExp yOfP_rexp("");
-    QRegExp all_copies_rexp("");
-    QRegExp copies_in_stock_rexp("");
+    QRegExp authors_rexp("[A-Z, a-z, А-Я, а-я]");
+    QRegExp title_rexp("[A-Z, a-z, А-Я, а-я]");
+    QRegExp publisher_rexp("[A-Z, a-z, А-Я, а-я]");
+    QRegExp yOfP_rexp("[0-9]{4}");
+    QRegExp all_copies_rexp("[0-9]");
+    QRegExp copies_in_stock_rexp("[0-9]");
 
     QString errorMsg = tr("Ошибка в поле ");
     if (authors_rexp.indexIn(authors_str) < 0) {
@@ -433,7 +412,7 @@ void MainWindow::on_delete_book_action_triggered() { DeleteBook(); }
 
 void MainWindow::DeleteBook() {
     QList<QTableWidgetItem*> selectionRangeList = ui->book_tableWidget->selectedItems();
-    int rowIndex;
+    qint32 rowIndex;
     QListIterator<QTableWidgetItem*> selectionRangeListIter(selectionRangeList);
 
     if (selectionRangeList.size() > 0) {
@@ -442,7 +421,7 @@ void MainWindow::DeleteBook() {
         msgBox.setInformativeText(tr("Вы уверены, что хотите удалить выбранные строки?"));
         msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        qint32 ret = msgBox.exec();
         switch (ret) {
             case QMessageBox::Ok:
                 while(selectionRangeListIter.hasNext()){
@@ -472,7 +451,7 @@ void MainWindow::DeleteAllBooks() {
         msgBox.setInformativeText(tr("Вы уверены, что хотите стереть все записи таблицы \"Читатели\"?"));
         msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        qint32 ret = msgBox.exec();
         switch (ret) {
             case QMessageBox::Ok:
                 library->DeleteAllBooks();
@@ -493,7 +472,7 @@ void MainWindow::on_show_all_books_action_triggered() { UpdateBookTableWidget();
 
 // ------ Search Book
 void MainWindow::on_search_book_pushButton_clicked() {
-    int row;
+    qint32 row;
     if (ui->search_book_lineEdit->text() != "") {
         if (ui->search_book_by_author_or_title_radioButton->isChecked()) {
             QVector<Book*> results;
@@ -539,7 +518,7 @@ void MainWindow::on_give_book_action_triggered() { GiveBook(); }
 
 void MainWindow::GiveBook() {
     ui->gb_readers_comboBox->clear();
-    for (int i = 0; i < library->readersHash->GetSize(); ++i) {
+    for (qint32 i = 0; i < library->readersHash->GetSize(); ++i) {
         if (library->readersHash->At(i) != NULL) {
             QString str = library->readersHash->At(i)->getFio() + "/" + library->readersHash->At(i)->getCardNumber();
             ui->gb_readers_comboBox->addItem(str);
@@ -573,7 +552,7 @@ void MainWindow::on_gb_give_book_pushButton_clicked() {
         QString bookCode = ui->gb_books_comboBox->currentText();
         QString givingDate = ui->gb_giving_dateEdit->date().toString("dd.MM.yy");
         QString takingDate = ui->gb_taking_dateEdit->date().toString("dd.MM.yy");;
-        for (int i = 0; i < readerCardNumber.length(); ++i) {
+        for (qint32 i = 0; i < readerCardNumber.length(); ++i) {
             if (readerCardNumber.at(i) != '/') {
                 readerCardNumber.remove(i, 1);
                 --i;
@@ -583,7 +562,7 @@ void MainWindow::on_gb_give_book_pushButton_clicked() {
                 break;
             }
         }
-        for (int i = 0; i < bookCode.length(); ++i) {
+        for (qint32 i = 0; i < bookCode.length(); ++i) {
             if (bookCode.at(i) != '/') {
                 bookCode.remove(i, 1);
                 i--;
@@ -604,7 +583,7 @@ void MainWindow::on_gb_give_book_pushButton_clicked() {
     ui->library_tabWidget->setCurrentWidget(ui->iobooksinfo_tab);
 }
 
-void MainWindow::AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw, int row) {
+void MainWindow::AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw, qint32 row) {
     tw->setItem(row, 0, new QTableWidgetItem(iobi->getCardNumber()));
     tw->setItem(row, 1, new QTableWidgetItem(iobi->getCode()));
     tw->setItem(row, 2, new QTableWidgetItem(iobi->getODate()));
@@ -613,7 +592,7 @@ void MainWindow::AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw
 
 void MainWindow::UpdateIOBooksInfoTableWidget() {
     IOBooksInfo* temp = library->ioBooksInfoList->getFirst();
-    int row;
+    qint32 row;
     ClearTableWidget(ui->iobooksinfo_tableWidget);
     while (temp != NULL) {
         row = ui->iobooksinfo_tableWidget->rowCount();
@@ -628,7 +607,7 @@ void MainWindow::on_take_iobooksinfo_pushButton_clicked() { TakeBook(); }
 
 void MainWindow::TakeBook() {
     QList<QTableWidgetItem*> selectionRangeList = ui->iobooksinfo_tableWidget->selectedItems();
-    int rowIndex;
+    qint32 rowIndex;
     QListIterator<QTableWidgetItem*> selectionRangeListIter(selectionRangeList);
 
     if (selectionRangeList.size() > 0) {
@@ -637,7 +616,7 @@ void MainWindow::TakeBook() {
         msgBox.setInformativeText(tr("Вы уверены, что хотите принять данные книги? Выбранные строки будут удалены."));
         msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        int ret = msgBox.exec();
+        qint32 ret = msgBox.exec();
         switch (ret) {
             case QMessageBox::Ok:
                 while(selectionRangeListIter.hasNext()){
@@ -652,4 +631,18 @@ void MainWindow::TakeBook() {
     } else {
         QMessageBox::critical(this, tr("Нет выбранных строк"), tr("Для удаления, выберите строки или ячейки строк."), QMessageBox::Ok);
     }
+}
+
+void MainWindow::on_quit_library_action_triggered() {
+    this->close();
+}
+
+void MainWindow::on_about_help_action_triggered() {
+    AboutDilog ad(this);
+    ad.exec();
+}
+
+void MainWindow::on_gb_cancel_pushButton_clicked() {
+    ui->stackedWidget->setCurrentWidget(ui->library_page);
+    ui->library_tabWidget->setCurrentWidget(ui->iobooksinfo_tab);
 }

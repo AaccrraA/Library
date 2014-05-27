@@ -55,10 +55,11 @@ private slots:
     void on_give_book_action_triggered();
     void on_give_book_pushButton_clicked();
     void on_gb_give_book_pushButton_clicked();
-
     void on_take_iobooksinfo_pushButton_clicked();
-
     void on_take_iobooksinfo_action_triggered();
+    void on_quit_library_action_triggered();
+    void on_about_help_action_triggered();
+    void on_gb_cancel_pushButton_clicked();
 
 private:
     Ui::MainWindow          *ui;
@@ -69,7 +70,7 @@ private:
     // --- READER
     void UpdateReaderTableWidget();
     void CreateReader();
-    void AddReaderInTableWidget(Reader* r, QTableWidget* tw, int row);
+    void AddReaderInTableWidget(Reader* r, QTableWidget* tw, qint32 row);
     void DeleteReader();
     void DeleteAllReaders();
     void SearchReader();
@@ -77,12 +78,12 @@ private:
     // --- BOOK
     void CreateBook();
     void UpdateBookTableWidget();
-    void AddBookInTableWidget(Book* b, QTableWidget* tw, int row);
+    void AddBookInTableWidget(Book* b, QTableWidget* tw, qint32 row);
     void DeleteBook();
     void DeleteAllBooks();
     // --- IOBOOKSINFO
     void GiveBook();
-    void AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw, int row);
+    void AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw, qint32 row);
     void UpdateIOBooksInfoTableWidget();
     void TakeBook();
 

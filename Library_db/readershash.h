@@ -4,25 +4,24 @@
 #include <QtCore>
 #include <reader.h>
 
-const int TABLE_SIZE = 1024;
+const qint32 TABLE_SIZE = 1024;
 
 class ReadersHash {
 private:
     QVector<Reader*>    map;
     static const qint32 HASH_SIZE = 1024;
     qint32              GenerateIndex(QString key);
-    int                 numberOfReaders;
+    qint32              numberOfReaders;
 
 public:
     ReadersHash();
     void                Add(Reader* r);
-    Reader*             SearchByCardNumber(QString cN);
+    QVector<Reader*>    SearchByCardNumber(QString cN);
     QVector<Reader*>    SearchByFIO(QString f);
     void                Delete(qint32 index);
-    int                 GetSize();
-    int                 GetNumberOfReaders();
+    qint32              GetSize();
+    qint32              GetNumberOfReaders();
     Reader*             At(qint32 index);
-
 };
 
 #endif // READERSHASHMAP_H

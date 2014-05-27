@@ -11,7 +11,7 @@ qint32 ReadersHash::GenerateIndex(QString key) {
     qint32 index = 0;
     for (qint32 i = 0; i < key.length()-1; i++) {
         //index += key.at(i).unicode();
-        index = index + key.at(i).unicode() * (static_cast<int>(qPow(i, 3.0)));
+        index = index + key.at(i).unicode() * (static_cast<qint32>(qPow(i, 3.0)));
     }
     index %= TABLE_SIZE;
     return index;
@@ -36,28 +36,29 @@ void ReadersHash::Add(Reader* r) {
     numberOfReaders++;
 }
 
-Reader* ReadersHash::SearchByCardNumber(QString cN) {
-    int index = GenerateIndex(cN);
-
-    Reader* temp = map.at(index);
-    bool isFounded = false;
-    while (temp != NULL) {
-        if (temp->getCardNumber() == cN) {
-            isFounded = true;
-            break;
+QVector<Reader*> ReadersHash::SearchByCardNumber(QString cN) {
+    QVector<Reader*> results;
+    Reader* r;
+    for (qint32 i = 0; i < map.size()-1; ++i) {
+        r = map.at(i);
+        while (r != NULL) {
+            if (r->getCardNumber().contains(cN, Qt::CaseInsensitive)) {
+                results.append(r);
+            }
+            r = r->getNext();
         }
-        temp = temp->getNext();
     }
-    return isFounded ? temp : NULL;
+    return results;
 }
 
 QVector<Reader*> ReadersHash::SearchByFIO(QString f) {
     QVector<Reader*> results;
     Reader* r;
-    for (int i = 0; i < map.size()-1; ++i) {
+    for (qint32 i = 0; i < map.size()-1; ++i) {
         r = map.at(i);
         while (r != NULL) {
-            if (r->getFio() == f) {
+            if (r->getFio().contains(f, Qt::CaseInsensitive)) {
+                //r->getFio() == f
                 results.append(r);
             }
             r = r->getNext();
@@ -76,10 +77,10 @@ Reader* ReadersHash::At(qint32 index) {
     return map.at(index);
 }
 
-int ReadersHash::GetSize() {
+qint32 ReadersHash::GetSize() {
     return map.size();
 }
 
-int ReadersHash::GetNumberOfReaders() {
+qint32 ReadersHash::GetNumberOfReaders() {
     return numberOfReaders;
 }

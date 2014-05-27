@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     book.cpp \
     readershash.cpp \
     booktree.cpp \
-    iobooksinfolinkedlist.cpp
+    iobooksinfolinkedlist.cpp \
+    patternmatcher.cpp \
+    aboutdilog.cpp
 
 HEADERS  += mainwindow.h \
     reader.h \
@@ -28,8 +30,11 @@ HEADERS  += mainwindow.h \
     book.h \
     readershash.h \
     booktree.h \
-    iobooksinfolinkedlist.h
+    iobooksinfolinkedlist.h \
+    patternmatcher.h \
+    aboutdilog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    aboutdilog.ui
 
 OTHER_FILES +=

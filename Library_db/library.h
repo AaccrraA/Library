@@ -14,11 +14,11 @@
 class Library
 {
 private:
-    int GetNumberOfReaders();
+    qint32 GetNumberOfReaders();
     QString GenerateCardNumber(QString rOfA);
-    int GenerateHashTableIndex(QString key);
-    int registrationNumber;
-    int GetReadersHashSize();
+    qint32 GenerateHashTableIndex(QString key);
+    qint32 registrationNumber;
+    qint32 GetReadersHashSize();
     QString GenerateCode(QString setionId, QString copiesInSection);
 
 
@@ -43,7 +43,7 @@ public:
     void    DeleteBook(QString code);
     void    DeleteAllBooks();
     void    GiveBook(IOBooksInfo* iobi);
-    void    TakeBook(int index);
+    void    TakeBook(qint32 index);
 };
 
 #endif
