@@ -23,10 +23,10 @@ public:
     void    Visit(Book* p, QVector<Book *> &r);
     void    DeleteAll(Book* p);
     Book*   SearchByCode(QString code);
+    Book*   IsExists(Book* b);
     QVector<Book*> SearchByAuthorsOrTitle(QString str);
     QVector<Book*> GetVectorOfBooks();
     qint32 BMSearch(QString haystack, QString needle);
-
 };
 
 #endif // BOOKTREE_H

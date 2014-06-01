@@ -41,16 +41,22 @@ public:
     void setHeight(quint8 height);
     void setLeft(Book *left);
     void setRight(Book* right);
-    QString getCode();
-    QString getAuthors();
-    QString getTitle();
-    QString getPublisher();
-    QString getYearOfPublication();
-    QString getAllCopies();
-    QString getCopiesInStock();
-    quint8  getHeight();
-    Book*   getLeft();
-    Book*   getRight();
+    QString getCode() const;
+    QString getAuthors() const;
+    QString getTitle() const;
+    QString getPublisher() const;
+    QString getYearOfPublication() const;
+    QString getAllCopies() const;
+    QString getCopiesInStock() const;
+    quint8  getHeight() const;
+    Book*   getLeft() const;
+    Book*   getRight() const;
+    bool IsEqualTo(const Book* right){
+        return (this->getAuthors() == right->getAuthors() &&
+                this->getTitle() == right->getTitle() &&
+                this->getPublisher() == right->getPublisher() &&
+                this->getYearOfPublication() == right->getYearOfPublication());
+    }
 };
 
 

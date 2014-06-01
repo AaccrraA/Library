@@ -45,27 +45,6 @@ qint32 Library::GetReadersHashSize() {
     return i;
 }
 
-Book* Library::AddBook(QString sectionId,
-                    QString copiesInSection,
-                    QString authors,
-                    QString title,
-                    QString publisher,
-                    QString yearOfPublication,
-                    QString allCopies,
-                    QString copiesInStock) {
-    Book* newBook = new Book(GenerateCode(sectionId, copiesInSection), authors, title, publisher, yearOfPublication, allCopies, copiesInStock);
-    if (bookAVLTree->SearchByCode(newBook->getCode()) == NULL) {
-        // --- Добавляем читателя
-        bookAVLTree->root = bookAVLTree->Add(bookAVLTree->root, newBook);
-    }
-    else {
-        // --- Такой читатель уже существует
-        delete newBook;
-        newBook = NULL;
-    }
-    return newBook;
-}
-
 QString Library::GenerateCode(QString sectionId, QString copiesInSection) {
     QString code = "";
     for(qint32 i = 0; i < 3-sectionId.length(); i++) {
@@ -86,12 +65,4 @@ void Library::DeleteBook(QString code) {
 void Library::DeleteAllBooks() {
     bookAVLTree->DeleteAll(bookAVLTree->root);
     bookAVLTree->root = NULL;
-}
-
-void Library::GiveBook(IOBooksInfo* iobi) {
-    ioBooksInfoList->Add(iobi);
-}
-
-void Library::TakeBook(qint32 index) {
-    ioBooksInfoList->Delete(index);
 }

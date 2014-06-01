@@ -19,8 +19,6 @@ private:
     qint32 GenerateHashTableIndex(QString key);
     qint32 registrationNumber;
     qint32 GetReadersHashSize();
-    QString GenerateCode(QString setionId, QString copiesInSection);
-
 
 public:
     ReadersHash             *readersHash;
@@ -28,22 +26,12 @@ public:
     IOBooksInfoLinkedList   *ioBooksInfoList;       // Линейный двунаправленный список
 
     Library();
-    // Основные функции
     Reader* AddReader(QString rOfA, QString fio, QString yOfB, QString adress, QString jOrSP);
+    QString GenerateCode(QString setionId, QString copiesInSection);
     void    DeleteReader(qint32 index);
     void    DeleteAllReaders();
-    Book*   AddBook(QString sectionId,
-                    QString copiesInSection,
-                    QString authors,
-                    QString title,
-                    QString publisher,
-                    QString yearOfPublication,
-                    QString allCopies,
-                    QString copiesInStock);
     void    DeleteBook(QString code);
     void    DeleteAllBooks();
-    void    GiveBook(IOBooksInfo* iobi);
-    void    TakeBook(qint32 index);
 };
 
 #endif

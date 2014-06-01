@@ -41,6 +41,14 @@ void IOBooksInfoLinkedList::Delete(qint32 index) {
         first = ntemp;
     if (ntemp)
         ntemp->setPrev(ptemp);
+}
 
+IOBooksInfo* IOBooksInfoLinkedList::AtIndex(qint32 index) {
+    IOBooksInfo* r = this->getFirst();
+    while (index != 0 || r != NULL) {
+        r = r->getNext();
+        index--;
+    }
+    return r;
 }
 

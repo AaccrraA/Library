@@ -144,27 +144,15 @@ void BookTree::DeleteAll(Book *p) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Book* BookTree::IsExists(Book *b) {
+    Book* result = NULL;
+    QVector<Book*> allBooks;
+    Visit(this->root, allBooks);
+    foreach (Book* r, allBooks) {
+        if (b->IsEqualTo(r)) {
+            result = r;
+            break;
+        }
+    }
+    return result;
+}

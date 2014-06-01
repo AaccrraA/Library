@@ -14,6 +14,7 @@ public:
     void setFirst(IOBooksInfo* iobi);
     IOBooksInfo* getFirst();
     void Delete(qint32 index);
+    IOBooksInfo* AtIndex(qint32 index);
 };
 
 #endif // IOBOOKSINFOLINKEDLIST_H

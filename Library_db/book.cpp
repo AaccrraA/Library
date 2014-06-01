@@ -62,42 +62,42 @@ void Book::setRight(Book* right) {
     _right = right;
 }
 
-QString Book::getCode() {
+QString Book::getCode() const {
     return _code;
 }
 
-QString Book::getAuthors() {
+QString Book::getAuthors() const {
     return _authors;
 }
 
-QString Book::getTitle() {
+QString Book::getTitle() const {
     return _title;
 }
 
-QString Book::getPublisher() {
+QString Book::getPublisher() const {
     return _publisher;
 }
 
-QString Book::getYearOfPublication() {
+QString Book::getYearOfPublication() const {
     return _yearOfPublication;
 }
 
-QString Book::getAllCopies() {
+QString Book::getAllCopies() const {
     return _allCopies;
 }
 
-QString Book::getCopiesInStock() {
+QString Book::getCopiesInStock() const {
     return _copiesInStock;
 }
 
-quint8 Book::getHeight() {
+quint8 Book::getHeight() const {
     return _height;
 }
 
-Book* Book::getLeft() {
+Book* Book::getLeft() const {
     return _left;
 }
 
-Book* Book::getRight() {
+Book* Book::getRight() const {
     return _right;
 }

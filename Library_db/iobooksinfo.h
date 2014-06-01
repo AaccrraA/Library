@@ -41,5 +41,4 @@ public:
     IOBooksInfo* getPrev();
 };
 
-
 #endif

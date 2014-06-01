@@ -137,11 +137,14 @@ void MainWindow::on_cr_ok_pushButton_clicked() {
     QRegExp adress_rexp("[A-Z, a-z, А-Я, а-я]");
     QRegExp jOrSP_rexp("[A-Z, a-z, А-Я, а-я]");
 
+    int yOfB = yOfB_str.toInt(0,10);
+    QDate date = QDate::currentDate();
+
     if (fio_rexp.indexIn(fio_str) < 0) {
         // Не павильная фамилия
         QMessageBox::critical(this, tr("Заполнение поля"), tr("Поле фамилия заполнено неверно."), QMessageBox::Ok);
     }
-    else if (yOfB_rexp.indexIn(yOfB_str) < 0) {
+    else if (yOfB_rexp.indexIn(yOfB_str) < 0 || yOfB > date.year() || yOfB < date.year()-100) {
         // Не правильный год рождения
         QMessageBox::critical(this, tr("Заполнение поля"), tr("Поле год рождения заполнено неверно."), QMessageBox::Ok);
     }
@@ -253,6 +256,7 @@ void MainWindow::on_show_all_readers_pushButton_clicked() { UpdateReaderTableWid
 // ------ Search Reader
 
 void MainWindow::on_search_reader_pushButton_clicked() {
+
     qint32 row;
     QVector<Reader*> results;
     if (ui->search_reader_lineEdit->text() != "") {
@@ -263,9 +267,11 @@ void MainWindow::on_search_reader_pushButton_clicked() {
         }
         else {
             QMessageBox::critical(this, tr("Отсутствуют параметры поиска"), tr("Выберите один из вариантов поиска."), QMessageBox::Ok);
+            return;
         }
     } else {
         QMessageBox::critical(this, tr("Строка поиска пуста"), tr("Заполните строку поиска."), QMessageBox::Ok);
+        return;
     }
 
     if (results.size() != 0) {
@@ -325,8 +331,6 @@ void MainWindow::CreateBook() {
 }
 
 void MainWindow::on_cb_ok_pushButton_clicked() {
-    bool isCorrectForm = true;
-
     QString sectionId_str = QString::number(ui->cb_section_comboBox->currentIndex());
     QString copies_in_section_str = QString::number(bookSections.value(ui->cb_section_comboBox->currentText()));
     QString authors_str = ui->cb_authors_lineEdit->text();
@@ -343,56 +347,67 @@ void MainWindow::on_cb_ok_pushButton_clicked() {
     QRegExp all_copies_rexp("[0-9]");
     QRegExp copies_in_stock_rexp("[0-9]");
 
-    QString errorMsg = tr("Ошибка в поле ");
+    int yOfP = yOfP_str.toInt(0,10);
+    QDate date = QDate::currentDate();
+
+    QString errorMsg = tr("Ошибка заполнения ");
     if (authors_rexp.indexIn(authors_str) < 0) {
-        // Не павильная фамилия
-        isCorrectForm = false;
+        // Не павильный автор(ы)
         errorMsg += ui->cb_authors_label->text();
-        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+        QMessageBox::critical(this, errorMsg, tr("Поле \"Автор(ы)\" заполнено неверно."), QMessageBox::Ok);
     }
     else if (title_rexp.indexIn(title_str) < 0) {
-        // Не правильный год рождения
-        isCorrectForm = false;
+        // Не правильный заголовок
         errorMsg += ui->cb_title_label->text();
-        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+        QMessageBox::critical(this, errorMsg, tr("Поле \"Заголовок\" заполнено неверно."), QMessageBox::Ok);
     }
     else if (publisher_rexp.indexIn(publisher_str) < 0) {
-        // Не правильный адрес
-        isCorrectForm = false;
+        // Не правильный издатель
         errorMsg += ui->cb_publisher_label->text();
-        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+        QMessageBox::critical(this, errorMsg, tr("Поле \"Издатель\" заполнено неверно."), QMessageBox::Ok);
     }
-    else if (yOfP_rexp.indexIn(yOfP_str) < 0) {
-        // Не правильная работа
-        isCorrectForm = false;
+    else if (yOfP_rexp.indexIn(yOfP_str) < 0 || yOfP > date.year()) {
+        // Не правильный год публикации
         errorMsg += ui->cb_year_of_publishing_label->text();
-        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+        QMessageBox::critical(this, errorMsg, tr("Поле \"Год публикации\" заполнено неверно."), QMessageBox::Ok);
     }
     else if (all_copies_rexp.indexIn(all_copies_str) < 0) {
-        // Не правильный адрес
-        isCorrectForm = false;
+        // Не правильный тираж
         errorMsg += ui->cb_all_copies_label->text();
-        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+        QMessageBox::critical(this, errorMsg, tr("Поле \"Тираж\" заполнено неверно."), QMessageBox::Ok);
     }
     else if (copies_in_stock_rexp.indexIn(copies_in_stock_str) < 0) {
-        // Не правильная работа
-        isCorrectForm = false;
+        // Не правильное в наличии
         errorMsg += ui->cb_copies_in_stock_label->text();
-        QMessageBox::critical(this, errorMsg, tr("Следующие поля заполнены неверно:"), QMessageBox::Ok);
+        QMessageBox::critical(this, errorMsg, tr("Поле \"В наличии\" заполнено неверно."), QMessageBox::Ok);
     }
-    else if (isCorrectForm) {
-        Book* r = library->AddBook(sectionId_str, copies_in_section_str, authors_str, title_str, publisher_str, yOfP_str, all_copies_str, copies_in_stock_str);
-        if (r != NULL) {
-            UpdateBookTableWidget();
-            QString str = ui->cb_section_comboBox->currentText();
-            //bookSections.insert(bookSections.find(ui->cb_section_comboBox->currentText()), ui->cb_section_comboBox->currentText(), bookSections.value(ui->cb_section_comboBox->currentText())+1)
-            bookSections.insert(str, bookSections.value(ui->cb_section_comboBox->currentText())+1);
-            ui->stackedWidget->setCurrentWidget(ui->library_page);
-            ui->library_tabWidget->setCurrentWidget(ui->book_tab);
+    else {
+        Book* r = new Book((library->GenerateCode(sectionId_str, copies_in_section_str)),authors_str, title_str, publisher_str, yOfP_str, all_copies_str, copies_in_stock_str);
+        Book* temp = library->bookAVLTree->IsExists(r);
+        if (temp == NULL) {
+            library->bookAVLTree->root = library->bookAVLTree->Add(library->bookAVLTree->root, r);
+            bookSections.insert(ui->cb_section_comboBox->currentText(), bookSections.value(ui->cb_section_comboBox->currentText()) + copies_in_stock_str.toInt());
         }
         else {
-            QMessageBox::critical(this, tr("Ошибка"), tr("Книга с таки шифром уже содержится."), QMessageBox::Ok);
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("Внимание!"));
+            msgBox.setText("Пополнить запас книг?"); // Заголовок сообщения
+            msgBox.setInformativeText(tr("В таблице уже содержится данная книга, вы можете пополнить их кол-во. Для подтверждения нажмите \"ОК\"."));
+            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            qint32 ret = msgBox.exec();
+            switch (ret) {
+                case QMessageBox::Ok:
+                    temp->setCopiesInStock(QString::number(temp->getCopiesInStock().toInt() + copies_in_stock_str.toInt()));
+                    bookSections.insert(ui->cb_section_comboBox->currentText(), bookSections.value(ui->cb_section_comboBox->currentText())+ copies_in_stock_str.toInt());
+                    break;
+                case QMessageBox::Cancel:
+                    break;
+            }
         }
+        UpdateBookTableWidget();
+        ui->stackedWidget->setCurrentWidget(ui->library_page);
+        ui->library_tabWidget->setCurrentWidget(ui->book_tab);
     }
 }
 
@@ -417,8 +432,9 @@ void MainWindow::DeleteBook() {
 
     if (selectionRangeList.size() > 0) {
         QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("Удалить строки"));
-        msgBox.setInformativeText(tr("Вы уверены, что хотите удалить выбранные строки?"));
+        msgBox.setWindowTitle(tr("Внимание!"));
+        msgBox.setText("Удалить выбранные строки?"); // Заголовок сообщения
+        msgBox.setInformativeText(tr("Выбранные стоки будут безвозвратно стерты из таблицы. Для подтверждения нажмите \"ОК\"."));
         msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Ok);
         qint32 ret = msgBox.exec();
@@ -528,8 +544,10 @@ void MainWindow::GiveBook() {
     ui->gb_books_comboBox->clear();
     QVector<Book*> vector = library->bookAVLTree->GetVectorOfBooks();
     foreach (Book* b, vector) {
-        QString str = b->getTitle() + "/" + b->getCode();
-        ui->gb_books_comboBox->addItem(str);
+        if (b->getCopiesInStock() > 0) {
+            QString str = b->getTitle() + "/" + b->getCode();
+            ui->gb_books_comboBox->addItem(str);
+        }
     }
     if (ui->gb_readers_comboBox->count() == 0) {
         QMessageBox::information(this, tr("Нет читателей"), tr("Добавьте читателей для выдачи им книг."), QMessageBox::Ok);
@@ -573,7 +591,9 @@ void MainWindow::on_gb_give_book_pushButton_clicked() {
             }
         }
         IOBooksInfo* iobi = new IOBooksInfo(readerCardNumber, bookCode, givingDate, takingDate, NULL, NULL);
-        library->GiveBook(iobi);
+        library->ioBooksInfoList->Add(iobi);
+        Book* temp = library->bookAVLTree->SearchByCode(bookCode);
+        temp->setCopiesInStock(QString::number(temp->getCopiesInStock().toInt() - 1));
         UpdateIOBooksInfoTableWidget();
     }
     else {
@@ -621,7 +641,10 @@ void MainWindow::TakeBook() {
             case QMessageBox::Ok:
                 while(selectionRangeListIter.hasNext()){
                     rowIndex = ((int)((QTableWidgetItem*)selectionRangeListIter.next())->row());
-                    library->TakeBook(rowIndex);
+                    IOBooksInfo* tempIOBI = library->ioBooksInfoList->AtIndex(rowIndex);
+                    Book* tempB = library->bookAVLTree->SearchByCode(tempIOBI->getCode());
+                    tempB->setCopiesInStock(QString::number(tempB->getCopiesInStock().toInt() + 1));
+                    library->ioBooksInfoList->Delete(rowIndex);
                 }
                 break;
             case QMessageBox::Cancel:
