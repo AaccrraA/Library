@@ -134,8 +134,8 @@ void MainWindow::on_cr_ok_pushButton_clicked() {
 
     QRegExp fio_rexp("[A-Z, a-z, А-Я, а-я]");
     QRegExp yOfB_rexp("[0-9]{4}");
-    QRegExp adress_rexp("[A-Z, a-z, А-Я, а-я]");
-    QRegExp jOrSP_rexp("[A-Z, a-z, А-Я, а-я]");
+    QRegExp adress_rexp("");
+    QRegExp jOrSP_rexp("");
 
     int yOfB = yOfB_str.toInt(0,10);
     QDate date = QDate::currentDate();
@@ -341,8 +341,8 @@ void MainWindow::on_cb_ok_pushButton_clicked() {
     QString copies_in_stock_str = ui->cb_copies_in_stock_lineEdit->text();
 
     QRegExp authors_rexp("[A-Z, a-z, А-Я, а-я]");
-    QRegExp title_rexp("[A-Z, a-z, А-Я, а-я]");
-    QRegExp publisher_rexp("[A-Z, a-z, А-Я, а-я]");
+    QRegExp title_rexp("");
+    QRegExp publisher_rexp("");
     QRegExp yOfP_rexp("[0-9]{4}");
     QRegExp all_copies_rexp("[0-9]");
     QRegExp copies_in_stock_rexp("[0-9]");
@@ -357,9 +357,9 @@ void MainWindow::on_cb_ok_pushButton_clicked() {
         QMessageBox::critical(this, errorMsg, tr("Поле \"Автор(ы)\" заполнено неверно."), QMessageBox::Ok);
     }
     else if (title_rexp.indexIn(title_str) < 0) {
-        // Не правильный заголовок
+        // Не правильное название
         errorMsg += ui->cb_title_label->text();
-        QMessageBox::critical(this, errorMsg, tr("Поле \"Заголовок\" заполнено неверно."), QMessageBox::Ok);
+        QMessageBox::critical(this, errorMsg, tr("Поле \"Название\" заполнено неверно."), QMessageBox::Ok);
     }
     else if (publisher_rexp.indexIn(publisher_str) < 0) {
         // Не правильный издатель
@@ -371,12 +371,12 @@ void MainWindow::on_cb_ok_pushButton_clicked() {
         errorMsg += ui->cb_year_of_publishing_label->text();
         QMessageBox::critical(this, errorMsg, tr("Поле \"Год публикации\" заполнено неверно."), QMessageBox::Ok);
     }
-    else if (all_copies_rexp.indexIn(all_copies_str) < 0) {
+    else if (all_copies_rexp.indexIn(all_copies_str) < 0 || all_copies_str.toInt() <= 0) {
         // Не правильный тираж
         errorMsg += ui->cb_all_copies_label->text();
         QMessageBox::critical(this, errorMsg, tr("Поле \"Тираж\" заполнено неверно."), QMessageBox::Ok);
     }
-    else if (copies_in_stock_rexp.indexIn(copies_in_stock_str) < 0) {
+    else if (copies_in_stock_rexp.indexIn(copies_in_stock_str) < 0 || copies_in_stock_str.toInt() > all_copies_str.toInt() || copies_in_stock_str.toInt() <=0 ) {
         // Не правильное в наличии
         errorMsg += ui->cb_copies_in_stock_label->text();
         QMessageBox::critical(this, errorMsg, tr("Поле \"В наличии\" заполнено неверно."), QMessageBox::Ok);

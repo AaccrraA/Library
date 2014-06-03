@@ -82,10 +82,10 @@ private:
     void DeleteBook();
     void DeleteAllBooks();
     // --- IOBOOKSINFO
-    void GiveBook();
     void AddIOBooksInfoInTableWidget(IOBooksInfo* iobi, QTableWidget* tw, qint32 row);
     void UpdateIOBooksInfoTableWidget();
     void TakeBook();
+    void GiveBook();
 
 };
 

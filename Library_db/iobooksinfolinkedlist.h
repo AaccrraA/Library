@@ -15,6 +15,8 @@ public:
     IOBooksInfo* getFirst();
     void Delete(qint32 index);
     IOBooksInfo* AtIndex(qint32 index);
+    IOBooksInfo* InsertionSort(IOBooksInfo* f);
+    bool SwapNeighbours(IOBooksInfo* l, IOBooksInfo* r);
 };
 
 #endif // IOBOOKSINFOLINKEDLIST_H
